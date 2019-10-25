@@ -1,4 +1,4 @@
-# Blog
+# Note
 
 Maintaining and developing new features to VuePress takes a considerable amount of time (if you know that Gastby's team is a company), and I am currently exploring the possibility of working on VuePress fulltime.
 

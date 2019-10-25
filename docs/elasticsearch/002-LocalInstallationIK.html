@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>002-LocalInstallationIK | 随心</title>
+    <meta name="description" content="世界上最大的谎言就是你不行">
+    <link rel="icon" href="https://dolyw.com/static/favicon.ico">
+  <script type="text/javascript" src="https://dolyw.com/static/count.js"></script>
+    
+    <link rel="preload" href="/assets/css/0.styles.44496708.css" as="style"><link rel="preload" href="/assets/js/app.2bd73508.js" as="script"><link rel="preload" href="/assets/js/2.c37fb0a0.js" as="script"><link rel="preload" href="/assets/js/8.a3fc3ce8.js" as="script"><link rel="prefetch" href="/assets/js/10.42ed4e19.js"><link rel="prefetch" href="/assets/js/11.825fd823.js"><link rel="prefetch" href="/assets/js/3.ffc00336.js"><link rel="prefetch" href="/assets/js/4.ce96c52f.js"><link rel="prefetch" href="/assets/js/5.8104a1d1.js"><link rel="prefetch" href="/assets/js/6.814b7578.js"><link rel="prefetch" href="/assets/js/7.1c5eba66.js"><link rel="prefetch" href="/assets/js/9.ea7c7059.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.44496708.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">随心</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习记录" class="dropdown-title"><span class="title">学习记录</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">MySQL</a></li><li class="dropdown-item"><!----> <a href="/elasticsearch/" class="nav-link router-link-active">Elasticsearch</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开源项目" class="dropdown-title"><span class="title">开源项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/shirojwt/" class="nav-link">ShiroJwt</a></li></ul></div></div><div class="nav-item"><a href="https://dolyw.com/go?url=https://blog.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Life博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="联系" class="dropdown-title"><span class="title">联系</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://map.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  导航
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://msg.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  留言
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://cv.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简历
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习记录" class="dropdown-title"><span class="title">学习记录</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/mysql/" class="nav-link">MySQL</a></li><li class="dropdown-item"><!----> <a href="/elasticsearch/" class="nav-link router-link-active">Elasticsearch</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开源项目" class="dropdown-title"><span class="title">开源项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/shirojwt/" class="nav-link">ShiroJwt</a></li></ul></div></div><div class="nav-item"><a href="https://dolyw.com/go?url=https://blog.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Life博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="联系" class="dropdown-title"><span class="title">联系</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://map.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  导航
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://msg.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  留言
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://cv.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简历
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/elasticsearch/" class="sidebar-link">目录</a></li><li><a href="/elasticsearch/000-GettingStarted.html" class="sidebar-link">基础入门</a></li><li><a href="/elasticsearch/001-LocalInstallation.html" class="sidebar-link">本地安装</a></li><li><a href="/elasticsearch/002-LocalInstallationIK.html" class="active sidebar-link">IK分词插件</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/elasticsearch/002-LocalInstallationIK.html#安装本地elasticsearch的ik分词插件" class="sidebar-link">安装本地Elasticsearch的IK分词插件</a></li><li class="sidebar-sub-header"><a href="/elasticsearch/002-LocalInstallationIK.html#安装本地elasticsearch的拼音分词插件" class="sidebar-link">安装本地Elasticsearch的拼音分词插件</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="_002-localinstallationik"><a href="#_002-localinstallationik" class="header-anchor">#</a> 002-LocalInstallationIK</h1> <blockquote><p>目录:<a href="https://github.com/dolyw/Elasticsearch" target="_blank" rel="noopener noreferrer">https://github.com/dolyw/Elasticsearch<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></blockquote> <h2 id="安装本地elasticsearch的ik分词插件"><a href="#安装本地elasticsearch的ik分词插件" class="header-anchor">#</a> 安装本地<code>Elasticsearch</code>的IK分词插件</h2> <p>去<a href="https://github.com/medcl/elasticsearch-analysis-ik/releases" target="_blank" rel="noopener noreferrer">https://github.com/medcl/elasticsearch-analysis-ik/releases<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>下载对应<code>Elasticsearch</code>版本的IK分词插件<code>elasticsearch-analysis-ik-7.3.0.zip</code>这个文件，打开可以看到如下文件</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>commons-codec-1.9.jar
+commons-logging-1.2.jar
+config/
+elasticsearch-analysis-ik-7.2.0.jar
+httpclient-4.5.2.jar
+httpcore-4.4.4.jar
+plugin-descriptor.properties
+plugin-security.policy
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><p>没问题，就解压到你安装的<code>Elasticsearch</code>目录的<code>plugins</code>目录下，例如我的路径是这样的<code>D:\Tools\elasticsearch-7.2.0\plugins\elasticsearch-analysis-ik-7.2.0</code></p> <p>重启<code>Elasticsearch</code>，可以看到控制台打印日志</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>loaded plugin [analysis-ik]
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>测试一下</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /_analyze
+{
+  &quot;text&quot;:&quot;中华人民共和国国徽&quot;,
+  &quot;analyzer&quot;:&quot;ik_smart&quot;
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+	&quot;tokens&quot;: [
+		{
+			&quot;token&quot;: &quot;中华人民共和国&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 7,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 0
+		},
+		{
+			&quot;token&quot;: &quot;国徽&quot;,
+			&quot;start_offset&quot;: 7,
+			&quot;end_offset&quot;: 9,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 1
+		}
+	]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><div class="language- line-numbers-mode"><pre class="language-text"><code>POST /_analyze
+{
+  &quot;text&quot;:&quot;中华人民共和国国徽&quot;,
+  &quot;analyzer&quot;:&quot;ik_max_word&quot;
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+	&quot;tokens&quot;: [
+		{
+			&quot;token&quot;: &quot;中华人民共和国&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 7,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 0
+		},
+		{
+			&quot;token&quot;: &quot;中华人民&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 4,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 1
+		},
+		{
+			&quot;token&quot;: &quot;中华&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 2,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 2
+		},
+		{
+			&quot;token&quot;: &quot;华人&quot;,
+			&quot;start_offset&quot;: 1,
+			&quot;end_offset&quot;: 3,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 3
+		},
+		{
+			&quot;token&quot;: &quot;人民共和国&quot;,
+			&quot;start_offset&quot;: 2,
+			&quot;end_offset&quot;: 7,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 4
+		},
+		{
+			&quot;token&quot;: &quot;人民&quot;,
+			&quot;start_offset&quot;: 2,
+			&quot;end_offset&quot;: 4,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 5
+		},
+		{
+			&quot;token&quot;: &quot;共和国&quot;,
+			&quot;start_offset&quot;: 4,
+			&quot;end_offset&quot;: 7,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 6
+		},
+		{
+			&quot;token&quot;: &quot;共和&quot;,
+			&quot;start_offset&quot;: 4,
+			&quot;end_offset&quot;: 6,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 7
+		},
+		{
+			&quot;token&quot;: &quot;国&quot;,
+			&quot;start_offset&quot;: 6,
+			&quot;end_offset&quot;: 7,
+			&quot;type&quot;: &quot;CN_CHAR&quot;,
+			&quot;position&quot;: 8
+		},
+		{
+			&quot;token&quot;: &quot;国徽&quot;,
+			&quot;start_offset&quot;: 7,
+			&quot;end_offset&quot;: 9,
+			&quot;type&quot;: &quot;CN_WORD&quot;,
+			&quot;position&quot;: 9
+		}
+	]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br></div></div><p>IK分词插件就这样安装成功了</p> <h2 id="安装本地elasticsearch的拼音分词插件"><a href="#安装本地elasticsearch的拼音分词插件" class="header-anchor">#</a> 安装本地<code>Elasticsearch</code>的拼音分词插件</h2> <p>去<a href="https://github.com/medcl/elasticsearch-analysis-pinyin/releases" target="_blank" rel="noopener noreferrer">https://github.com/medcl/elasticsearch-analysis-pinyin/releases<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>下载对应<code>Elasticsearch</code>版本的IK分词插件<code>elasticsearch-analysis-pinyin-7.2.0.zip</code>这个文件，打开可以看到如下文件</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>elasticsearch-analysis-pinyin-7.2.0.jar
+nlp-lang-1.7.jar
+plugin-descriptor.properties
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>没问题，就解压到你安装的<code>Elasticsearch</code>目录的<code>plugins</code>目录下，例如我的路径是这样的<code>D:\Tools\elasticsearch-7.2.0\plugins\elasticsearch-analysis-pinyin-7.2.0</code></p> <p>重启<code>Elasticsearch</code>，可以看到控制台打印日志</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>loaded plugin [analysis-pinyin]
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>测试一下</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /_analyze
+{
+  &quot;text&quot;:&quot;中华人民共和国国徽&quot;,
+  &quot;analyzer&quot;:&quot;pinyin&quot;
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+	&quot;tokens&quot;: [
+		{
+			&quot;token&quot;: &quot;zhong&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 0
+		},
+		{
+			&quot;token&quot;: &quot;zhrmghggh&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 0
+		},
+		{
+			&quot;token&quot;: &quot;hua&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 1
+		},
+		{
+			&quot;token&quot;: &quot;ren&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 2
+		},
+		{
+			&quot;token&quot;: &quot;min&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 3
+		},
+		{
+			&quot;token&quot;: &quot;gong&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 4
+		},
+		{
+			&quot;token&quot;: &quot;he&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 5
+		},
+		{
+			&quot;token&quot;: &quot;guo&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 6
+		},
+		{
+			&quot;token&quot;: &quot;guo&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 7
+		},
+		{
+			&quot;token&quot;: &quot;hui&quot;,
+			&quot;start_offset&quot;: 0,
+			&quot;end_offset&quot;: 0,
+			&quot;type&quot;: &quot;word&quot;,
+			&quot;position&quot;: 8
+		}
+	]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br></div></div><p>拼音分词插件就这样安装成功了</p> <h4 id="使用ik和拼音插件-详细使用可以查看github的文档"><a href="#使用ik和拼音插件-详细使用可以查看github的文档" class="header-anchor">#</a> 使用IK和拼音插件(详细使用可以查看Github的文档)</h4> <ul><li>创建Index，拼音分词过滤</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>PUT /book
+{
+	&quot;settings&quot;: {
+		&quot;analysis&quot;: {
+			&quot;analyzer&quot;: {
+				&quot;pinyin_analyzer&quot;: {
+					&quot;tokenizer&quot;: &quot;my_pinyin&quot;
+				}
+			},
+			&quot;tokenizer&quot;: {
+				&quot;my_pinyin&quot;: {
+					&quot;type&quot;: &quot;pinyin&quot;,
+					&quot;keep_separate_first_letter&quot;: false,
+					&quot;keep_full_pinyin&quot;: true,
+					&quot;keep_original&quot;: true,
+					&quot;limit_first_letter_length&quot;: 16,
+					&quot;lowercase&quot;: true,
+					&quot;remove_duplicated_term&quot;: true
+				}
+			}
+		}
+	}
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;acknowledged&quot;: true,
+    &quot;shards_acknowledged&quot;: true,
+    &quot;index&quot;: &quot;book&quot;
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ul><li>创建Mapping，属性使用过滤，name开启拼音分词，content开启IK分词，describe开启拼音加IK分词</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /book/_mapping
+{
+	&quot;properties&quot;: {
+		&quot;name&quot;: {
+			&quot;type&quot;: &quot;keyword&quot;,
+			&quot;fields&quot;: {
+				&quot;pinyin&quot;: {
+					&quot;type&quot;: &quot;text&quot;,
+					&quot;store&quot;: false,
+					&quot;term_vector&quot;: &quot;with_offsets&quot;,
+					&quot;analyzer&quot;: &quot;pinyin_analyzer&quot;,
+					&quot;boost&quot;: 10
+				}
+			}
+		},
+		&quot;content&quot;: {
+			&quot;type&quot;: &quot;text&quot;,
+			&quot;analyzer&quot;: &quot;ik_max_word&quot;,
+			&quot;search_analyzer&quot;: &quot;ik_smart&quot;
+		},
+		&quot;describe&quot;: {
+			&quot;type&quot;: &quot;text&quot;,
+			&quot;analyzer&quot;: &quot;ik_max_word&quot;,
+			&quot;search_analyzer&quot;: &quot;ik_smart&quot;,
+			&quot;fields&quot;: {
+				&quot;pinyin&quot;: {
+					&quot;type&quot;: &quot;text&quot;,
+					&quot;store&quot;: false,
+					&quot;term_vector&quot;: &quot;with_offsets&quot;,
+					&quot;analyzer&quot;: &quot;pinyin_analyzer&quot;,
+					&quot;boost&quot;: 10
+				}
+			}
+		},
+		&quot;id&quot;: {
+			&quot;type&quot;: &quot;long&quot;
+		}
+	}
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;acknowledged&quot;: true
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>这样Index以及属性分词就开启了</p> <h5 id="注：搜索时，先查看被搜索的词被分析成什么样的数据，如果你搜索该词输入没有被分析出的参数时，是查不到的！！！"><a href="#注：搜索时，先查看被搜索的词被分析成什么样的数据，如果你搜索该词输入没有被分析出的参数时，是查不到的！！！" class="header-anchor">#</a> 注：搜索时，先查看被搜索的词被分析成什么样的数据，如果你搜索该词输入没有被分析出的参数时，是查不到的！！！</h5></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">10/25/2019, 3:38:33 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/elasticsearch/001-LocalInstallation.html" class="prev">本地安装</a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.2bd73508.js" defer></script><script src="/assets/js/2.c37fb0a0.js" defer></script><script src="/assets/js/8.a3fc3ce8.js" defer></script>
+  </body>
+</html>
