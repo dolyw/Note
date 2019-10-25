@@ -1,5 +1,5 @@
 {
-  "name": "Blog",
+  "name": "Note",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -11,5 +11,8 @@
     "@vuepress/plugin-active-header-links": "^1.0.0-rc.1",
     "@vuepress/plugin-back-to-top": "^1.0.0-rc.1",
     "@vuepress/plugin-nprogress": "^1.0.0-rc.1"
+  },
+  "dependencies": {
+    "moment": "^2.24.0"
   }
 }

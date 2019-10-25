@@ -12,16 +12,31 @@ module.exports = {
     port: 4000,
     markdown: {
         // 代码块显示行号
-        lineNumbers: true
+        /* lineNumbers: true */
     },
+    /* plugins: [
+        [
+            '@vuepress/last-updated',
+            {
+                // 上次更新时间格式化
+                transformer: (timestamp, lang) => {
+                    // 不要忘了安装moment
+                    const moment = require('moment')
+                    moment.locale(lang)
+                    // return moment(timestamp).fromNow()
+                    return moment(timestamp).format('YYYY-MM-DD HH:mm:ss')
+                }
+            }
+        ]
+    ], */
     themeConfig: {
         // 将同时提取markdown中h1和h2标题，显示在侧边栏上
         sidebarDepth: 2,
         // 文档更新时间，每个文件git最后提交的时间
-        lastUpdated: 'Last Updated',
+        /* lastUpdated: '上次更新', */
         nav: [
             // 内部链接，以doc为根目录
-            /* { text: '主页', link: '/' }, */
+            { text: '主页', link: '/' },
             {
                 text: '学习记录',
                 items: [
@@ -31,16 +46,30 @@ module.exports = {
                 ]
             },
             {
+                text: '工具命令',
+                items: [
+                    { text: 'Git', link: '/git/' },
+                    { text: 'Linux', link: '/linux/' }
+                ]
+            },
+            {
                 text: '开源项目',
                 items: [
                     { text: 'ShiroJwt', link: '/shirojwt/' }
                 ]
             },
+            {
+                text: '零散记录',
+                items: [
+                    { text: 'Jekyll', link: '/other/jekyll/' }
+                ]
+            },
+            { text: '编程闲话', link: '/gossip/' },
             // 外部链接
-            { text: 'Life博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' },
+            { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' },
             // 下拉列表
             {
-                text: '联系',
+                text: '联系关于',
                 items: [
                     { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
                     { text: '留言', link: 'https://dolyw.com/go?url=https://msg.dolyw.com' },
@@ -50,6 +79,10 @@ module.exports = {
             }
         ],
         sidebar: {
+            // 学习记录
+            '/redis/': [
+                ['', '目录']
+            ],
             '/mysql/': [
                 ['', '目录']
             ],
@@ -58,6 +91,25 @@ module.exports = {
                 ['000-GettingStarted.md', '基础入门'],
                 ['001-LocalInstallation', '本地安装'],
                 ['002-LocalInstallationIK.md', 'IK分词插件']
+            ],
+            // 工具命令
+            '/git/': [
+                ['', '目录']
+            ],
+            '/linux/': [
+                ['', '目录']
+            ],
+            // 开源项目
+            '/shirojwt/': [
+                ['', '目录']
+            ],
+            // 零散记录
+            '/other/jekyll/': [
+                ['', '目录']
+            ],
+            // 编程闲话
+            '/gossip/': [
+                ['', '目录']
             ]
         }
     }
