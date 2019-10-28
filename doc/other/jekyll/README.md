@@ -2,9 +2,9 @@
 
 简单的介绍在Windows系统下如何安装Ruby和Jekyll，以及怎么样使用Jekyll简单的进行创建和运行Blog项目
 
-### 安装
+## 安装
 
-##### 安装`Ruby`
+### 安装`Ruby`
 下载网站：[https://rubyinstaller.org/downloads/](https://rubyinstaller.org/downloads/)，这里要注意，安装有配套`DevKit`的版本，如`Ruby+Devkit 2.4.4-2(x64)`  
 安装路径`D:\Tools`，过程简单的`I accept`，`Next`，`Finish`即可  
 打开`CMD`，输入如下命令查看`Ruby`版本，查看是否安装成功
@@ -15,7 +15,7 @@ ruby -v
 ```
 ruby 2.4.4p296 (2018-03-28 revision 63013) [x64-mingw32]
 ```
-##### 安装`Jekyll`和`Bundler`
+### 安装`Jekyll`和`Bundler`
 ```
 gem install jekyll bundler
 ```
@@ -51,9 +51,9 @@ Done installing documentation for bundler after 9 seconds
 
 -----
 
-### 使用
+## 使用
 
-##### 使用`Jekyll`创建`Blog`
+### 使用`Jekyll`创建`Blog`
 `CMD`切换到D盘(项目路径)，创建`Blog`
 ```
 D:
@@ -91,7 +91,7 @@ jekyll new blog
 New jekyll site installed in D:/blog.
 ```
 可以看到项目路径`D:/blog`
-##### 安装`Bundle`组件
+### 安装`Bundle`组件
 切换到项目路径`D:/blog`，执行命令，安装`Bundle`组件
 ```
 cd blog
@@ -127,7 +127,7 @@ Using wdm 0.1.1
 Bundle complete! 5 Gemfile dependencies, 33 gems now installed.
 Use `bundle info [gemname]` to see where a bundled gem is installed.
 ```
-##### 更新`Bundle`组件
+### 更新`Bundle`组件
 执行命令，更新`Bundle`组件
 ```
 bundle update
@@ -163,7 +163,7 @@ Using tzinfo-data 1.2018.5
 Using wdm 0.1.1
 Bundle updated!
 ```
-##### 启动转化和本地服务
+### 启动转化和本地服务
 ```
 bundle exec jekyll serve
 ```

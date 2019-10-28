@@ -87,10 +87,10 @@ module.exports = {
                 ['', '目录']
             ],
             '/elasticsearch/': [
-                ['', '目录'],
-                ['000-GettingStarted.md', '基础入门'],
-                ['001-LocalInstallation', '本地安装'],
-                ['002-LocalInstallationIK.md', 'IK分词插件']
+                ['', 'Elasticsearch'],
+                ['00-GettingStarted.md', '简单了解Elasticsearch'],
+                ['01-LocalInstallation', '安装本地Elasticsearch'],
+                ['02-LocalInstallationIK.md', '安装本地IK分词插件']
             ],
             // 工具命令
             '/git/': [
@@ -105,7 +105,7 @@ module.exports = {
             ],
             // 零散记录
             '/other/jekyll/': [
-                ['', '目录']
+                ['', '在Windows下安装与使用Jekyll']
             ],
             // 编程闲话
             '/gossip/': [

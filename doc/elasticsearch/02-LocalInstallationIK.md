@@ -1,10 +1,10 @@
-# 002-LocalInstallationIK
+# 安装本地IK分词插件
 
-> 目录:[https://github.com/dolyw/Elasticsearch](https://github.com/dolyw/Elasticsearch)
+安装本地Elasticsearch的IK分词插件和拼音分词插件
 
-## 安装本地`Elasticsearch`的IK分词插件
+## 安装本地Elasticsearch的IK分词插件
 
-去[https://github.com/medcl/elasticsearch-analysis-ik/releases](https://github.com/medcl/elasticsearch-analysis-ik/releases)下载对应`Elasticsearch`版本的IK分词插件`elasticsearch-analysis-ik-7.3.0.zip`这个文件，打开可以看到如下文件
+去[https://github.com/medcl/elasticsearch-analysis-ik/releases](https://github.com/medcl/elasticsearch-analysis-ik/releases)下载对应**Elasticsearch**版本的IK分词插件**elasticsearch-analysis-ik-7.3.0.zip**这个文件，打开可以看到如下文件
 
 ```
 commons-codec-1.9.jar
@@ -17,9 +17,9 @@ plugin-descriptor.properties
 plugin-security.policy
 ```
 
-没问题，就解压到你安装的`Elasticsearch`目录的`plugins`目录下，例如我的路径是这样的`D:\Tools\elasticsearch-7.2.0\plugins\elasticsearch-analysis-ik-7.2.0`
+没问题，就解压到你安装的**Elasticsearch**目录的**plugins**目录下，例如我的路径是这样的**D:\Tools\elasticsearch-7.2.0\plugins\elasticsearch-analysis-ik-7.2.0**
 
-重启`Elasticsearch`，可以看到控制台打印日志
+重启**Elasticsearch**，可以看到控制台打印日志
 
 ```
 loaded plugin [analysis-ik]
@@ -147,9 +147,9 @@ POST /_analyze
 
 IK分词插件就这样安装成功了
 
-## 安装本地`Elasticsearch`的拼音分词插件
+## 安装本地Elasticsearch的拼音分词插件
 
-去[https://github.com/medcl/elasticsearch-analysis-pinyin/releases](https://github.com/medcl/elasticsearch-analysis-pinyin/releases)下载对应`Elasticsearch`版本的IK分词插件`elasticsearch-analysis-pinyin-7.2.0.zip`这个文件，打开可以看到如下文件
+去[https://github.com/medcl/elasticsearch-analysis-pinyin/releases](https://github.com/medcl/elasticsearch-analysis-pinyin/releases)下载对应**Elasticsearch**版本的IK分词插件**elasticsearch-analysis-pinyin-7.2.0.zip**这个文件，打开可以看到如下文件
 
 ```
 elasticsearch-analysis-pinyin-7.2.0.jar
@@ -157,9 +157,9 @@ nlp-lang-1.7.jar
 plugin-descriptor.properties
 ```
 
-没问题，就解压到你安装的`Elasticsearch`目录的`plugins`目录下，例如我的路径是这样的`D:\Tools\elasticsearch-7.2.0\plugins\elasticsearch-analysis-pinyin-7.2.0`
+没问题，就解压到你安装的**Elasticsearch**目录的**plugins**目录下，例如我的路径是这样的**D:\Tools\elasticsearch-7.2.0\plugins\elasticsearch-analysis-pinyin-7.2.0**
 
-重启`Elasticsearch`，可以看到控制台打印日志
+重启**Elasticsearch**，可以看到控制台打印日志
 
 ```
 loaded plugin [analysis-pinyin]
@@ -350,4 +350,4 @@ POST /book/_mapping
 
 这样Index以及属性分词就开启了
 
-##### 注：搜索时，先查看被搜索的词被分析成什么样的数据，如果你搜索该词输入没有被分析出的参数时，是查不到的！！！
+#### 注：搜索时，先查看被搜索的词被分析成什么样的数据，如果你搜索该词输入没有被分析出的参数时，是查不到的！！！
