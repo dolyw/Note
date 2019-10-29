@@ -6,7 +6,7 @@
 
 去[https://github.com/medcl/elasticsearch-analysis-ik/releases](https://github.com/medcl/elasticsearch-analysis-ik/releases)下载对应**Elasticsearch**版本的IK分词插件**elasticsearch-analysis-ik-7.3.0.zip**这个文件，打开可以看到如下文件
 
-```
+```bash
 commons-codec-1.9.jar
 commons-logging-1.2.jar
 config/
@@ -21,13 +21,13 @@ plugin-security.policy
 
 重启**Elasticsearch**，可以看到控制台打印日志
 
-```
+```bash
 loaded plugin [analysis-ik]
 ```
 
 测试一下
 
-```
+```json
 POST /_analyze
 {
   "text":"中华人民共和国国徽",
@@ -37,7 +37,7 @@ POST /_analyze
 
 返回
 
-```
+```json
 {
 	"tokens": [
 		{
@@ -58,7 +58,7 @@ POST /_analyze
 }
 ```
 
-```
+```json
 POST /_analyze
 {
   "text":"中华人民共和国国徽",
@@ -68,7 +68,7 @@ POST /_analyze
 
 返回
 
-```
+```json
 {
 	"tokens": [
 		{
@@ -151,7 +151,7 @@ IK分词插件就这样安装成功了
 
 去[https://github.com/medcl/elasticsearch-analysis-pinyin/releases](https://github.com/medcl/elasticsearch-analysis-pinyin/releases)下载对应**Elasticsearch**版本的IK分词插件**elasticsearch-analysis-pinyin-7.2.0.zip**这个文件，打开可以看到如下文件
 
-```
+```bash
 elasticsearch-analysis-pinyin-7.2.0.jar
 nlp-lang-1.7.jar
 plugin-descriptor.properties
@@ -161,13 +161,13 @@ plugin-descriptor.properties
 
 重启**Elasticsearch**，可以看到控制台打印日志
 
-```
+```bash
 loaded plugin [analysis-pinyin]
 ```
 
 测试一下
 
-```
+```json
 POST /_analyze
 {
   "text":"中华人民共和国国徽",
@@ -177,7 +177,7 @@ POST /_analyze
 
 返回
 
-```
+```json
 {
 	"tokens": [
 		{
@@ -260,7 +260,7 @@ POST /_analyze
 
 * 创建Index，拼音分词过滤
 
-```
+```json
 PUT /book
 {
 	"settings": {
@@ -288,7 +288,7 @@ PUT /book
 
 返回
 
-```
+```json
 {
     "acknowledged": true,
     "shards_acknowledged": true,
@@ -298,7 +298,7 @@ PUT /book
 
 * 创建Mapping，属性使用过滤，name开启拼音分词，content开启IK分词，describe开启拼音加IK分词
 
-```
+```json
 POST /book/_mapping
 {
 	"properties": {
@@ -342,7 +342,7 @@ POST /book/_mapping
 
 返回
 
-```
+```json
 {
     "acknowledged": true
 }

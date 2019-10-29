@@ -40,6 +40,7 @@ module.exports = {
             {
                 text: '学习记录',
                 items: [
+                    { text: 'Java', link: '/java/' },
                     { text: 'Redis', link: '/redis/' },
                     { text: 'MySQL', link: '/mysql/' },
                     { text: 'Elasticsearch', link: '/elasticsearch/' }
@@ -67,11 +68,12 @@ module.exports = {
             },
             { text: '编程闲话', link: '/gossip/' },
             // 外部链接
-            { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' },
+            /* { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' }, */
             // 下拉列表
             {
-                text: '联系关于',
+                text: '联系',
                 items: [
+                    { text: '博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' },
                     { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
                     { text: '留言', link: 'https://dolyw.com/go?url=https://msg.dolyw.com' },
                     { text: '简历', link: 'https://dolyw.com/go?url=https://cv.dolyw.com' },
@@ -81,6 +83,9 @@ module.exports = {
         ],
         sidebar: {
             // 学习记录
+            '/java/': [
+                ['', '目录']
+            ],
             '/redis/': [
                 ['', '目录']
             ],
@@ -91,7 +96,9 @@ module.exports = {
                 ['', 'Elasticsearch'],
                 ['00-GettingStarted.md', '简单了解Elasticsearch'],
                 ['01-LocalInstallation', '安装本地Elasticsearch'],
-                ['02-LocalInstallationIK.md', '安装本地IK分词插件']
+                ['02-LocalInstallationIK.md', '安装本地IK分词插件'],
+                ['03-SpringBootES.md', 'SpringBoot整合Elasticsearch'],
+                ['04-DockerES.md', 'Docker下Elasticsearch的使用']
             ],
             // 工具命令
             '/git/': [
@@ -101,7 +108,11 @@ module.exports = {
                 ['', '目录']
             ],
             '/docker/': [
-                ['', '目录']
+                ['', 'Docker'],
+                ['00-GettingStarted.md', 'Docker入门安装'],
+                ['01-VisualizationTools.md', 'Docker界面可视化'],
+                ['02-Tomcat.md', 'Docker下Tomcat的使用'],
+                ['03-Elasticsearch.md', 'Docker下Elasticsearch的使用']
             ],
             // 开源项目
             '/shirojwt/': [
