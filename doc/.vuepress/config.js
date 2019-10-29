@@ -49,7 +49,8 @@ module.exports = {
                 text: '工具命令',
                 items: [
                     { text: 'Git', link: '/git/' },
-                    { text: 'Linux', link: '/linux/' }
+                    { text: 'Linux', link: '/linux/' },
+                    { text: 'Docker', link: '/docker/' }
                 ]
             },
             {
@@ -99,9 +100,17 @@ module.exports = {
             '/linux/': [
                 ['', '目录']
             ],
+            '/docker/': [
+                ['', '目录']
+            ],
             // 开源项目
             '/shirojwt/': [
-                ['', '目录']
+                ['', 'ShiroJwt'],
+                ['ShiroJwt01.md', '项目说明'],
+                ['ShiroJwt-Interface.md', '接口文档'],
+                ['ShiroJwt02-MySQL.md', '改为数据库形式(MySQL)'],
+                ['ShiroJwt03-401.md', '解决无法直接返回401错误'],
+                ['ShiroJwt04-Redis.md', '实现Shiro的Cache(Redis)功能']
             ],
             // 零散记录
             '/other/jekyll/': [
