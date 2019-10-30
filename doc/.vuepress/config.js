@@ -42,30 +42,24 @@ module.exports = {
                 items: [
                     { text: 'Java', link: '/java/' },
                     { text: 'Redis', link: '/redis/' },
-                    { text: 'MySQL', link: '/mysql/' },
+                    { text: 'Netty', link: '/netty/' },
+                    { text: 'Docker', link: '/docker/' },
+                    /* { text: 'MySQL', link: '/mysql/' }, */
                     { text: 'Elasticsearch', link: '/elasticsearch/' }
                 ]
             },
-            {
-                text: '工具命令',
-                items: [
-                    { text: 'Git', link: '/git/' },
-                    { text: 'Linux', link: '/linux/' },
-                    { text: 'Docker', link: '/docker/' }
-                ]
-            },
+            { text: '工具命令', link: '/command/' },
             {
                 text: '开源项目',
                 items: [
-                    { text: 'ShiroJwt', link: '/shirojwt/' }
+                    { text: 'ShiroJwt', link: '/shirojwt/' },
+                    { text: 'ViewGenerator', link: '/viewgenerator/' },
+                    { text: 'VueStudy', link: 'https://github.com/dolyw/VueStudy' },
+                    { text: 'NettyStudy', link: 'https://github.com/dolyw/NettyStudy' },
+                    { text: 'Elasticsearch', link: 'https://github.com/dolyw/Elasticsearch' }
                 ]
             },
-            {
-                text: '零散记录',
-                items: [
-                    { text: 'Jekyll', link: '/other/jekyll/' }
-                ]
-            },
+            { text: '零散记录', link: '/other/' },
             { text: '编程闲话', link: '/gossip/' },
             // 外部链接
             /* { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' }, */
@@ -84,13 +78,28 @@ module.exports = {
         sidebar: {
             // 学习记录
             '/java/': [
-                ['', '目录']
+                ['', '目录'],
+                ['Thread-Safe.md', 'Java中的线程安全'],
+                ['Thread-Pool.md', 'Java中的线程池的创建及使用'],
+                ['List-De-Duplication.md', 'List集合去重方式及效率对比'],
+                ['50-Details.md', 'Java性能优化的50个细节']
             ],
             '/redis/': [
                 ['', '目录']
             ],
-            '/mysql/': [
+            /* '/mysql/': [
                 ['', '目录']
+            ], */
+            '/netty/': [
+                ['', 'Netty'],
+                ['00-Netty-SocketIO.md', 'Netty-SocketIO实现聊天室']
+            ],
+            '/docker/': [
+                ['', 'Docker'],
+                ['00-GettingStarted.md', 'Docker入门安装'],
+                ['01-VisualizationTools.md', 'Docker界面可视化'],
+                ['02-Tomcat.md', 'Docker下Tomcat的使用'],
+                ['03-Elasticsearch.md', 'Docker下Elasticsearch的使用']
             ],
             '/elasticsearch/': [
                 ['', 'Elasticsearch'],
@@ -101,18 +110,8 @@ module.exports = {
                 ['04-DockerES.md', 'Docker下Elasticsearch的使用']
             ],
             // 工具命令
-            '/git/': [
+            '/command/': [
                 ['', '目录']
-            ],
-            '/linux/': [
-                ['', '目录']
-            ],
-            '/docker/': [
-                ['', 'Docker'],
-                ['00-GettingStarted.md', 'Docker入门安装'],
-                ['01-VisualizationTools.md', 'Docker界面可视化'],
-                ['02-Tomcat.md', 'Docker下Tomcat的使用'],
-                ['03-Elasticsearch.md', 'Docker下Elasticsearch的使用']
             ],
             // 开源项目
             '/shirojwt/': [
@@ -123,13 +122,24 @@ module.exports = {
                 ['ShiroJwt03-401.md', '解决无法直接返回401错误'],
                 ['ShiroJwt04-Redis.md', '实现Shiro的Cache(Redis)功能']
             ],
+            '/viewgenerator/': [
+                ['', 'ViewGenerator']
+            ],
             // 零散记录
-            '/other/jekyll/': [
-                ['', '在Windows下安装与使用Jekyll']
+            '/other/': [
+                ['', '推荐阅读书籍博客文章'],
+                ['CV.md', '怎么样写一个好的简历'],
+                ['CV2.md', '怎么样写一个好的简历To'],
+                ['Interview.md', '一些不错的面试记录收集'],
+                ['Jekyll.md', '在Windows下安装与使用Jekyll'],
+                ['Github-Failure.md', '解决GitHub访问不了的方法']
             ],
             // 编程闲话
             '/gossip/': [
-                ['', '目录']
+                ['', 'Java程序员的悲哀'],
+                ['Programmer-Slang.md', '码农有趣的黑话'],
+                ['Technical-Interpretation.md', '史上最污技术解读'],
+                ['Make-System.md', '阎王爷让我给他做个后台管理系统']
             ]
         }
     }

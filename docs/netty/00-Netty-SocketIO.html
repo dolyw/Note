@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Netty-SocketIO实现聊天室 | 随心</title>
+    <meta name="description" content="世界上最大的谎言就是你不行">
+    <link rel="icon" href="https://dolyw.com/static/favicon.ico">
+  <script type="text/javascript" src="https://dolyw.com/static/count.js"></script>
+    
+    <link rel="preload" href="/assets/css/0.styles.eb5bff73.css" as="style"><link rel="preload" href="/assets/js/app.cc95be67.js" as="script"><link rel="preload" href="/assets/js/2.47ac06b6.js" as="script"><link rel="preload" href="/assets/js/28.061b94aa.js" as="script"><link rel="prefetch" href="/assets/js/10.85bbf9b0.js"><link rel="prefetch" href="/assets/js/11.c2ab954b.js"><link rel="prefetch" href="/assets/js/12.b179e32a.js"><link rel="prefetch" href="/assets/js/13.4d9a52d4.js"><link rel="prefetch" href="/assets/js/14.71ab8135.js"><link rel="prefetch" href="/assets/js/15.3f903bcb.js"><link rel="prefetch" href="/assets/js/16.bda698ad.js"><link rel="prefetch" href="/assets/js/17.89873492.js"><link rel="prefetch" href="/assets/js/18.55ed41bc.js"><link rel="prefetch" href="/assets/js/19.68816b13.js"><link rel="prefetch" href="/assets/js/20.85170819.js"><link rel="prefetch" href="/assets/js/21.e9def60c.js"><link rel="prefetch" href="/assets/js/22.a054bd07.js"><link rel="prefetch" href="/assets/js/23.61d4c9bb.js"><link rel="prefetch" href="/assets/js/24.c54fe599.js"><link rel="prefetch" href="/assets/js/25.cb89637c.js"><link rel="prefetch" href="/assets/js/26.c16bf265.js"><link rel="prefetch" href="/assets/js/27.fc8668cc.js"><link rel="prefetch" href="/assets/js/29.ed269747.js"><link rel="prefetch" href="/assets/js/3.2bf46b09.js"><link rel="prefetch" href="/assets/js/30.f025f0cf.js"><link rel="prefetch" href="/assets/js/31.63325fbe.js"><link rel="prefetch" href="/assets/js/32.abd328f6.js"><link rel="prefetch" href="/assets/js/33.782af4d2.js"><link rel="prefetch" href="/assets/js/34.5f524b22.js"><link rel="prefetch" href="/assets/js/35.6058dc32.js"><link rel="prefetch" href="/assets/js/36.a73194a2.js"><link rel="prefetch" href="/assets/js/37.75f06a26.js"><link rel="prefetch" href="/assets/js/38.daef5fe3.js"><link rel="prefetch" href="/assets/js/39.97b47cee.js"><link rel="prefetch" href="/assets/js/4.05474fb0.js"><link rel="prefetch" href="/assets/js/40.5219008a.js"><link rel="prefetch" href="/assets/js/41.0e74233a.js"><link rel="prefetch" href="/assets/js/42.72692411.js"><link rel="prefetch" href="/assets/js/43.d62fb77a.js"><link rel="prefetch" href="/assets/js/44.09f0e51c.js"><link rel="prefetch" href="/assets/js/5.9b432649.js"><link rel="prefetch" href="/assets/js/6.d8dc1a40.js"><link rel="prefetch" href="/assets/js/7.3c7e38c0.js"><link rel="prefetch" href="/assets/js/8.375d7e96.js"><link rel="prefetch" href="/assets/js/9.fff73e32.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.eb5bff73.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">随心</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">主页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习记录" class="dropdown-title"><span class="title">学习记录</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/java/" class="nav-link">Java</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/netty/" class="nav-link router-link-active">Netty</a></li><li class="dropdown-item"><!----> <a href="/docker/" class="nav-link">Docker</a></li><li class="dropdown-item"><!----> <a href="/elasticsearch/" class="nav-link">Elasticsearch</a></li></ul></div></div><div class="nav-item"><a href="/command/" class="nav-link">工具命令</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开源项目" class="dropdown-title"><span class="title">开源项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/shirojwt/" class="nav-link">ShiroJwt</a></li><li class="dropdown-item"><!----> <a href="/viewgenerator/" class="nav-link">ViewGenerator</a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/VueStudy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  VueStudy
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/NettyStudy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  NettyStudy
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/Elasticsearch" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Elasticsearch
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div><div class="nav-item"><a href="/other/" class="nav-link">零散记录</a></div><div class="nav-item"><a href="/gossip/" class="nav-link">编程闲话</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="联系" class="dropdown-title"><span class="title">联系</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://blog.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://map.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  导航
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://msg.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  留言
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://cv.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简历
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">主页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习记录" class="dropdown-title"><span class="title">学习记录</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/java/" class="nav-link">Java</a></li><li class="dropdown-item"><!----> <a href="/redis/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/netty/" class="nav-link router-link-active">Netty</a></li><li class="dropdown-item"><!----> <a href="/docker/" class="nav-link">Docker</a></li><li class="dropdown-item"><!----> <a href="/elasticsearch/" class="nav-link">Elasticsearch</a></li></ul></div></div><div class="nav-item"><a href="/command/" class="nav-link">工具命令</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开源项目" class="dropdown-title"><span class="title">开源项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/shirojwt/" class="nav-link">ShiroJwt</a></li><li class="dropdown-item"><!----> <a href="/viewgenerator/" class="nav-link">ViewGenerator</a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/VueStudy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  VueStudy
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/NettyStudy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  NettyStudy
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/Elasticsearch" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Elasticsearch
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div><div class="nav-item"><a href="/other/" class="nav-link">零散记录</a></div><div class="nav-item"><a href="/gossip/" class="nav-link">编程闲话</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="联系" class="dropdown-title"><span class="title">联系</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://blog.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://map.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  导航
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://msg.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  留言
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://cv.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简历
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://dolyw.com/go?url=https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/netty/" class="sidebar-link">Netty</a></li><li><a href="/netty/00-Netty-SocketIO.html" class="active sidebar-link">Netty-SocketIO实现聊天室</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/netty/00-Netty-SocketIO.html#软件架构" class="sidebar-link">软件架构</a></li><li class="sidebar-sub-header"><a href="/netty/00-Netty-SocketIO.html#项目介绍" class="sidebar-link">项目介绍</a></li><li class="sidebar-sub-header"><a href="/netty/00-Netty-SocketIO.html#预览图示" class="sidebar-link">预览图示</a></li><li class="sidebar-sub-header"><a href="/netty/00-Netty-SocketIO.html#配置代码" class="sidebar-link">配置代码</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/netty/00-Netty-SocketIO.html#开始连接" class="sidebar-link">开始连接</a></li></ul></li><li class="sidebar-sub-header"><a href="/netty/00-Netty-SocketIO.html#安装教程" class="sidebar-link">安装教程</a></li><li class="sidebar-sub-header"><a href="/netty/00-Netty-SocketIO.html#搭建参考" class="sidebar-link">搭建参考</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="netty-socketio实现聊天室"><a href="#netty-socketio实现聊天室" class="header-anchor">#</a> Netty-SocketIO实现聊天室</h1> <p>SpringBoot + Netty-SocketIO快速简单实现一个即时通讯聊天室(服务器给页面推送消息通知)</p> <blockquote><p>目录:<a href="https://github.com/dolyw/NettyStudy" target="_blank" rel="noopener noreferrer">https://github.com/dolyw/NettyStudy<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></blockquote> <h4 id="我的项目地址"><a href="#我的项目地址" class="header-anchor">#</a> 我的项目地址</h4> <p><a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a> <a href="https://github.com/dolyw/NettyStudy/pulls" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> <a href="https://github.com/dolyw/NettyStudy" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/github/stars/dolyw/NettyStudy.svg?style=social&amp;label=Stars" alt="GitHub stars"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> <a href="https://github.com/dolyw/NettyStudy" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/github/forks/dolyw/NettyStudy.svg?style=social&amp;label=Fork" alt="GitHub forks"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <ul><li>Github：<a href="https://github.com/dolyw/NettyStudy/tree/master/00-Netty-SocketIO" target="_blank" rel="noopener noreferrer">https://github.com/dolyw/NettyStudy/tree/master/00-Netty-SocketIO<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li>Gitee(码云)：<a href="https://gitee.com/dolyw/NettyStudy/tree/master/00-Netty-SocketIO" target="_blank" rel="noopener noreferrer">https://gitee.com/dolyw/NettyStudy/tree/master/00-Netty-SocketIO<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <h2 id="软件架构"><a href="#软件架构" class="header-anchor">#</a> 软件架构</h2> <ol><li>SpringBoot + Netty-SocketIO + Vue + ElementUI</li></ol> <h2 id="项目介绍"><a href="#项目介绍" class="header-anchor">#</a> 项目介绍</h2> <p>Netty-SocketIO是一个开源的、基于<strong>Netty</strong>的、<strong>Java</strong>版的即时消息推送项目。通过<strong>Netty-SocketIO</strong>，我们可以轻松的实现服务端主动向客户端推送消息的场景，比如说股票价格变化、K线图、消息提醒等。它和<strong>WebSocket</strong>有相同的作用，只不过<strong>Netty-SocketIO</strong>可支持所有的浏览器</p> <blockquote><p>注: <s>不能是同一个Cookie域下(同一个浏览器开多个窗口会存在问题)，得开不同的浏览器窗口才能进行正常消息推送</s>，也不能是同一个用户名，不然只有最新窗口有效，当前项目还可以优化</p></blockquote> <ul><li><s>前端新窗口应该判断当前用户(Cookie)是否存在</s>(已完成)</li> <li>用户名是否重复校验</li> <li>消息可以直接放后台应用里持久化</li></ul> <h2 id="预览图示"><a href="#预览图示" class="header-anchor">#</a> 预览图示</h2> <div class="language- extra-class"><pre class="language-text"><code>聊天图示
+</code></pre></div><p><img src="https://docs.dolyw.com/Project/NettyStudy/image/20190802001.gif" alt="聊天图示"></p> <h2 id="配置代码"><a href="#配置代码" class="header-anchor">#</a> 配置代码</h2> <p>创建一个SpringBoot 2.1.3的<code>Maven</code>项目，这块不再详细描述，添加如下Netty-SocketIO依赖</p> <div class="language-xml extra-class"><pre class="language-xml"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>netty-socketio.version</span><span class="token punctuation">&gt;</span></span>1.7.17<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>netty-socketio.version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.corundumstudio.socketio<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>netty-socketio<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>${netty-socketio.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><ul><li>配置文件</li></ul> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">server</span><span class="token punctuation">:</span>
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+    <span class="token key atrule">thymeleaf</span><span class="token punctuation">:</span>
+        <span class="token comment"># 开发时关闭缓存不然没法看到实时页面</span>
+        <span class="token key atrule">cache</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+        <span class="token comment"># 启用不严格检查</span>
+        <span class="token key atrule">mode</span><span class="token punctuation">:</span> LEGACYHTML5
+
+<span class="token comment"># SocketIO配置</span>
+<span class="token key atrule">socketio</span><span class="token punctuation">:</span>
+    <span class="token comment"># SocketIO端口</span>
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9090</span>
+    <span class="token comment"># 连接数大小</span>
+    <span class="token key atrule">workCount</span><span class="token punctuation">:</span> <span class="token number">100</span>
+    <span class="token comment"># 允许客户请求</span>
+    <span class="token key atrule">allowCustomRequests</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token comment"># 协议升级超时时间(毫秒)，默认10秒，HTTP握手升级为ws协议超时时间</span>
+    <span class="token key atrule">upgradeTimeout</span><span class="token punctuation">:</span> <span class="token number">10000</span>
+    <span class="token comment"># Ping消息超时时间(毫秒)，默认60秒，这个时间间隔内没有接收到心跳消息就会发送超时事件</span>
+    <span class="token key atrule">pingTimeout</span><span class="token punctuation">:</span> <span class="token number">60000</span>
+    <span class="token comment"># Ping消息间隔(毫秒)，默认25秒。客户端向服务器发送一条心跳消息间隔</span>
+    <span class="token key atrule">pingInterval</span><span class="token punctuation">:</span> <span class="token number">25000</span>
+    <span class="token comment"># 设置HTTP交互最大内容长度</span>
+    <span class="token key atrule">maxHttpContentLength</span><span class="token punctuation">:</span> <span class="token number">1048576</span>
+    <span class="token comment"># 设置最大每帧处理数据的长度，防止他人利用大数据来攻击服务器</span>
+    <span class="token key atrule">maxFramePayloadLength</span><span class="token punctuation">:</span> <span class="token number">1048576</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SocketConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * logger
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Logger</span> logger <span class="token operator">=</span> <span class="token class-name">LoggerFactory</span><span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span><span class="token class-name">SocketConfig</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${socketio.port}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> port<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${socketio.workCount}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> workCount<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${socketio.allowCustomRequests}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> allowCustomRequests<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${socketio.upgradeTimeout}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> upgradeTimeout<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${socketio.pingTimeout}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> pingTimeout<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${socketio.pingInterval}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> pingInterval<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${socketio.maxFramePayloadLength}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> maxFramePayloadLength<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${socketio.maxHttpContentLength}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> maxHttpContentLength<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * SocketIOServer配置
+     *
+     * @param
+     * @return com.corundumstudio.socketio.SocketIOServer
+     * @author wliduo[i@dolyw.com]
+     * @date 2019/4/17 11:41
+     */</span>
+    <span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span><span class="token string">&quot;socketIOServer&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">SocketIOServer</span> <span class="token function">socketIOServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        com<span class="token punctuation">.</span>corundumstudio<span class="token punctuation">.</span>socketio<span class="token punctuation">.</span><span class="token class-name">Configuration</span> config <span class="token operator">=</span> <span class="token keyword">new</span> com<span class="token punctuation">.</span>corundumstudio<span class="token punctuation">.</span>socketio<span class="token punctuation">.</span><span class="token class-name">Configuration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 配置端口</span>
+        config<span class="token punctuation">.</span><span class="token function">setPort</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 开启Socket端口复用</span>
+        com<span class="token punctuation">.</span>corundumstudio<span class="token punctuation">.</span>socketio<span class="token punctuation">.</span><span class="token class-name">SocketConfig</span> socketConfig <span class="token operator">=</span> <span class="token keyword">new</span> com<span class="token punctuation">.</span>corundumstudio<span class="token punctuation">.</span>socketio<span class="token punctuation">.</span><span class="token class-name">SocketConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        socketConfig<span class="token punctuation">.</span><span class="token function">setReuseAddress</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span><span class="token function">setSocketConfig</span><span class="token punctuation">(</span>socketConfig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 连接数大小</span>
+        config<span class="token punctuation">.</span><span class="token function">setWorkerThreads</span><span class="token punctuation">(</span>workCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 允许客户请求</span>
+        config<span class="token punctuation">.</span><span class="token function">setAllowCustomRequests</span><span class="token punctuation">(</span>allowCustomRequests<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 协议升级超时时间(毫秒)，默认10秒，HTTP握手升级为ws协议超时时间</span>
+        config<span class="token punctuation">.</span><span class="token function">setUpgradeTimeout</span><span class="token punctuation">(</span>upgradeTimeout<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// Ping消息超时时间(毫秒)，默认60秒，这个时间间隔内没有接收到心跳消息就会发送超时事件</span>
+        config<span class="token punctuation">.</span><span class="token function">setPingTimeout</span><span class="token punctuation">(</span>pingTimeout<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// Ping消息间隔(毫秒)，默认25秒。客户端向服务器发送一条心跳消息间隔</span>
+        config<span class="token punctuation">.</span><span class="token function">setPingInterval</span><span class="token punctuation">(</span>pingInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 设置HTTP交互最大内容长度</span>
+        config<span class="token punctuation">.</span><span class="token function">setMaxHttpContentLength</span><span class="token punctuation">(</span>maxHttpContentLength<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 设置最大每帧处理数据的长度，防止他人利用大数据来攻击服务器</span>
+        config<span class="token punctuation">.</span><span class="token function">setMaxFramePayloadLength</span><span class="token punctuation">(</span>maxFramePayloadLength<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">SocketIOServer</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 开启SocketIOServer注解支持
+     *
+     * @param socketServer
+     * @return com.corundumstudio.socketio.annotation.SpringAnnotationScanner
+     * @author wliduo[i@dolyw.com]
+     * @date 2019/7/31 18:21
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">SpringAnnotationScanner</span> <span class="token function">springAnnotationScanner</span><span class="token punctuation">(</span><span class="token class-name">SocketIOServer</span> socketServer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">SpringAnnotationScanner</span><span class="token punctuation">(</span>socketServer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>启动类</li></ul> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * SpringBoot启动之后执行
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2019/4/17 11:45
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token annotation punctuation">@Order</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SocketServer</span> <span class="token keyword">implements</span> <span class="token class-name">CommandLineRunner</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * logger
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Logger</span> logger <span class="token operator">=</span> <span class="token class-name">LoggerFactory</span><span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span><span class="token class-name">ServerRunner</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * socketIOServer
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">SocketIOServer</span> socketIOServer<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">public</span> <span class="token class-name">SocketServer</span><span class="token punctuation">(</span><span class="token class-name">SocketIOServer</span> socketIOServer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>socketIOServer <span class="token operator">=</span> socketIOServer<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;---------- NettySocket通知服务开始启动 ----------&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        socketIOServer<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;---------- NettySocket通知服务启动成功 ----------&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>这样就配置完成了，<code>Netty-SocketIO</code>封装的挺简单的</li></ul> <h3 id="开始连接"><a href="#开始连接" class="header-anchor">#</a> 开始连接</h3> <p>先去下载socket.io.js:<a href="https://www.bootcdn.cn/socket.io" target="_blank" rel="noopener noreferrer">https://www.bootcdn.cn/socket.io<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>，放进项目里，我是直接用的2.2.0，页面就直接用<code>SpringBoot</code>默认的<code>Thymeleaf</code></p> <ul><li>Socket消息对象</li></ul> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * MessageDto
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2019/7/31 18:57
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MessageDto</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 源客户端用户名
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> sourceUserName<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 目标客户端用户名
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> targetUserName<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 消息类型
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> msgType<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 消息内容
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> msgContent<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 空构造方法
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">MessageDto</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 构造方法
+     *
+     * @param sourceUserName
+     * @param targetUserName
+     * @param msgType
+     * @param msgContent
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">MessageDto</span><span class="token punctuation">(</span><span class="token class-name">String</span> sourceUserName<span class="token punctuation">,</span> <span class="token class-name">String</span> targetUserName<span class="token punctuation">,</span> <span class="token class-name">String</span> msgType<span class="token punctuation">,</span> <span class="token class-name">String</span> msgContent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>sourceUserName <span class="token operator">=</span> sourceUserName<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>targetUserName <span class="token operator">=</span> targetUserName<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>msgType <span class="token operator">=</span> msgType<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>msgContent <span class="token operator">=</span> msgContent<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getSourceUserName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> sourceUserName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setSourceUserName</span><span class="token punctuation">(</span><span class="token class-name">String</span> sourceUserName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>sourceUserName <span class="token operator">=</span> sourceUserName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getTargetUserName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> targetUserName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTargetUserName</span><span class="token punctuation">(</span><span class="token class-name">String</span> targetUserName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>targetUserName <span class="token operator">=</span> targetUserName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getMsgType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> msgType<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setMsgType</span><span class="token punctuation">(</span><span class="token class-name">String</span> msgType<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>msgType <span class="token operator">=</span> msgType<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getMsgContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> msgContent<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setMsgContent</span><span class="token punctuation">(</span><span class="token class-name">String</span> msgContent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>msgContent <span class="token operator">=</span> msgContent<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>SocketHandler事件类</li></ul> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * SocketHandler
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2019/4/17 13:42
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SocketHandler</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * logger
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">Logger</span> logger <span class="token operator">=</span> <span class="token class-name">LoggerFactory</span><span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span><span class="token class-name">SocketHandler</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * ConcurrentHashMap保存当前SocketServer用户ID对应关系
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> UUID<span class="token punctuation">&gt;</span></span> clientMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentHashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> UUID<span class="token punctuation">&gt;</span></span> <span class="token function">getClientMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> clientMap<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setClientMap</span><span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> UUID<span class="token punctuation">&gt;</span></span> clientMap<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>clientMap <span class="token operator">=</span> clientMap<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * socketIOServer
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">SocketIOServer</span> socketIOServer<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">public</span> <span class="token class-name">SocketHandler</span><span class="token punctuation">(</span><span class="token class-name">SocketIOServer</span> socketIOServer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>socketIOServer <span class="token operator">=</span> socketIOServer<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 当客户端发起连接时调用
+     *
+     * @param socketIOClient
+     * @return void
+     * @author wliduo[i@dolyw.com]
+     * @date 2019/4/17 13:55
+     */</span>
+    <span class="token annotation punctuation">@OnConnect</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onConnect</span><span class="token punctuation">(</span><span class="token class-name">SocketIOClient</span> socketIOClient<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">String</span> userName <span class="token operator">=</span> socketIOClient<span class="token punctuation">.</span><span class="token function">getHandshakeData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getSingleUrlParam</span><span class="token punctuation">(</span><span class="token string">&quot;userName&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>userName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;用户{}开启长连接通知, NettySocketSessionId: {}, NettySocketRemoteAddress: {}&quot;</span><span class="token punctuation">,</span>
+                    userName<span class="token punctuation">,</span> socketIOClient<span class="token punctuation">.</span><span class="token function">getSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> socketIOClient<span class="token punctuation">.</span><span class="token function">getRemoteAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 保存</span>
+            clientMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>userName<span class="token punctuation">,</span> socketIOClient<span class="token punctuation">.</span><span class="token function">getSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 发送上线通知</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">sendMsg</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">MessageDto</span><span class="token punctuation">(</span>userName<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token class-name">MsgTypeEnum</span><span class="token punctuation">.</span>ONLINE<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 客户端断开连接时调用，刷新客户端信息
+     *
+     * @param socketIOClient
+     * @return void
+     * @author wliduo[i@dolyw.com]
+     * @date 2019/4/17 13:56
+     */</span>
+    <span class="token annotation punctuation">@OnDisconnect</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onDisConnect</span><span class="token punctuation">(</span><span class="token class-name">SocketIOClient</span> socketIOClient<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">String</span> userName <span class="token operator">=</span> socketIOClient<span class="token punctuation">.</span><span class="token function">getHandshakeData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getSingleUrlParam</span><span class="token punctuation">(</span><span class="token string">&quot;userName&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>userName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;用户{}断开长连接通知, NettySocketSessionId: {}, NettySocketRemoteAddress: {}&quot;</span><span class="token punctuation">,</span>
+                    userName<span class="token punctuation">,</span> socketIOClient<span class="token punctuation">.</span><span class="token function">getSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> socketIOClient<span class="token punctuation">.</span><span class="token function">getRemoteAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 移除</span>
+            clientMap<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>userName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 发送下线通知</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">sendMsg</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">MessageDto</span><span class="token punctuation">(</span>userName<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token class-name">MsgTypeEnum</span><span class="token punctuation">.</span>OFFLINE<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * sendMsg发送消息事件
+     *
+     * @param socketIOClient
+	 * @param ackRequest
+	 * @param messageDto
+     * @return void
+     * @author wliduo[i@dolyw.com]
+     * @date 2019/8/1 11:41
+     */</span>
+    <span class="token annotation punctuation">@OnEvent</span><span class="token punctuation">(</span><span class="token string">&quot;sendMsg&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendMsg</span><span class="token punctuation">(</span><span class="token class-name">SocketIOClient</span> socketIOClient<span class="token punctuation">,</span> <span class="token class-name">AckRequest</span> ackRequest<span class="token punctuation">,</span> <span class="token class-name">MessageDto</span> messageDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>messageDto <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 全部发送</span>
+            clientMap<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>value <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    socketIOServer<span class="token punctuation">.</span><span class="token function">getClient</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendEvent</span><span class="token punctuation">(</span><span class="token string">&quot;receiveMsg&quot;</span><span class="token punctuation">,</span> messageDto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>Socket实现网页common.html</li></ul> <div class="language-html extra-class"><pre class="language-html"><code><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>th</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>http://www.thymeleaf.org<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span> <span class="token attr-name"><span class="token namespace">th:</span>fragment</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>headJq(title)<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>utf-8<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>viewport<span class="token punctuation">&quot;</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>width=device-width, initial-scale=1.0<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span> <span class="token attr-name"><span class="token namespace">th:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>${title}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>加载中<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>shortcut icon<span class="token punctuation">&quot;</span></span> <span class="token attr-name"><span class="token namespace">th:</span>href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>@{/favicon.ico}<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>image/x-icon<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token comment">&lt;!-- 引入jquery，Moment，socket.io --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name"><span class="token namespace">th:</span>src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>@{js/jquery.min.js}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name"><span class="token namespace">th:</span>src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>@{js/moment.min.js}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name"><span class="token namespace">th:</span>src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>@{js/socket.io.js}<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><ul><li>Socket实现网页index.html</li></ul> <div class="language-html extra-class"><pre class="language-html"><code><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>th</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>http://www.thymeleaf.org<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span> <span class="token attr-name"><span class="token namespace">th:</span>include</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/common/common :: headJq('聊天室')<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>app<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>msgContent<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>msgContent<span class="token punctuation">&quot;</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>请输入消息<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>msgType<span class="token punctuation">&quot;</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>msgType<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>00<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>全部<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>sendMsg()<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>发送<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>cleanMsg()<span class="token punctuation">&quot;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>清空<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>msgList<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text/javascript<span class="token punctuation">&quot;</span></span> <span class="token attr-name"><span class="token namespace">th:</span>inline</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>javascript<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+        <span class="token keyword">var</span> userName<span class="token punctuation">,</span> socket<span class="token punctuation">;</span>
+        <span class="token comment">// Socket连接</span>
+        <span class="token keyword">function</span> <span class="token function">initIm</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            userName <span class="token operator">=</span> <span class="token function">prompt</span><span class="token punctuation">(</span><span class="token string">&quot;请输入用户名进入聊天室&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>$<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span>userName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                socket <span class="token operator">=</span> io<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token string">&quot;localhost:9090&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                    <span class="token string">'query'</span><span class="token punctuation">:</span> <span class="token string">'userName='</span> <span class="token operator">+</span> userName
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token comment">// 成功连接事件</span>
+                socket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'connect'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// 断开连接事件</span>
+                socket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'disconnect'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token comment">// 监听receiveMsg接收消息事件</span>
+                socket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'receiveMsg'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">var</span> msgLi <span class="token operator">=</span> <span class="token string">&quot;&lt;li&gt;&quot;</span> <span class="token operator">+</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'HH:mm:ss'</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&quot;</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>data<span class="token punctuation">.</span>msgType <span class="token operator">==</span> <span class="token string">'00'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment">// 发送消息给全部人</span>
+                        msgLi <span class="token operator">=</span> msgLi <span class="token operator">+</span> data<span class="token punctuation">.</span>sourceUserName <span class="token operator">+</span> <span class="token string">&quot;: &quot;</span> <span class="token operator">+</span> data<span class="token punctuation">.</span>msgContent<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>data<span class="token punctuation">.</span>msgType <span class="token operator">==</span> <span class="token string">'01'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment">// 上线通知</span>
+                        msgLi <span class="token operator">=</span> msgLi <span class="token operator">+</span>  <span class="token string">&quot;&lt;span style='color: blue'&gt;&quot;</span> <span class="token operator">+</span> data<span class="token punctuation">.</span>sourceUserName <span class="token operator">+</span> <span class="token string">&quot;进入了聊天室&lt;/span&gt;&quot;</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>data<span class="token punctuation">.</span>msgType <span class="token operator">==</span> <span class="token string">'02'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment">// 下线通知</span>
+                        msgLi <span class="token operator">=</span> msgLi <span class="token operator">+</span>  <span class="token string">&quot;&lt;span style='color: gray'&gt;&quot;</span> <span class="token operator">+</span> data<span class="token punctuation">.</span>sourceUserName <span class="token operator">+</span> <span class="token string">&quot;离开了聊天室&lt;/span&gt;&quot;</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    msgLi <span class="token operator">=</span> msgLi <span class="token operator">+</span>  <span class="token string">&quot;&lt;/li&gt;&quot;</span><span class="token punctuation">;</span>
+                    <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#msgList'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>msgLi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">&quot;非法用户名&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token function">initIm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 发送消息</span>
+        <span class="token keyword">function</span> <span class="token function">sendMsg</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>$<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span>userName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">var</span> msgContent <span class="token operator">=</span> $<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token function">$</span><span class="token punctuation">(</span><span class="token string">&quot;#msgContent&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// 消息不能为空</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>msgContent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    socket<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'sendMsg'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                        <span class="token string">&quot;sourceUserName&quot;</span><span class="token punctuation">:</span> userName<span class="token punctuation">,</span>
+                        <span class="token string">&quot;msgType&quot;</span><span class="token punctuation">:</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">&quot;#msgType&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token string">&quot;msgContent&quot;</span><span class="token punctuation">:</span> msgContent
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">&quot;消息不能为空&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">&quot;#msgContent&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token function">initIm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// 清空消息</span>
+        <span class="token keyword">function</span> <span class="token function">cleanMsg</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token function">confirm</span><span class="token punctuation">(</span><span class="token string">&quot;你确定清空消息吗&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#msgList'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+	</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><ul><li>最后还有一个启动配置类</li></ul> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebMvcConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 设置首页
+     *
+     * @param registry
+     * @return void
+     * @author wliduo[i@dolyw.com]
+     * @date 2019/1/24 19:18
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addViewControllers</span><span class="token punctuation">(</span><span class="token class-name">ViewControllerRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        registry<span class="token punctuation">.</span><span class="token function">addViewController</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">&quot;forward:/view.shtml&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        registry<span class="token punctuation">.</span><span class="token function">setOrder</span><span class="token punctuation">(</span><span class="token class-name">Ordered</span><span class="token punctuation">.</span>HIGHEST_PRECEDENCE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>就这样一个简单的聊天室就实现了，实际请查看代码，最后用<strong>Vue</strong> + <strong>ElementUI</strong>美化了一下前端界面</li></ul> <h2 id="安装教程"><a href="#安装教程" class="header-anchor">#</a> 安装教程</h2> <p>运行项目src\main\java\com\example\Application.java即可，访问<a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>，开不同的浏览器窗口即可进行聊天</p> <h2 id="搭建参考"><a href="#搭建参考" class="header-anchor">#</a> 搭建参考</h2> <ol><li>感谢tomoya92的在spring-boot项目里集成netty-socketio实现服务器给页面推送消息通知:<a href="https://blog.yiiu.co/2018/08/20/spring-boot-netty-socketio" target="_blank" rel="noopener noreferrer">https://blog.yiiu.co/2018/08/20/spring-boot-netty-socketio<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li>感谢脚本小娃子的端口复用技术简单了解；重用端口；socket复用端口:<a href="https://www.cnblogs.com/shengulong/p/10206668.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/shengulong/p/10206668.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li>感谢March On的Socket端口复用:<a href="https://www.cnblogs.com/z-sm/p/10461456.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/z-sm/p/10461456.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li>感谢elf8848的Java Socket 几个重要的TCP/IP选项解析(一):<a href="https://elf8848.iteye.com/blog/1739598" target="_blank" rel="noopener noreferrer">https://elf8848.iteye.com/blog/1739598<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li>感谢sun_t89的Spring Boot实战之netty-socketio实现简单聊天室(给指定用户推送消息):<a href="https://blog.csdn.net/sun_t89/article/details/52060946" target="_blank" rel="noopener noreferrer">https://blog.csdn.net/sun_t89/article/details/52060946<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ol></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/netty/" class="prev router-link-active">Netty</a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.cc95be67.js" defer></script><script src="/assets/js/2.47ac06b6.js" defer></script><script src="/assets/js/28.061b94aa.js" defer></script>
+  </body>
+</html>
