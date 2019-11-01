@@ -78,14 +78,14 @@ module.exports = {
         sidebar: {
             // 学习记录
             '/java/': [
-                ['', '目录'],
-                ['Thread-Safe.md', 'Java中的线程安全'],
-                ['Thread-Pool.md', 'Java中的线程池的创建及使用'],
-                ['List-De-Duplication.md', 'List集合去重方式及效率对比'],
-                ['50-Details.md', 'Java性能优化的50个细节']
+                ['', 'Java'],
+                ['01-Thread-Safe.md', 'Java中的线程安全'],
+                ['02-Thread-Pool.md', 'Java中的线程池的创建及使用'],
+                ['03-List-De-Duplication.md', 'List集合去重方式及效率对比'],
+                ['04-50-Details.md', 'Java性能优化的50个细节']
             ],
             '/redis/': [
-                ['', '目录']
+                ['', 'Redis']
             ],
             /* '/mysql/': [
                 ['', '目录']
@@ -111,7 +111,10 @@ module.exports = {
             ],
             // 工具命令
             '/command/': [
-                ['', '目录']
+                ['', '工具命令'],
+                ['01-Git-Command.md', 'Git命令记录'],
+                ['02-Linux-Command.md', 'Linux命令记录'],
+                ['03-Docker-Command.md', 'Docker命令记录']
             ],
             // 开源项目
             '/shirojwt/': [
@@ -128,18 +131,18 @@ module.exports = {
             // 零散记录
             '/other/': [
                 ['', '推荐阅读书籍博客文章'],
-                ['CV.md', '怎么样写一个好的简历'],
-                ['CV2.md', '怎么样写一个好的简历To'],
-                ['Interview.md', '一些不错的面试记录收集'],
-                ['Jekyll.md', '在Windows下安装与使用Jekyll'],
-                ['Github-Failure.md', '解决GitHub访问不了的方法']
+                ['01-CV.md', '怎么样写一个好的简历'],
+                ['02-CV2.md', '怎么样写一个好的简历To'],
+                ['03-Interview.md', '一些不错的面试记录收集'],
+                ['05-Github-Failure.md', '解决GitHub访问不了的方法'],
+                ['04-Jekyll.md', '在Windows下安装与使用Jekyll']
             ],
             // 编程闲话
             '/gossip/': [
                 ['', 'Java程序员的悲哀'],
-                ['Programmer-Slang.md', '码农有趣的黑话'],
-                ['Technical-Interpretation.md', '史上最污技术解读'],
-                ['Make-System.md', '阎王爷让我给他做个后台管理系统']
+                ['01-Programmer-Slang.md', '码农有趣的黑话'],
+                ['02-Technical-Interpretation.md', '史上最污技术解读'],
+                ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
             ]
         }
     }
