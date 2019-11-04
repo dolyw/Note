@@ -1,5 +1,5 @@
 module.exports = {
-    title: '随心',
+    title: '笔记',
     description: '世界上最大的谎言就是你不行',
     head: [
         ['link', { rel: 'icon', href: 'https://dolyw.com/static/favicon.ico' }],
@@ -38,16 +38,21 @@ module.exports = {
             // 内部链接，以doc为根目录
             { text: '主页', link: '/' },
             {
-                text: '学习记录',
+                text: 'Java',
                 items: [
-                    { text: 'Java', link: '/java/' },
+                    { text: 'Base', link: '/java/' },
+                    { text: 'Netty', link: '/netty/' }
+                ]
+            },
+            {
+                text: 'Data',
+                items: [
                     { text: 'Redis', link: '/redis/' },
-                    { text: 'Netty', link: '/netty/' },
-                    { text: 'Docker', link: '/docker/' },
                     /* { text: 'MySQL', link: '/mysql/' }, */
                     { text: 'Elasticsearch', link: '/elasticsearch/' }
                 ]
             },
+            { text: 'Docker', link: '/docker/' },
             { text: '工具命令', link: '/command/' },
             {
                 text: '开源项目',
@@ -85,7 +90,8 @@ module.exports = {
                 ['04-50-Details.md', 'Java性能优化的50个细节']
             ],
             '/redis/': [
-                ['', 'Redis']
+                ['', 'Redis'],
+                ['00-DataBaseConsistency.md', 'Redis与数据库一致性']
             ],
             /* '/mysql/': [
                 ['', '目录']
@@ -107,7 +113,8 @@ module.exports = {
                 ['01-LocalInstallation', '安装本地Elasticsearch'],
                 ['02-LocalInstallationIK.md', '安装本地IK分词插件'],
                 ['03-SpringBootES.md', 'SpringBoot整合Elasticsearch'],
-                ['04-DockerES.md', 'Docker下Elasticsearch的使用']
+                ['04-DockerES.md', 'Docker下Elasticsearch的使用'],
+                ['05-MySqlES.md', 'MySql数据同步Elasticsearch']
             ],
             // 工具命令
             '/command/': [
