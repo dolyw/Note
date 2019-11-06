@@ -53,6 +53,7 @@ module.exports = {
                 ]
             },
             { text: 'Docker', link: '/docker/' },
+            /* { text: '前端记录', link: '/front/' }, */
             { text: '工具命令', link: '/command/' },
             {
                 text: '开源项目',
@@ -91,7 +92,8 @@ module.exports = {
             ],
             '/redis/': [
                 ['', 'Redis'],
-                ['00-DataBaseConsistency.md', 'Redis与数据库一致性']
+                ['00-DataBaseConsistency.md', 'Redis与数据库一致性'],
+                ['01-DataBaseConsistency.md', 'Redis与数据库一致性补充']
             ],
             /* '/mysql/': [
                 ['', '目录']
@@ -121,7 +123,8 @@ module.exports = {
                 ['', '工具命令'],
                 ['01-Git-Command.md', 'Git命令记录'],
                 ['02-Linux-Command.md', 'Linux命令记录'],
-                ['03-Docker-Command.md', 'Docker命令记录']
+                ['03-Docker-Command.md', 'Docker命令记录'],
+                ['04-Git-MultiUser.md', 'SSH同时使用多个Git账户']
             ],
             // 开源项目
             '/shirojwt/': [
