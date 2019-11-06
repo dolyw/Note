@@ -124,7 +124,8 @@ module.exports = {
                 ['01-Git-Command.md', 'Git命令记录'],
                 ['02-Linux-Command.md', 'Linux命令记录'],
                 ['03-Docker-Command.md', 'Docker命令记录'],
-                ['04-Git-MultiUser.md', 'SSH同时使用多个Git账户']
+                ['04-Git-MultiUser.md', 'SSH同时使用多个Git账户'],
+                ['05-Git-MultiPush.md', 'Git一次Push到多个远端']
             ],
             // 开源项目
             '/shirojwt/': [
