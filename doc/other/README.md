@@ -59,6 +59,7 @@
 >* [Fullstack-Tutorial](https://github.com/frank-lam/fullstack-tutorial)
 >* [JGrowing](https://github.com/javagrowing/JGrowing)
 >* [3y](https://github.com/ZhongFuCheng3y/3y)
+>* [JS-Sorting-Algorithm](https://github.com/hustcc/JS-Sorting-Algorithm)
 >* [LeetCodeAnimation](https://github.com/MisterBooo/LeetCodeAnimation)
 
 ## 文章
