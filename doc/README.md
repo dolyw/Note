@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://dolyw.gitee.io/reader/Image/headt.png
+heroImage: https://cdn.jsdelivr.net/gh/wliduo/CDN@master/avatar/01_thn.png
 heroText: 记录学习笔记和零散杂记
 tagline: 不管多么痛苦，都不要逃往轻松的一边
 # actionText: 点击查看
