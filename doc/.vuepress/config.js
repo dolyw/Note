@@ -2,9 +2,9 @@ module.exports = {
     title: '笔记',
     description: '世界上最大的谎言就是你不行',
     head: [
-        ['link', { rel: 'icon', href: 'https://dolyw.com/static/favicon.ico' }],
-        /* ['script', { type: 'text/javascript', src: 'https://dolyw.gitee.io/reader/JS/love.js' }], */
-        ['script', { type: 'text/javascript', src: 'https://dolyw.com/static/count.js' }]
+        ['link', { rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/favicon.ico' }],
+        /* ['script', { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/gh/wliduo/Mark@master/' + 'assets/lib/love.js' }], */
+        ['script', { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/count.js' }]
     ],
     // 打包文件夹
     dest: 'docs',
@@ -53,7 +53,7 @@ module.exports = {
                 ]
             },
             { text: 'Docker', link: '/docker/' },
-            /* { text: '前端记录', link: '/front/' }, */
+            { text: '前端记录', link: '/front/' },
             { text: '工具命令', link: '/command/' },
             {
                 text: '开源项目',
@@ -73,8 +73,9 @@ module.exports = {
             {
                 text: '联系',
                 items: [
-                    { text: '博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' },
                     { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
+                    { text: '博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' },
+                    { text: '音乐', link: 'https://dolyw.com/go?url=https://res.dolyw.com' },
                     { text: '留言', link: 'https://dolyw.com/go?url=https://msg.dolyw.com' },
                     { text: '简历', link: 'https://dolyw.com/go?url=https://cv.dolyw.com' },
                     { text: 'GitHub', link: 'https://dolyw.com/go?url=https://github.com/dolyw' }
@@ -117,6 +118,10 @@ module.exports = {
                 ['03-SpringBootES.md', 'SpringBoot整合Elasticsearch'],
                 ['04-DockerES.md', 'Docker下Elasticsearch的使用'],
                 ['05-MySqlES.md', 'MySql数据同步Elasticsearch']
+            ],
+            // 前端记录
+            '/front/': [
+                ['', '组件UI库记录']
             ],
             // 工具命令
             '/command/': [
