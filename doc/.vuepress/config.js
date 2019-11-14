@@ -37,36 +37,50 @@ module.exports = {
         nav: [
             // 内部链接，以doc为根目录
             { text: '主页', link: '/' },
-            {
-                text: 'Java',
-                items: [
-                    { text: 'Base', link: '/java/' },
-                    { text: 'Netty', link: '/netty/' }
-                ]
-            },
-            {
+            /* {
                 text: 'Data',
                 items: [
                     { text: 'Redis', link: '/redis/' },
-                    /* { text: 'MySQL', link: '/mysql/' }, */
+                    { text: 'MySQL', link: '/mysql/' },
                     { text: 'Elasticsearch', link: '/elasticsearch/' }
                 ]
+            }, */
+            {
+                text: '学习记录',
+                items: [
+                    { text: 'Java', link: '/java/' },
+                    { text: 'Netty', link: '/netty/' },
+                    { text: 'Docker', link: '/docker/' },
+                    { text: 'Redis', link: '/redis/' },
+                    { text: 'Elasticsearch', link: '/elasticsearch/' },
+                    { text: '前端记录', link: '/front/' }
+                ]
             },
-            { text: 'Docker', link: '/docker/' },
-            { text: '前端记录', link: '/front/' },
-            { text: '工具命令', link: '/command/' },
+            {
+                text: '架构记录',
+                items: [
+                    { text: '秒杀架构', link: '/seckill/' }
+                ]
+            },
+            {
+                text: '其他补充',
+                items: [
+                    { text: '工具命令', link: '/command/' },
+                    { text: '零散记录', link: '/other/' },
+                    { text: '编程闲话', link: '/gossip/' }
+                ]
+            },
             {
                 text: '开源项目',
                 items: [
                     { text: 'ShiroJwt', link: '/shirojwt/' },
+                    { text: 'SeckillEvolution', link: '/seckill-evolution/' },
                     { text: 'ViewGenerator', link: '/viewgenerator/' },
                     { text: 'VueStudy', link: 'https://github.com/dolyw/VueStudy' },
                     { text: 'NettyStudy', link: 'https://github.com/dolyw/NettyStudy' },
                     { text: 'Elasticsearch', link: 'https://github.com/dolyw/Elasticsearch' }
                 ]
             },
-            { text: '零散记录', link: '/other/' },
-            { text: '编程闲话', link: '/gossip/' },
             // 外部链接
             /* { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' }, */
             // 下拉列表
@@ -121,7 +135,13 @@ module.exports = {
             ],
             // 前端记录
             '/front/': [
-                ['', '组件UI库记录']
+                ['', '前端记录'],
+                ['notes', '组件UI库记录']
+            ],
+            // 秒杀架构
+            '/seckill/': [
+                ['', '秒杀架构'],
+                ['00-JMeter-Install', 'JMeter的安装使用']
             ],
             // 工具命令
             '/command/': [
@@ -131,18 +151,6 @@ module.exports = {
                 ['03-Docker-Command.md', 'Docker命令记录'],
                 ['04-Git-MultiUser.md', 'SSH同时使用多个Git账户'],
                 ['05-Git-MultiPush.md', 'Git一次Push到多个远端']
-            ],
-            // 开源项目
-            '/shirojwt/': [
-                ['', 'ShiroJwt'],
-                ['ShiroJwt01.md', '项目说明'],
-                ['ShiroJwt-Interface.md', '接口文档'],
-                ['ShiroJwt02-MySQL.md', '改为数据库形式(MySQL)'],
-                ['ShiroJwt03-401.md', '解决无法直接返回401错误'],
-                ['ShiroJwt04-Redis.md', '实现Shiro的Cache(Redis)功能']
-            ],
-            '/viewgenerator/': [
-                ['', 'ViewGenerator']
             ],
             // 零散记录
             '/other/': [
@@ -159,6 +167,21 @@ module.exports = {
                 ['01-Programmer-Slang.md', '码农有趣的黑话'],
                 ['02-Technical-Interpretation.md', '史上最污技术解读'],
                 ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
+            ],
+            // 开源项目
+            '/shirojwt/': [
+                ['', 'ShiroJwt'],
+                ['ShiroJwt01.md', '项目说明'],
+                ['ShiroJwt-Interface.md', '接口文档'],
+                ['ShiroJwt02-MySQL.md', '改为数据库形式(MySQL)'],
+                ['ShiroJwt03-401.md', '解决无法直接返回401错误'],
+                ['ShiroJwt04-Redis.md', '实现Shiro的Cache(Redis)功能']
+            ],
+            '/seckill-evolution/': [
+                ['', 'SeckillEvolution']
+            ],
+            '/viewgenerator/': [
+                ['', 'ViewGenerator']
             ]
         }
     }
