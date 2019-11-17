@@ -51,8 +51,9 @@ module.exports = {
                     { text: 'Java', link: '/java/' },
                     { text: 'Netty', link: '/netty/' },
                     { text: 'Docker', link: '/docker/' },
-                    { text: 'Redis', link: '/redis/' },
                     { text: 'Elasticsearch', link: '/elasticsearch/' },
+                    { text: '缓存', link: '/cache/' },
+                    { text: '数据库', link: '/database/' },
                     { text: '前端记录', link: '/front/' }
                 ]
             },
@@ -105,14 +106,6 @@ module.exports = {
                 ['03-List-De-Duplication.md', 'List集合去重方式及效率对比'],
                 ['04-50-Details.md', 'Java性能优化的50个细节']
             ],
-            '/redis/': [
-                ['', 'Redis'],
-                ['00-DataBaseConsistency.md', 'Redis与数据库一致性'],
-                ['01-DataBaseConsistency.md', 'Redis与数据库一致性补充']
-            ],
-            /* '/mysql/': [
-                ['', '目录']
-            ], */
             '/netty/': [
                 ['', 'Netty'],
                 ['00-Netty-SocketIO.md', 'Netty-SocketIO实现聊天室']
@@ -132,6 +125,18 @@ module.exports = {
                 ['03-SpringBootES.md', 'SpringBoot整合Elasticsearch'],
                 ['04-DockerES.md', 'Docker下Elasticsearch的使用'],
                 ['05-MySqlES.md', 'MySql数据同步Elasticsearch']
+            ],
+            '/cache/': [
+                ['', '缓存失效的场景'],
+                ['00-DataBaseConsistency.md', 'Redis与数据库一致性'],
+                ['01-DataBaseConsistency.md', 'Redis与数据库一致性补充']
+            ],
+            /* '/mysql/': [
+                ['', '目录']
+            ], */
+            '/database/': [
+                ['', '数据库的ACID'],
+                ['00-Isolation', '事务隔离级别(Isolation Level)']
             ],
             // 前端记录
             '/front/': [
