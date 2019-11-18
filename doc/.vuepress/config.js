@@ -14,9 +14,9 @@ module.exports = {
         // 代码块显示行号
         /* lineNumbers: true */
     },
-    /* plugins: [
+    plugins: [
         [
-            '@vuepress/last-updated',
+            /* '@vuepress/last-updated',
             {
                 // 上次更新时间格式化
                 transformer: (timestamp, lang) => {
@@ -26,9 +26,20 @@ module.exports = {
                     // return moment(timestamp).fromNow()
                     return moment(timestamp).format('YYYY-MM-DD HH:mm:ss')
                 }
+            }, */
+            'vuepress-plugin-comment',
+            {
+                choosen: 'valine',
+                // options选项中的所有参数，会传给Valine的配置
+                options: {
+                    el: '#valine-vuepress-comment',
+                    appId: 'XDLHqMjTYOnBBBdNwzaLesgs-gzGzoHsz',
+                    appKey: 's10rSi9AmBIhng4t1dbNbauq',
+                    placeholder: '评论'
+                }
             }
         ]
-    ], */
+    ],
     themeConfig: {
         // 将同时提取markdown中h1和h2标题，显示在侧边栏上
         sidebarDepth: 2,
@@ -82,6 +93,7 @@ module.exports = {
                     { text: 'Elasticsearch', link: 'https://github.com/dolyw/Elasticsearch' }
                 ]
             },
+            { text: '关于投食', link: '/about/about.md' },
             // 外部链接
             /* { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' }, */
             // 下拉列表
@@ -131,9 +143,6 @@ module.exports = {
                 ['00-DataBaseConsistency.md', 'Redis与数据库一致性'],
                 ['01-DataBaseConsistency.md', 'Redis与数据库一致性补充']
             ],
-            /* '/mysql/': [
-                ['', '目录']
-            ], */
             '/database/': [
                 ['', '数据库的ACID'],
                 ['00-Isolation', '事务隔离级别(Isolation Level)']
@@ -159,7 +168,7 @@ module.exports = {
             ],
             // 零散记录
             '/other/': [
-                ['', '推荐阅读书籍博客文章'],
+                ['', '推荐阅读'],
                 ['01-CV.md', '怎么样写一个好的简历'],
                 ['02-CV2.md', '怎么样写一个好的简历To'],
                 ['03-Interview.md', '一些不错的面试记录收集'],
