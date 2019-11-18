@@ -154,8 +154,8 @@ module.exports = {
             ],
             // 秒杀架构
             '/seckill/': [
-                ['', '秒杀架构'],
-                ['00-JMeter-Install', 'JMeter的安装使用']
+                ['', '秒杀架构']/* ,
+                ['00-Thinking-Process', '大概的思路流程'] */
             ],
             // 工具命令
             '/command/': [
@@ -164,7 +164,8 @@ module.exports = {
                 ['02-Linux-Command.md', 'Linux命令记录'],
                 ['03-Docker-Command.md', 'Docker命令记录'],
                 ['04-Git-MultiUser.md', 'SSH同时使用多个Git账户'],
-                ['05-Git-MultiPush.md', 'Git一次Push到多个远端']
+                ['05-Git-MultiPush.md', 'Git一次Push到多个远端'],
+                ['06-JMeter-Install', 'JMeter的安装使用']
             ],
             // 零散记录
             '/other/': [

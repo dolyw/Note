@@ -6,4 +6,5 @@
     <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/feed/alipay.png" alt="支付宝" height="150" width="150"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/feed/wechatpay.png" alt="微信" height="150" width="150"></img>
 </center>
+<br/>
 <center class="half"><b>支付宝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微信</b></center>
