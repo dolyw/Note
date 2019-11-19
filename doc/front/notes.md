@@ -98,8 +98,8 @@ $('#test').autocomplete({
 
 ### jquery-loading: 加载遮罩
 
-* 这个一般: [Github](https://github.com/CarlosBonetti/jquery-loading)
-* 这个加强版不错: [Github](https://github.com/gasparesganga/jquery-loading-overlay)
+* 这个一般: [jquery-loading](https://github.com/CarlosBonetti/jquery-loading)
+* 这个加强版不错: [jquery-loading-overlay](https://github.com/gasparesganga/jquery-loading-overlay)
 
 ## LayUI
 
