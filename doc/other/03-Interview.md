@@ -12,6 +12,7 @@
 
 ## 地址记录
 
+* 2019最新拼多多技术部面试题：幻影读+分段锁+死锁: [https://www.jianshu.com/p/829efb62f838](https://www.jianshu.com/p/829efb62f838)
 * 面试阿里挂了却拿到网易、点我达offer，一个三年经验Java程序员的面试总结: [https://mp.weixin.qq.com/s/2rcB0UaDU7esIG1zHzN9DQ](https://mp.weixin.qq.com/s/2rcB0UaDU7esIG1zHzN9DQ)
 * 10个比较艰难的Java面试题与答案！: [https://mp.weixin.qq.com/s/MO7flAl_2bnpAtffP2x4JA](https://mp.weixin.qq.com/s/MO7flAl_2bnpAtffP2x4JA)
 * 蚂蚁金服2019实习生面经总结(已拿口头offer): [https://mp.weixin.qq.com/s/MDZwOQSli2foSqaZFIdVrA](https://mp.weixin.qq.com/s/MDZwOQSli2foSqaZFIdVrA)
