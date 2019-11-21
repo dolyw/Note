@@ -1,10 +1,17 @@
 ## 目录列表
 
-1. 简单了解Elasticsearch
-2. 安装本地Elasticsearch，安装本地Elasticsearch-Head，本地Elasticsearch集群搭建
-3. 安装本地Elasticsearch的IK分词插件和拼音分词插件
-4. SpringBoot整合Elasticsearch的方式(TransportClient、Data-ES、Elasticsearch SQL、REST Client)
-5. Docker下Elasticsearch的使用
+::: danger Elasticsearch
+Elasticsearch的学习记录
+:::
+
+本栏的主要内容如下：
+
+* [简单了解Elasticsearch](00-GettingStarted.html)
+* [安装本地Elasticsearch，安装本地Elasticsearch-Head，本地Elasticsearch集群搭建](01-LocalInstallation.html)
+* [安装本地Elasticsearch的IK分词插件和拼音分词插件](02-LocalInstallationIK.html)
+* [SpringBoot整合Elasticsearch的方式(TransportClient、Data-ES、Elasticsearch SQL、REST Client)](03-SpringBootES.html)
+* [Docker下Elasticsearch的使用](04-DockerES.html)
+* [MySql数据同步Elasticsearch](05-MySqlES.html)
 
 ## 代码地址
 

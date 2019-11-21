@@ -1,3 +1,27 @@
 # SeckillEvolution
 
-> 秒杀的学习记录
+> 一个简单的秒杀架构的演变
+
+## 介绍
+
+一直想自己写一个简单的秒杀架构的演变，加强自己，参考了很多博客和文章，如有不正确的地方请指出，感谢:yum:
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/dolyw/SeckillEvolution/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/dolyw/SeckillEvolution.svg?style=social&label=Stars)](https://github.com/dolyw/SeckillEvolution)
+[![GitHub forks](https://img.shields.io/github/forks/dolyw/SeckillEvolution.svg?style=social&label=Fork)](https://github.com/dolyw/SeckillEvolution)
+
+* Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
+* Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
+
+## 目录
+
+* [整体流程](00-Preparation.html)
+* [传统方式](01-Tradition-Process.html)
+
+## 参考
+
+* 感谢杨冠标的流量削峰: [https://www.cnblogs.com/yanggb/p/11117400.html](https://www.cnblogs.com/yanggb/p/11117400.html)
+* 感谢mikechen优知的高并发架构系列：什么是流量削峰？如何解决秒杀业务的削峰场景: [https://www.jianshu.com/p/6746140bbb76](https://www.jianshu.com/p/6746140bbb76)
+* 感谢crossoverjie的SSM(十八) 秒杀架构实践: [https://crossoverjie.top/2018/05/07/ssm/SSM18-seconds-kill/](https://crossoverjie.top/2018/05/07/ssm/SSM18-seconds-kill/)
+* 感谢qiurunze123的秒杀系统设计与实现: [https://github.com/qiurunze123/miaosha](https://github.com/qiurunze123/miaosha)

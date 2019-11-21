@@ -122,8 +122,8 @@ module.exports = themeConfig = {
         ],
         // 秒杀架构
         '/seckill/': [
-            ['', '秒杀架构'],
-            ['01-Tradition-Process', '传统方式']
+            ['', '目录'],
+            ['01-Design-Thinking.md', '秒杀系统的设计思考']
         ],
         // 工具命令
         '/command/': [
@@ -161,7 +161,9 @@ module.exports = themeConfig = {
             ['ShiroJwt04-Redis.md', '实现Shiro的Cache(Redis)功能']
         ],
         '/seckill-evolution/': [
-            ['', 'SeckillEvolution']
+            ['', 'SeckillEvolution'],
+            ['00-Preparation.md', '整体流程'],
+            ['01-Tradition-Process', '传统方式']
         ],
         '/viewgenerator/': [
             ['', 'ViewGenerator']
