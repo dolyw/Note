@@ -113,7 +113,8 @@ module.exports = themeConfig = {
         ],
         '/database/': [
             ['', '数据库的ACID'],
-            ['00-Isolation', '事务隔离级别(Isolation Level)']
+            ['00-Isolation', '事务隔离级别'],
+            ['01-DB-Lock', '数据库的那些锁']
         ],
         // 前端记录
         '/front/': [
@@ -162,8 +163,10 @@ module.exports = themeConfig = {
         ],
         '/seckill-evolution/': [
             ['', 'SeckillEvolution'],
-            ['00-Preparation.md', '整体流程'],
-            ['01-Tradition-Process', '传统方式']
+            ['00-Preparation.md', '0. 整体流程'],
+            ['01-Tradition-Process', '1. 传统方式'],
+            ['02-Optimistic-Lock', '2. 使用乐观锁'],
+            ['03-Optimistic-Lock-Redis', '3. 使用缓存']
         ],
         '/viewgenerator/': [
             ['', 'ViewGenerator']

@@ -16,12 +16,15 @@
 
 ## 目录
 
-* [整体流程](00-Preparation.html)
-* [传统方式](01-Tradition-Process.html)
+* [0. 整体流程](00-Preparation.html)
+* [1. 传统方式](01-Tradition-Process.html)
+* [2. 使用乐观锁](02-Optimistic-Lock.html)
+* [3. 使用缓存](03-Optimistic-Lock-Redis.html)
 
 ## 参考
 
 * 感谢杨冠标的流量削峰: [https://www.cnblogs.com/yanggb/p/11117400.html](https://www.cnblogs.com/yanggb/p/11117400.html)
 * 感谢mikechen优知的高并发架构系列：什么是流量削峰？如何解决秒杀业务的削峰场景: [https://www.jianshu.com/p/6746140bbb76](https://www.jianshu.com/p/6746140bbb76)
 * 感谢crossoverjie的SSM(十八) 秒杀架构实践: [https://crossoverjie.top/2018/05/07/ssm/SSM18-seconds-kill/](https://crossoverjie.top/2018/05/07/ssm/SSM18-seconds-kill/)
+* 感谢crossoverjie的设计一个秒杀系统思路以及限流: [https://github.com/crossoverJie/JCSprout/blob/master/MD/Spike.md](https://github.com/crossoverJie/JCSprout/blob/master/MD/Spike.md)
 * 感谢qiurunze123的秒杀系统设计与实现: [https://github.com/qiurunze123/miaosha](https://github.com/qiurunze123/miaosha)

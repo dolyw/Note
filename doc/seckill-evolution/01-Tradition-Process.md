@@ -1,8 +1,17 @@
 # 秒杀传统方式
 
+> 目录: [https://note.dolyw.com/seckill-evolution](https://note.dolyw.com/seckill-evolution)
+
+**项目地址**
+
+* Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
+* Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
+
+## 1. 思路介绍
+
 不做任何控制，按照流程进行**检查库存，扣库存，下订单**，这种方式会存在**并发问题**
 
-## 代码实现
+## 2. 代码实现
 
 在**SeckillEvolutionController**创建一个传统方式下订单入口的方法
 
@@ -14,7 +23,7 @@
  * 
  * @param id 商品ID
  * @return com.example.common.ResponseBean
- * @throws 
+ * @throws Exception
  * @author wliduo[i@dolyw.com]
  * @date 2019/11/21 19:50
  */
@@ -32,21 +41,21 @@ public ResponseBean createWrongOrder(@PathVariable("id") Integer id) throws Exce
 ```java
 /**
  * 传统方式的创建订单(并发会出现错误)
- *
+ * 
  * @param id
  * @return java.lang.Integer
- * @throws
+ * @throws Exception
  * @author wliduo[i@dolyw.com]
- * @date 2019/11/20 20:58
+ * @date 2019/11/22 14:21
  */
-Integer createWrongOrder(Integer id);
+Integer createWrongOrder(Integer id) throws Exception;
 ```
 
 * **ISeckillEvolutionService**
 
 ```java
 /**
- * 传统方式(名称注入SeckillTraditionServiceImpl)
+ * 传统方式(名称注入)
  */
 @Autowired
 @Qualifier("seckillTraditionService")
@@ -54,7 +63,7 @@ private ISeckillService seckillTraditionService;
 
 @Override
 @Transactional(rollbackFor = Exception.class)
-public Integer createWrongOrder(Integer id) {
+public Integer createWrongOrder(Integer id)  throws Exception {
     // 检查库存
     StockDto stockDto = seckillTraditionService.checkStock(id);
     // 扣库存
@@ -120,9 +129,30 @@ public class SeckillTraditionServiceImpl implements ISeckillService {
 }
 ```
 
-## 开始测试
+## 3. 开始测试
 
 使用**JMeter**测试上面的代码，**JMeter**的使用可以查看: [JMeter的安装使用](http://note.dolyw.com/command/06-JMeter-Install.html)
 
-我们调用一下商品库存初始化的方法，我使用的是**PostMan**
+我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**50**个库存，而且清空订单表
 
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122001.png)
+
+这时候可以看到我们的数据，库存为**50**，卖出为**0**，订单表为空
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122002.png)
+
+打开**JMeter**，添加测试计划，模拟**500**个并发线程测试秒杀**50**个库存的商品，填写请求地址，点击启动图标开始
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122003.png)
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122004.png)
+
+可以看到**500**个并发线程，都抢购到了订单，而我们的商品实际显示为卖出**27**，库存还有**23**
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122005.png)
+
+这就是卖超问题了，这是因为同一时间大量线程同时请求校验库存，扣库存，创建订单，这三个操作不在同一个原子，比如，很多线程同时读到库存为**50**，这样都穿过了校验库存的判断，所以出现卖超问题
+
+在这种情况下就引入了**锁**的概念，锁区分为**乐观锁和悲观锁**，悲观锁都是牺牲性能保证数据，所以在这种高并发场景下，一般都是使用**乐观锁**解决
+
+**使用乐观锁**: [http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html](http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html)

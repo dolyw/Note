@@ -1,10 +1,17 @@
 # 整体流程
 
+> 目录: [https://note.dolyw.com/seckill-evolution](https://note.dolyw.com/seckill-evolution)
+
 一直想自己写一个简单的秒杀架构的演变，加强自己，参考了很多博客和文章，如有不正确的地方请指出，感谢:yum:
 
 ![图片](https://img10.360buyimg.com/img/jfs/t1/20766/5/2569/346352/5c1ed00bE0f164803/9604980c7397e91c.jpg)
 
-## 常见场景
+**项目地址**
+
+* Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
+* Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
+
+## 1. 常见场景
 
 最典型的就是淘宝京东等电商双十一秒杀了，短时间上亿的用户涌入，瞬间流量巨大(高并发)。例如，**200万人准备在凌晨12:00准备抢购一件商品**，但是**商品的数量是有限的100件**，这样**真实能购买到该件商品的用户也只有100人及以下，不能卖超**
 
@@ -14,7 +21,7 @@
 
 同理，在线上的秒杀等业务场景，也需要类似的解决方案，需要平安度过同时抢购带来的流量峰值的问题，这就是**流量削峰**的由来
 
-## 流量削峰
+## 2. 流量削峰
 
 削峰从本质上来说就是更多地延缓用户请求，以及层层过滤用户的访问需求，遵从**最后落地到数据库的请求数要尽量少**的原则
 
@@ -24,23 +31,15 @@
 2. [答题](#答题)
 3. [过滤](#过滤) -->
 
-### 排队
+1. **排队**最容易想到的解决方案就是用**消息队列**来缓冲瞬时流量，把同步的直接调用转换成异步的间接推送，中间通过一个队列在一端承接瞬时的流量洪峰，在另一端平滑地将消息推送出去，在这里，**消息队列**就像**水库**一样，拦蓄上游的洪水，削减进入下游河道的洪峰流量，从而达到减免洪水灾害的目的
 
-排队最容易想到的解决方案就是用**消息队列**来缓冲瞬时流量，把同步的直接调用转换成异步的间接推送，中间通过一个队列在一端承接瞬时的流量洪峰，在另一端平滑地将消息推送出去
+2. **答题**目的其实就是延缓请求，起到对请求流量进行削峰的作用，从而让系统能够更好地支持瞬时的流量高峰
 
-在这里，**消息队列**就像**水库**一样，拦蓄上游的洪水，削减进入下游河道的洪峰流量，从而达到减免洪水灾害的目的
+3. 前面介绍的排队和答题，要么是在接收请求时做缓冲，要么是减少请求的同时发送，而针对秒杀场景还有一种方法，就是对请求进行**分层过滤**，从而过滤掉一些无效的请求，从Web层接到请求，到缓存，消息队列，最终到数据库这样就像漏斗一样，尽量把数据量和请求量一层一层地过滤和减少了，最终，到漏斗最末端(数据库)的才是有效请求
 
-### 答题
+## 3. 项目准备
 
-答题目的其实就是延缓请求，起到对请求流量进行削峰的作用，从而让系统能够更好地支持瞬时的流量高峰
-
-### 过滤
-
-前面介绍的排队和答题，要么是在接收请求时做缓冲，要么是减少请求的同时发送，而针对秒杀场景还有一种方法，就是对请求进行分层过滤，从而过滤掉一些无效的请求，从Web层接到请求，到缓存，消息队列，最终到数据库这样就像漏斗一样，尽量把数据量和请求量一层一层地过滤和减少了，最终，到漏斗最末端(数据库)的才是有效请求
-
-## 项目准备
-
-### 表结构
+### 3.1. 表结构
 
 这里我采用的是**MySQL**，简单的使用两个表，一个库存表，一个订单表，插入一条商品数据
 
@@ -76,7 +75,7 @@ CREATE TABLE `t_seckill_stock_order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='库存订单表';
 ```
 
-### 工程创建
+### 3.2. 工程创建
 
 这个自行创建即可，我创建的是一个**SpringBoot2**项目，<!-- 后续可能改为**SpringCloud**或**Dubbo**， -->然后使用**代码生成工具**: [ViewGenerator](https://github.com/dolyw/ViewGenerator)，根据表结构生成一下对应的文件，记得移除表前缀参数`t_seckill_`
 
@@ -155,7 +154,7 @@ logging:
     level.com.example.dao: debug
 ```
 
-### 初始代码
+### 3.3. 初始代码
 
 先编写一个入口**Controller**，默认有一个初始化库存方法
 
@@ -208,16 +207,16 @@ public class SeckillEvolutionController {
 
     /**
      * 初始化库存数量
-     *
-     * @param
-     * @return java.lang.String
-     * @throws
+     * 
+     * @param id 商品ID
+     * @return com.example.common.ResponseBean
+     * @throws 
      * @author wliduo[i@dolyw.com]
-     * @date 2019/11/14 16:56
+     * @date 2019/11/22 15:59
      */
     @PutMapping("/init/{id}")
     public ResponseBean init(@PathVariable("id") Integer id) {
-        // 更新库存表
+        // 更新库存表该商品的库存，已售，乐观锁版本号
         StockDto stockDto = new StockDto();
         stockDto.setId(id);
         stockDto.setName(Constant.ITEM_STOCK_NAME);
@@ -225,8 +224,10 @@ public class SeckillEvolutionController {
         stockDto.setSale(ITEM_STOCK_SALE);
         stockDto.setVersion(ITEM_STOCK_SALE);
         stockService.updateByPrimaryKey(stockDto);
-        // 删除订单表所有数据
-        stockOrderService.delete(null);
+        // 删除订单表该商品所有数据
+        StockOrderDto stockOrderDto = new StockOrderDto();
+        stockOrderDto.setStockId(id);
+        stockOrderService.delete(stockOrderDto);
         return new ResponseBean(HttpStatus.OK.value(), "初始化库存成功", null);
     }
 
@@ -319,26 +320,35 @@ public interface ISeckillService {
 }
 ```
 
-## 思路流程
+## 4. 思路流程
 
-一般的秒杀流程从后台接收到请求开始不外乎是这样的(这里不考虑前端的答题，验证码等流程，直接以最终后台下单的请求开始)
+一般的秒杀流程从后台接收到请求开始不外乎是这样的(这里不考虑前端的答题，验证码等流程，直接以最终后端下单的请求开始)
 
-1. 用户通过前端校验最终发起请求到**Web**层
+1. 用户通过前端校验最终发起请求到后端
 2. 然后校验库存，扣库存，创建订单
 3. 最终数据落地，持久化保存
 
-### 传统方式
+### 4.1. 传统方式
 
-我们首先搭建一个后台服务接口，不做任何限制，使用**JMeter**，模拟100个并发线程测试，可以发现**并发事务下会出现错误**
+我们首先搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，不做任何限制，使用**JMeter**，模拟**500**个并发线程测试购买**50**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/01-Tradition-Process.html](http://note.dolyw.com/seckill-evolution/01-Tradition-Process.html)
 
-1. 读后写的更新丢失问题?
-2. 数据库性能慢的问题
+可以发现**并发事务下会出现错误**，出现**卖超问题**，这是因为同一时间大量线程同时请求校验库存，扣库存，创建订单，这三个操作不在同一个原子，比如，很多线程同时读到库存为**50**，这样都穿过了校验库存的判断，所以出现卖超问题
 
-### 使用乐观锁
+在这种情况下就引入了**锁**的概念，锁区分为**乐观锁和悲观锁**，详细的区别可以查看: [数据库的那些锁](http://note.dolyw.com/database/01-DB-Lock.html)，悲观锁都是牺牲性能保证数据，所以在这种高并发场景下，一般都是使用**乐观锁**解决
 
-### 使用缓存
+### 4.2. 使用乐观锁
 
-### 使用分布式限流
+我们再搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，但是这次我们需要使用**乐观锁**，使用**JMeter**，模拟**1000**个并发线程测试购买**50**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html](http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html)
 
-### 使用队列异步下单
+可以发现乐观锁解决**卖超问题**，多个线程同时在**检查库存**的时候都会拿到当前商品的相同乐观锁版本号，然后在**扣库存**时，如果版本号不对，就会扣减失败，抛出异常结束，这样每个版本号就只能有第一个线程扣库存操作成功，其他相同版本号的线程秒杀失败，就不会存在**卖超问题**了
+
+### 4.3. 使用缓存
+
+
+
+### 4.4. 使用分布式限流
+
+
+
+### 4.5. 使用队列异步下单
 
