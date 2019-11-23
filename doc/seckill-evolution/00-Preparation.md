@@ -62,8 +62,8 @@ CREATE TABLE `t_seckill_stock` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='库存表';
---- 插入一条商品，初始化50个库存
-INSERT INTO `t_seckill_stock` (`count`, `sale`, `version`) VALUES ('50', '0', '0');
+--- 插入一条商品，初始化10个库存
+INSERT INTO `t_seckill_stock` (`count`, `sale`, `version`) VALUES ('10', '0', '0');
 --- 创建库存订单表
 DROP TABLE IF EXISTS `t_seckill_stock_order`;
 CREATE TABLE `t_seckill_stock_order` (
@@ -198,7 +198,7 @@ public class SeckillEvolutionController {
     /**
      * 初始化库存数量
      */
-    private static final Integer ITEM_STOCK_COUNT = 50;
+    private static final Integer ITEM_STOCK_COUNT = 10;
 
     /**
      * 初始化卖出数量，乐观锁版本
@@ -330,21 +330,43 @@ public interface ISeckillService {
 
 ### 4.1. 传统方式
 
-我们首先搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，不做任何限制，使用**JMeter**，模拟**500**个并发线程测试购买**50**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/01-Tradition-Process.html](http://note.dolyw.com/seckill-evolution/01-Tradition-Process.html)
+我们首先搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，不做任何限制，使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/01-Tradition-Process.html](http://note.dolyw.com/seckill-evolution/01-Tradition-Process.html)
 
-可以发现**并发事务下会出现错误**，出现**卖超问题**，这是因为同一时间大量线程同时请求校验库存，扣库存，创建订单，这三个操作不在同一个原子，比如，很多线程同时读到库存为**50**，这样都穿过了校验库存的判断，所以出现卖超问题
+可以发现**并发事务下会出现错误**，出现**卖超问题**，这是因为同一时间大量线程同时请求校验库存，扣库存，创建订单，这三个操作不在同一个原子，比如，很多线程同时读到库存为**10**，这样都穿过了校验库存的判断，所以出现卖超问题
 
-在这种情况下就引入了**锁**的概念，锁区分为**乐观锁和悲观锁**，详细的区别可以查看: [数据库的那些锁](http://note.dolyw.com/database/01-DB-Lock.html)，悲观锁都是牺牲性能保证数据，所以在这种高并发场景下，一般都是使用**乐观锁**解决
+在这种情况下就引入了**锁**的概念，锁区分为**乐观锁和悲观锁**，悲观锁都是牺牲性能保证数据，所以在这种高并发场景下，一般都是使用**乐观锁**解决
 
 ### 4.2. 使用乐观锁
 
-我们再搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，但是这次我们需要使用**乐观锁**，使用**JMeter**，模拟**1000**个并发线程测试购买**50**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html](http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html)
+我们再搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，但是这次我们需要使用**乐观锁**，这里可以先查看一篇文章: [数据库的那些锁](http://note.dolyw.com/database/01-DB-Lock.html)
+
+使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html](http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html)
 
 可以发现乐观锁解决**卖超问题**，多个线程同时在**检查库存**的时候都会拿到当前商品的相同乐观锁版本号，然后在**扣库存**时，如果版本号不对，就会扣减失败，抛出异常结束，这样每个版本号就只能有第一个线程扣库存操作成功，其他相同版本号的线程秒杀失败，就不会存在**卖超问题**了
 
+不过现在每次读取库存都去查数据库，我们可以看下**Druid**的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123005.png)
+
+可以看到，查询库存执行了**500**次，遵从**最后落地到数据库的请求数要尽量少**的原则，其实我们可以把这个数据放缓存，提升性能
+
 ### 4.3. 使用缓存
 
+我们继续搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，这次我们引入**缓存**，这里可以先查看一篇文章: [Redis与数据库一致性](https://note.dolyw.com/cache/00-DataBaseConsistency.html)
 
+这里我采用的是**先更新数据库再更新缓存**，因为这里**缓存数据计算简单**，只需要进行加减一即可，所以我们直接进行更新缓存
+
+这次主要改造是**检查库存和扣库存**方法，**检查库存**直接去**Redis**获取，不再去查数据库，而在**扣库存**这里本身是使用的乐观锁操作，只有操作成功(扣库存成功)的才需要**更新缓存数据**
+
+使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/03-Optimistic-Lock-Redis.html](http://note.dolyw.com/seckill-evolution/03-Optimistic-Lock-Redis.html)
+
+我们可以看下使用缓存后**Druid**的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
+
+使用了缓存，可以看到库存查询**SQL**，**只执行了一次，就是缓存预热那执行了一次**，不像之前每次库存都去查数据库
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123010.png)
+
+不过**乐观锁更新**操作还是执行了近**100**次**SQL**，遵从**最后落地到数据库的请求数要尽量少**的原则，有没有办法优化这里呢，可以的，**实际上很多都是无效请求**，这里我们可以使用**限流**，把大部分无效请求拦截了，尽可能保证最终到达数据库的都是有效请求
 
 ### 4.4. 使用分布式限流
 

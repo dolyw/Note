@@ -9,7 +9,9 @@
 
 ## 1. 思路介绍
 
-这次我们引入**乐观锁**，主要改造是**扣库存**，每个线程在**检查库存**的时候会拿到当前商品的乐观锁版本号，然后在**扣库存**时，如果版本号不对，就会扣减失败，抛出异常结束，这样每个版本号就只能有一个线程操作成功，其他相同版本号的线程秒杀失败，就不会存在**卖超问题**了
+这次我们引入**乐观锁**，这里可以先查看一篇文章: [数据库的那些锁](http://note.dolyw.com/database/01-DB-Lock.html)
+
+主要改造是**扣库存**，每个线程在**检查库存**的时候会拿到当前商品的乐观锁版本号，然后在**扣库存**时，如果版本号不对，就会扣减失败，抛出异常结束，这样每个版本号就只能有一个线程操作成功，其他相同版本号的线程秒杀失败，就不会存在**卖超问题**了
 
 ## 2. 代码实现
 
@@ -151,35 +153,35 @@ int updateByOptimisticLock(StockDto stockDto);
 
 使用**JMeter**测试上面的代码，**JMeter**的使用可以查看: [JMeter的安装使用](http://note.dolyw.com/command/06-JMeter-Install.html)
 
-我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**50**个库存，而且清空订单表
+我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**10**个库存，而且清空订单表
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122001.png)
 
-这时候可以看到我们的数据，库存为**50**，卖出为**0**，订单表为空
+这时候可以看到我们的数据，库存为**10**，卖出为**0**，订单表为空
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123001.png)
 
-打开**JMeter**，添加测试计划，模拟**1000**个并发线程测试秒杀**50**个库存的商品，填写请求地址，点击启动图标开始
+打开**JMeter**，添加测试计划(`测试计划文件在项目的src\main\resources\jmx下`)，模拟**500**个并发线程测试秒杀**10**个库存的商品，填写请求地址，点击启动图标开始
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122011.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122006.png)
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122007.png)
 
-可以看到**1000**个并发线程执行完，最后商品实际显示为卖出**50**，库存还有**0**，而订单表也只有**50**条数据
+可以看到**500**个并发线程执行完，最后商品实际显示为卖出**10**，库存还有**0**，而订单表也只有**10**条数据
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122012.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123003.png)
 
 其他的线程应该都是扣减库存失败了，我们可以查看下后台
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122009.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123004.png)
 
 这样就解决**卖超问题**，多个线程同时在**检查库存**的时候都会拿到当前商品的相同乐观锁版本号，然后在**扣库存**时，如果版本号不对，就会扣减失败，抛出异常结束，这样每个版本号就只能有第一个线程扣库存操作成功，其他相同版本号的线程秒杀失败，就不会存在**卖超问题**了
 
 不过现在每次读取库存都去查数据库，我们可以看下**Druid**的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122010.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123005.png)
 
-可以看到，查询还是占了一部分时间，其实我们可以把这个数据放缓存，提升性能
+可以看到，查询库存执行了**500**次，遵从**最后落地到数据库的请求数要尽量少**的原则，其实我们可以把这个数据放缓存，提升性能
 
 **使用缓存**: [http://note.dolyw.com/seckill-evolution/03-Optimistic-Lock-Redis.html](http://note.dolyw.com/seckill-evolution/03-Optimistic-Lock-Redis.html)
 

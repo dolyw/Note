@@ -20,6 +20,7 @@
 * [1. 传统方式](01-Tradition-Process.html)
 * [2. 使用乐观锁](02-Optimistic-Lock.html)
 * [3. 使用缓存](03-Optimistic-Lock-Redis.html)
+* [4. 使用分布式限流](04-Distributed-Limit.html)
 
 ## 参考
 

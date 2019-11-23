@@ -19,6 +19,112 @@
 
 ## 2. 代码实现
 
+引入**Redis**
+
+* **pom.xml**
+
+```xml
+<jedis.version>2.9.0</jedis.version>
+<!-- Redis-Jedis -->
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>${jedis.version}</version>
+</dependency>
+```
+
+* **application.yml**
+
+```yml
+redis:
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password:
+    # 连接超时时间（毫秒）
+    timeout: 10000
+    pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
+```
+
+* **JedisConfig**
+
+```java
+package com.example.config.redis;
+
+import ...;
+
+/**
+ * Jedis配置，项目启动注入JedisPool
+ *
+ * @author dolyw.com
+ * @date 2018/9/5 10:35
+ */
+@Configuration
+@EnableAutoConfiguration
+@ConfigurationProperties(prefix = "redis")
+public class JedisConfig {
+
+    /**
+     * logger
+     */
+    private static final Logger logger = LoggerFactory.getLogger(JedisConfig.class);
+
+    private String host;
+
+    private int port;
+
+    private String password;
+
+    private int timeout;
+
+    @Value("${redis.pool.max-active}")
+    private int maxActive;
+
+    @Value("${redis.pool.max-wait}")
+    private int maxWait;
+
+    @Value("${redis.pool.max-idle}")
+    private int maxIdle;
+
+    @Value("${redis.pool.min-idle}")
+    private int minIdle;
+
+    @Bean
+    public JedisPool redisPoolFactory() {
+        try {
+            JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+            jedisPoolConfig.setMaxIdle(maxIdle);
+            jedisPoolConfig.setMaxWaitMillis(maxWait);
+            jedisPoolConfig.setMaxTotal(maxActive);
+            jedisPoolConfig.setMinIdle(minIdle);
+            // 密码为空设置为null
+            if (StringUtils.isBlank(password)) {
+                password = null;
+            }
+            JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout, password);
+            logger.info("初始化Redis连接池JedisPool成功!地址: " + host + ":" + port);
+            return jedisPool;
+        } catch (Exception e) {
+            logger.error("初始化Redis连接池JedisPool异常:" + e.getMessage());
+        }
+        return null;
+    }
+
+    // GETSET...
+}
+
+```
+
 先定义三个全局常量
 
 * **Constant**
@@ -54,7 +160,7 @@ public interface Constant {
 }
 ```
 
-在**SeckillEvolutionController**创建缓存预热和乐观锁加缓存的订单入口两个方法
+在**SeckillEvolutionController**创建缓存预热方法，以及乐观锁加缓存下单的入口方法
 
 * **SeckillEvolutionController**
 
@@ -89,18 +195,21 @@ public ResponseBean initCache(@PathVariable("id") Integer id) {
  */
 @PostMapping("/createOptimisticLockOrderWithRedis/{id}")
 public ResponseBean createOptimisticLockOrderWithRedis(@PathVariable("id") Integer id) throws Exception {
-    Integer orderCount = seckillEvolutionService.createOptimisticLockOrderWithRedis(id);
+    // 错误的，线程不安全
+    Integer orderCount = seckillEvolutionService.createOptimisticLockOrderWithRedisWrong(id);
+    // 正确的，线程安全
+    // Integer orderCount = seckillEvolutionService.createOptimisticLockOrderWithRedisSafe(id);
     return new ResponseBean(HttpStatus.OK.value(), "购买成功", null);
 }
 ```
 
-在**Service**添加方法
+在**Service**添加两个方法(缓存线程安全和不安全的两个方法)
 
 * **ISeckillEvolutionService**
 
 ```java
 /**
- * 使用乐观锁创建订单(解决卖超问题)，加缓存读，提升性能
+ * 使用乐观锁创建订单(解决卖超问题)，加缓存读(线程不安全)，提升性能，
  *
  * @param id
  * @return java.lang.Integer
@@ -108,45 +217,82 @@ public ResponseBean createOptimisticLockOrderWithRedis(@PathVariable("id") Integ
  * @author wliduo[i@dolyw.com]
  * @date 2019/11/22 14:21
  */
-Integer createOptimisticLockOrderWithRedis(Integer id) throws Exception;
+Integer createOptimisticLockOrderWithRedisWrong(Integer id) throws Exception;
+
+/**
+ * 使用乐观锁创建订单(解决卖超问题)，加缓存读(线程安全)，提升性能，
+ *
+ * @param id
+ * @return java.lang.Integer
+ * @throws Exception
+ * @author wliduo[i@dolyw.com]
+ * @date 2019/11/22 14:21
+ */
+Integer createOptimisticLockOrderWithRedisSafe(Integer id) throws Exception;
 ```
 
 * **ISeckillEvolutionService**
 
 ```java
 /**
- * 乐观锁加缓存方式(名称注入)，线程不安全
+ * 乐观锁加缓存方法(名称注入)，线程不安全
  */
 @Autowired
-@Qualifier("seckillOptimisticLockRedisService")
-private ISeckillService seckillOptimisticLockRedisService;
+@Qualifier("seckillOptimisticLockRedisWrongService")
+private ISeckillService SeckillOptimisticLockRedisWrongServiceImpl;
+
+/**
+ * 乐观锁加缓存方法(名称注入)，线程安全
+ */
+@Autowired
+@Qualifier("seckillOptimisticLockRedisSafeService")
+private ISeckillService seckillOptimisticLockRedisSafeService;
 
 @Override
 @Transactional(rollbackFor = Exception.class)
-public Integer createOptimisticLockOrderWithRedis(Integer id) throws Exception {
+public Integer createOptimisticLockOrderWithRedisWrong(Integer id) throws Exception {
     // 检查库存
-    StockDto stockDto = seckillOptimisticLockRedisService.checkStock(id);
-    Thread.sleep(10);
+    StockDto stockDto = SeckillOptimisticLockRedisWrongServiceImpl.checkStock(id);
     // 扣库存
-    Integer saleCount = seckillOptimisticLockRedisService.saleStock(stockDto);
+    Integer saleCount = SeckillOptimisticLockRedisWrongServiceImpl.saleStock(stockDto);
     if (saleCount <= 0) {
         throw new CustomException("扣库存失败");
     }
     Thread.sleep(10);
     // 下订单
-    Integer orderCount = seckillOptimisticLockRedisService.createOrder(stockDto);
+    Integer orderCount = SeckillOptimisticLockRedisWrongServiceImpl.createOrder(stockDto);
     if (saleCount <= 0) {
         throw new CustomException("下订单失败");
     }
     return orderCount;
 }
+
+@Override
+@Transactional(rollbackFor = Exception.class)
+public Integer createOptimisticLockOrderWithRedisSafe(Integer id) throws Exception {
+    // 检查库存
+    StockDto stockDto = seckillOptimisticLockRedisSafeService.checkStock(id);
+    // 扣库存
+    Integer saleCount = seckillOptimisticLockRedisSafeService.saleStock(stockDto);
+    if (saleCount <= 0) {
+        throw new CustomException("扣库存失败");
+    }
+    Thread.sleep(10);
+    // 下订单
+    Integer orderCount = seckillOptimisticLockRedisSafeService.createOrder(stockDto);
+    if (saleCount <= 0) {
+        throw new CustomException("下订单失败");
+    }
+    Thread.sleep(10);
+    return orderCount;
+}
 ```
 
-### 2.1. 错误实现
+## 3. 错误实现
 
-然后创建一个**ISeckillService**的使用乐观锁方式的实现类提供上面使用
+然后创建一个**ISeckillService**的使用乐观锁方式的实现类(线程不安全)
 
-* **SeckillOptimisticLockRedisServiceImpl**
+* **SeckillOptimisticLockRedisWrongServiceImpl**
 
 ```java
 package com.example.seckill.impl;
@@ -161,8 +307,8 @@ import java.util.List;
  * @author wliduo[i@dolyw.com]
  * @date 2019-11-20 18:03:33
  */
-@Service("seckillOptimisticLockRedisService")
-public class SeckillOptimisticLockRedisServiceImpl implements ISeckillService {
+@Service("seckillOptimisticLockRedisWrongService")
+public class SeckillOptimisticLockRedisWrongServiceImpl implements ISeckillService {
 
     /**
      * logger
@@ -179,7 +325,12 @@ public class SeckillOptimisticLockRedisServiceImpl implements ISeckillService {
     public StockDto checkStock(Integer id) {
         // 使用缓存读取库存，减轻DB压力
         Integer count = Integer.parseInt(JedisUtil.get(Constant.PREFIX_COUNT + id));
+        Thread.sleep(100);
         Integer sale = Integer.parseInt(JedisUtil.get(Constant.PREFIX_SALE + id));
+        Thread.sleep(100);
+        // 第一个线程和第二个线程同时读取缓存count时，都读取到10，然后第二个线程暂停了，第一个线程继续执行，
+        // 读取的version版本号为0，继续执行到已经秒杀完成，更新缓存(version版本号加一，变成1)，
+        // 现在第二个线程才恢复继续执行，结果读取缓存version版本号为1(本来应该也是0)
         Integer version = Integer.parseInt(JedisUtil.get(Constant.PREFIX_VERSION + id));
         if (count > 0) {
             // 还有库存
@@ -257,7 +408,59 @@ public class SeckillOptimisticLockRedisServiceImpl implements ISeckillService {
 }
 ```
 
-一开始没考虑，结果发现这块读取代码会存在线程不安全的情况，比如有个线程读取**Resid**的**count**库存时，正好另一个已经执行的前面的线程更新缓存事务提交了，结果导致读取到**version**版本号与库存有问题
+### 3.1. 开始测试
+
+修改**SeckillEvolutionController**的入口下单方法**createOptimisticLockOrderWithRedis**调用**createOptimisticLockOrderWithRedisWrong**线程不安全方法
+
+```java
+/**
+ * 使用乐观锁下订单，并且添加读缓存，性能提升
+ *
+ * @param id 商品ID
+ * @return com.example.common.ResponseBean
+ * @throws Exception
+ * @author wliduo[i@dolyw.com]
+ * @date 2019/11/22 14:24
+ */
+@PostMapping("/createOptimisticLockOrderWithRedis/{id}")
+public ResponseBean createOptimisticLockOrderWithRedis(@PathVariable("id") Integer id) throws Exception {
+    // 错误的，线程不安全
+    Integer orderCount = seckillEvolutionService.createOptimisticLockOrderWithRedisWrong(id);
+    // 正确的，线程安全
+    // Integer orderCount = seckillEvolutionService.createOptimisticLockOrderWithRedisSafe(id);
+    return new ResponseBean(HttpStatus.OK.value(), "购买成功", null);
+}
+```
+
+使用**JMeter**测试上面的代码，**JMeter**的使用可以查看: [JMeter的安装使用](http://note.dolyw.com/command/06-JMeter-Install.html)
+
+我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**10**个库存，而且清空订单表
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122001.png)
+
+接着使用**PostMan**调用缓存预热方法，提前加载好缓存
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122013.png)
+
+这时候可以看到我们的数据，库存为**10**，卖出为**0**，订单表为空
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123001.png)
+
+缓存数据也是这样
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123006.png)
+
+打开**JMeter**，添加测试计划(`测试计划文件在项目的src\main\resources\jmx下`)，模拟**500**个并发线程测试秒杀**10**个库存的商品，填写请求地址，点击启动图标开始
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123007.png)
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122016.png)
+
+可以看到**500**个并发线程执行完，最后发现**库存出现负数**
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123008.png)
+
+### 3.2. 结果总结
 
 ```java
 // 使用缓存读取库存，减轻DB压力
@@ -266,7 +469,7 @@ Integer sale = Integer.parseInt(JedisUtil.get(Constant.PREFIX_SALE + id));
 Integer version = Integer.parseInt(JedisUtil.get(Constant.PREFIX_VERSION + id));
 ```
 
-日志打出来是这样的，可以想象到那个卡点在哪了，就是第一个线程和第二个线程同时读取缓存**count**时，都读取到**10**，然后第二个线程暂停了，第一个线程继续执行到已经秒杀完成，更新缓存，现在第二个线程才恢复继续执行，结果读取缓存**version**版本号就加一了，所以变成了**10 0 1**
+一开始没考虑好，结果发现**这块读取缓存代码会存在线程不安全**的情况，比如有个线程读取**Resid**的**count**库存时，正好另一个已经执行的前面的线程更新缓存事务提交了，结果导致读取到**version**版本号与库存不一致，不是同一个事务的数据了
 
 ```java
 logger.info("版本号:{} {} {}", stockDto.getCount(), stockDto.getSale(), stockDto.getVersion());
@@ -288,9 +491,13 @@ logger.info("版本号:{} {} {}", stockDto.getCount(), stockDto.getSale(), stock
 2019-11-22 20:42:18.396  INFO --- [io-8080-exec-52] : 版本号:1 12 15
 ```
 
-### 2.2. 如何解决
+::: tip 分析
+看日志，详细分析下错误流程，例如有两个线程启动，第一个线程和第二个线程同时读取缓存**count**时，都读取到**10**，然后第二个线程暂停了，第一个线程继续执行，读取的**version**版本号为**0**，继续执行到已经秒杀完成，更新缓存(**version**版本号加一，变成**1**)，现在第二个线程才恢复继续执行，结果读取缓存**version**版本号为**1**(不是同一个事务的数据，本来应该也是**0**)，所以变成了**10 0 1**的错误数据
+:::
 
-#### 2.2.1. 乐观锁扣库存时加上库存大于0的判断，AND count > 0
+### 3.3. 如何解决
+
+#### 3.3.1. 乐观锁扣库存时加上库存大于0的判断，AND count > 0
 
 * **StockDao**
 
@@ -310,8 +517,7 @@ logger.info("版本号:{} {} {}", stockDto.getCount(), stockDto.getSale(), stock
 int updateByOptimisticLock(StockDto stockDto);
 ```
 
-
-#### 2.2.2. 给这块读取代码加上Redis事务(乐观锁)或者分布式锁(悲观锁)
+#### 3.3.2. 给这块读取代码加上Redis事务(乐观锁)或者分布式锁(悲观锁)
 
 ```java
 // 使用缓存读取库存，减轻DB压力
@@ -320,42 +526,11 @@ Integer sale = Integer.parseInt(JedisUtil.get(Constant.PREFIX_SALE + id));
 Integer version = Integer.parseInt(JedisUtil.get(Constant.PREFIX_VERSION + id));
 ```
 
-#### 2.2.3. 使用Redis批量操作(mget和mset)
+#### 3.3.3. 使用Redis批量操作(mget和mset)
 
-**mget**和**mset**可以批量获取和设置**Redis**键值，具有原子性，所以采用这种方式
+**mget**和**mset**可以批量获取和设置**Redis**键值，具有原子性，这种方式更简单，就先用这个了，看下面正确实现
 
-### 2.3. 正确实现
-
-* **ISeckillEvolutionService**
-
-```java
-/**
- * 乐观锁加缓存方法(名称注入)，线程安全
- */
-@Autowired
-@Qualifier("seckillOptimisticLockRedisSafeService")
-private ISeckillService seckillOptimisticLockRedisSafeService;
-
-@Override
-@Transactional(rollbackFor = Exception.class)
-public Integer createOptimisticLockOrderWithRedis(Integer id) throws Exception {
-    // 检查库存
-    StockDto stockDto = seckillOptimisticLockRedisSafeService.checkStock(id);
-    Thread.sleep(10);
-    // 扣库存
-    Integer saleCount = seckillOptimisticLockRedisSafeService.saleStock(stockDto);
-    if (saleCount <= 0) {
-        throw new CustomException("扣库存失败");
-    }
-    Thread.sleep(10);
-    // 下订单
-    Integer orderCount = seckillOptimisticLockRedisSafeService.createOrder(stockDto);
-    if (saleCount <= 0) {
-        throw new CustomException("下订单失败");
-    }
-    return orderCount;
-}
-```
+## 4. 正确实现
 
 * **SeckillOptimisticLockRedisSafeServiceImpl**
 
@@ -463,34 +638,82 @@ public class SeckillOptimisticLockRedisSafeServiceImpl implements ISeckillServic
 }
 ```
 
-## 3 开始测试
+### 4.1. 开始测试
+
+修改**SeckillEvolutionController**的入口下单方法**createOptimisticLockOrderWithRedis**调用**createOptimisticLockOrderWithRedisSafe**线程安全方法
+
+```java
+/**
+ * 使用乐观锁下订单，并且添加读缓存，性能提升
+ *
+ * @param id 商品ID
+ * @return com.example.common.ResponseBean
+ * @throws Exception
+ * @author wliduo[i@dolyw.com]
+ * @date 2019/11/22 14:24
+ */
+@PostMapping("/createOptimisticLockOrderWithRedis/{id}")
+public ResponseBean createOptimisticLockOrderWithRedis(@PathVariable("id") Integer id) throws Exception {
+    // 错误的，线程不安全
+    // Integer orderCount = seckillEvolutionService.createOptimisticLockOrderWithRedisWrong(id);
+    // 正确的，线程安全
+    Integer orderCount = seckillEvolutionService.createOptimisticLockOrderWithRedisSafe(id);
+    return new ResponseBean(HttpStatus.OK.value(), "购买成功", null);
+}
+```
 
 使用**JMeter**测试上面的代码，**JMeter**的使用可以查看: [JMeter的安装使用](http://note.dolyw.com/command/06-JMeter-Install.html)
 
-我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**50**个库存，而且清空订单表
+我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**10**个库存，而且清空订单表
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122001.png)
 
-接着使用**PostMan**调用缓存预热方法
+接着使用**PostMan**调用缓存预热方法，提前加载好缓存
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122013.png)
 
-这时候可以看到我们的数据，库存为**50**，卖出为**0**，订单表为空
+这时候可以看到我们的数据，库存为**10**，卖出为**0**，订单表为空
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123001.png)
 
 缓存数据也是这样
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122014.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123006.png)
 
-打开**JMeter**，添加测试计划，模拟**1000**个并发线程测试秒杀**50**个库存的商品，填写请求地址，点击启动图标开始
+打开**JMeter**，添加测试计划(`测试计划文件在项目的src\main\resources\jmx下`)，模拟**500**个并发线程测试秒杀**10**个库存的商品，填写请求地址，点击启动图标开始
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122015.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123007.png)
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122016.png)
 
-可以看到**1000**个并发线程执行完，最后
+可以看到**500**个并发线程执行完，可以看到这次是正确的了
 
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123009.png)
 
+日志也没问题了
 
+```java
+logger.info("版本号:{} {} {}", stockDto.getCount(), stockDto.getSale(), stockDto.getVersion());
+2019-11-23 13:08:48.494  INFO --- [nio-8080-exec-8] : 版本号:10 0 0
+2019-11-23 13:08:48.587  INFO --- [nio-8080-exec-6] : 版本号:9 1 1
+2019-11-23 13:08:48.691  INFO --- [io-8080-exec-13] : 版本号:8 2 2
+2019-11-23 13:08:48.734  INFO --- [o-8080-exec-134] : 版本号:7 3 3
+2019-11-23 13:08:48.778  INFO --- [io-8080-exec-29] : 版本号:6 4 4
+2019-11-23 13:08:48.826  INFO --- [io-8080-exec-75] : 版本号:5 5 5
+2019-11-23 13:08:48.874  INFO --- [io-8080-exec-30] : 版本号:4 6 6
+2019-11-23 13:08:48.927  INFO --- [o-8080-exec-113] : 版本号:3 7 7
+2019-11-23 13:08:48.974  INFO --- [o-8080-exec-180] : 版本号:2 8 8
+2019-11-23 13:08:49.020  INFO --- [o-8080-exec-199] : 版本号:1 9 9
+```
 
+### 3.2. 结果总结
+
+最后我们可以看下**Druid**的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
+
+使用了缓存，可以看到库存查询**SQL**，**只执行了一次，就是缓存预热那执行了一次**，不像之前每次库存都去查数据库
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123010.png)
+
+不过**乐观锁更新**操作还是执行了近**100**次**SQL**，遵从**最后落地到数据库的请求数要尽量少**的原则，有没有办法优化这里呢，可以的，**实际上很多都是无效请求**，这里我们可以使用**限流**，把大部分无效请求拦截了，尽可能保证最终到达数据库的都是有效请求
+
+**使用分布式限流**: [http://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](http://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)

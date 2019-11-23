@@ -53,15 +53,13 @@ module.exports = themeConfig = {
         {
             text: '开源项目',
             items: [
+                { text: '项目列表', link: '/opensource/' },
                 { text: 'ShiroJwt', link: '/shirojwt/' },
                 { text: 'SeckillEvolution', link: '/seckill-evolution/' },
-                { text: 'ViewGenerator', link: '/viewgenerator/' },
-                { text: 'VueStudy', link: 'https://github.com/dolyw/VueStudy' },
-                { text: 'NettyStudy', link: 'https://github.com/dolyw/NettyStudy' },
-                { text: 'Elasticsearch', link: 'https://github.com/dolyw/Elasticsearch' }
+                { text: 'ViewGenerator', link: '/viewgenerator/' }
             ]
         },
-        { text: '关于投食', link: '/about/about.md' },
+        { text: '关于投食', link: '/about.md' },
         // 外部链接
         /* { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' }, */
         // 下拉列表
@@ -123,8 +121,9 @@ module.exports = themeConfig = {
         ],
         // 秒杀架构
         '/seckill/': [
-            ['', '目录'],
-            ['01-Design-Thinking.md', '秒杀系统的设计思考']
+            ['', '秒杀架构'],
+            ['01-Design-Thinking.md', '秒杀系统的设计思考'],
+            ['02-Distributed-Limit', '高并发下的限流分析']
         ],
         // 工具命令
         '/command/': [
@@ -152,6 +151,9 @@ module.exports = themeConfig = {
             ['02-Technical-Interpretation.md', '史上最污技术解读'],
             ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
         ],
+        '/opensource/': [
+            ['', '开源项目'],
+        ],
         // 开源项目
         '/shirojwt/': [
             ['', 'ShiroJwt'],
@@ -166,7 +168,8 @@ module.exports = themeConfig = {
             ['00-Preparation.md', '0. 整体流程'],
             ['01-Tradition-Process', '1. 传统方式'],
             ['02-Optimistic-Lock', '2. 使用乐观锁'],
-            ['03-Optimistic-Lock-Redis', '3. 使用缓存']
+            ['03-Optimistic-Lock-Redis', '3. 使用缓存'],
+            ['04-Distributed-Limit', '4. 使用分布式限流']
         ],
         '/viewgenerator/': [
             ['', 'ViewGenerator']

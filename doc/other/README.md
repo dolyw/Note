@@ -4,9 +4,9 @@
 
 我不能保证写的都是对的，但至少保证每句话、每行代码都经过了认真仔细的思考
 
-## 书籍
+## 1. 书籍
 
-### Java
+### 1.1. Java
 
 >- [Effective Java](<https://book.douban.com/subject/3360807/>)
 >- [码出高效：Java开发手册](<https://book.douban.com/subject/30333948/>)
@@ -14,13 +14,13 @@
 >- [Java并发编程实战](<https://book.douban.com/subject/10484692/>)
 >- [深入理解Java虚拟机](<https://book.douban.com/subject/24722612/>)
 
-### 数据库
+### 1.2. 数据库
 
 >- [高性能MySQL](<https://book.douban.com/subject/23008813/>)
 >- [Redis开发与运维](<https://book.douban.com/subject/26971561/>)
 >- [Redis深度历险：核心原理与应用实践](<https://book.douban.com/subject/30386804/>)
 
-### 架构与中间件
+### 1.3. 架构与中间件
 
 >- [设计模式之禅](<https://book.douban.com/subject/4260618/>)
 >- [大型网站技术架构](<https://book.douban.com/subject/25723064/>)
@@ -29,20 +29,20 @@
 >- [亿级流量网站架构核心技术](<https://book.douban.com/subject/26999243/>)
 >- [从Paxos到Zookeeper分布式一致性原理与实践](<https://book.douban.com/subject/26292004/>)
 
-### 极客时间
+### 1.4. 极客时间
 
 >- [趣谈网络协议](<https://time.geekbang.org/column/intro/85>)
 >- [左耳听风](<https://time.geekbang.org/column/intro/48>)
 >- [微服务架构核心20讲](<https://time.geekbang.org/course/intro/66>)
 
-### 其他
+### 1.5. 其他
 
 >- [淘宝技术这十年](<https://book.douban.com/subject/24335672/>)
 >- [美团点评2018技术年货](<https://tech.meituan.com/2019/01/25/present-by-tech-team-2019.html>)
 >- [阿里工程师的自我修养](https://files.alicdn.com/tpsservice/aa41200ed68fa4467b0a2a8aacdd941e.pdf?spm=a2c6h.12873639.0.0.fc6bfe17TJ72Tq&file=aa41200ed68fa4467b0a2a8aacdd941e.pdf)
 >- [不止代码：阿里巴巴技术经验选集](<https://102.alibaba.com/downloadFile.do?file=1530517140411/Codelife.pdf>)
 
-## Blog
+## 2. Blog
 
 >- [阿里技术](<https://102.alibaba.com/tech/index/>)
 >- [阿里中间件团队博客](<http://jm.taobao.org/>)
@@ -51,7 +51,7 @@
 >- [Holis](<http://www.hollischuang.com/>)
 >- [美团技术团队](<https://tech.meituan.com/>)
 
-## GitHub
+## 3. GitHub
 
 >* [CS-Notes](https://github.com/CyC2018/CS-Notes)
 >* [JavaGuide](https://github.com/Snailclimb/JavaGuide)
@@ -64,15 +64,15 @@
 >* [JS-Sorting-Algorithm](https://github.com/hustcc/JS-Sorting-Algorithm)
 >* [LeetCodeAnimation](https://github.com/MisterBooo/LeetCodeAnimation)
 
-## 文章
+## 4. 文章
 
 >- [朝闻道](<http://wuwenliang.net>)
 >- [架构师之路](<https://www.w3cschool.cn/architectroad>)
 >- [程序员你为什么这么累](https://xwjie.github.io/rule)
 
-## 其他
+## 5. 其他
 
-### Java
+### 5.1. Java
 
 * [Java异常的优雅的设计](https://mp.weixin.qq.com/s/6uqLVWGeK1adaPu45qCjUg)
 * [StringBuffer 和 StringBuilder 的 3 个区别！](https://mp.weixin.qq.com/s/Eeb9wa0DfUs9U5snahAJZQ)
@@ -91,14 +91,14 @@
 * [面试官问我：一个 TCP 连接可以发多少个 HTTP 请求？](https://mp.weixin.qq.com/s/ZAe-668Bus4i-6fYLpxt2g)
 * [Spring 常犯的十大错误，打死都不要犯！](https://mp.weixin.qq.com/s/jTN_z8JQ4Xb0krLDtfEthg)
 
-#### Netty
+#### 5.1.1. Netty
 
 - [使用Netty，我们到底在开发些什么？](https://mp.weixin.qq.com/s/ASvZc3Spj2SRIzRu1acP1g)
 - [同步/异步/阻塞/非阻塞/BIO/NIO/AIO](https://mp.weixin.qq.com/s/e-HPyBtQ1zlcKXnFu8ADog)
 - [漫话：如何给女朋友解释什么是BIO、NIO和AIO？](https://mp.weixin.qq.com/s/ssupzQYKmm0ctY0Tyw8lIQ)
 - [一个故事讲清楚 NIO](https://mp.weixin.qq.com/s/91uEPjVgBRGVEGzTEWglww)
 
-### 分布式
+### 5.2. 分布式
 
 * [从分布式一致性谈到CAP理论、BASE理论](https://www.cnblogs.com/xrq730/p/4944768.html)
 * [别一上来就提微服务，请问你懂RPC吗](https://mp.weixin.qq.com/s/fC1tFVwSrp4mA_Ar25ig8A)
@@ -114,13 +114,13 @@
 * [集群部署时，分布式 session 如何实现？](https://mp.weixin.qq.com/s/9UU1qwbJnUdkuEYFwpaHHQ)
 * [推荐：一款分布式的对象存储服务](https://mp.weixin.qq.com/s?__biz=Mzg3MTExMTQ5Nw==&mid=2247484445&amp;idx=1&amp;sn=3e913694f5d2424599c108094d0d54a6&source=41#wechat_redirect)
 
-#### 消息队列
+#### 5.2.1. 消息队列
 
 * [如何选择消息队列？](https://mp.weixin.qq.com/s/wTkwJXlNr5CaI7uRntJ42A)
 * [天天在用消息队列，却不知道为啥要用 MQ ，这就尴尬了](https://mp.weixin.qq.com/s/2998ryj46sLNbAsK4IwZXA)
 * [为什么需要消息队列？使用消息队列有什么好处？](https://mp.weixin.qq.com/s/V1q12fSNETUS0cPpywk77A)
 
-### 数据库
+### 5.3. 数据库
 
 * [面试官问我：为什么要分库分表？](https://mp.weixin.qq.com/s/BdycC4S8bE-myhsvNC8MlQ)
 * [数据库是如何分库，如何分表的？](https://mp.weixin.qq.com/s/yAI3iSITpl0N8pgXZ1O1dw)
@@ -134,7 +134,7 @@
 * [面试官：说说看，线上发生Mysql死锁，你的排查思路？](https://mp.weixin.qq.com/s/iWDZOWkzQSBL09oSTxKcJQ)
 * [到底选择SOL还是NoSQL？看这里！](https://mp.weixin.qq.com/s/i0NuSR0oxwRTcrAGrP3F2A)
 
-#### Redis
+#### 5.3.1. Redis
 
 * [Redis 为何这么快？聊聊它的数据结构~](https://mp.weixin.qq.com/s/69xl2yU4B97aQIn1k_Lwqw)
 * [Redis过期策略及实现原理](https://mp.weixin.qq.com/s/FIMDOksAej5uqxT1YksyxA)
@@ -143,14 +143,14 @@
 * [我们公司使用了 6 年的分布式锁，很是牛逼啊！](https://mp.weixin.qq.com/s/WPpyhCd9jXwtP6Be1_nEdg)
 * [基于 Redis 分布式锁实现“秒杀”（含代码）](https://mp.weixin.qq.com/s/fzxKSeYtJDTVh_0v-1wDhA)
 
-### Docker
+### 5.4. Docker
 
 * [一文教您如何通过 Docker 搭建 Ngnix，反向代理，并配置 Https 证书](https://mp.weixin.qq.com/s/dFul5DfEJUbdvmI9_cMnWA)
 * [教你轻松获取k8s镜像和安装包](https://mp.weixin.qq.com/s/LkZMXKD8boalDSwjDi3Q9w)
 * [面试官：你简历中写用过docker，能说说容器和镜像的区别吗？](https://mp.weixin.qq.com/s/IoOtDWyL917_JYCm381_nQ)
 * [K8S 常见面试题都在这儿了](https://mp.weixin.qq.com/s/JQ4URbfISMiCBTjW-0zowA)
 
-### 项目
+### 5.5. 项目
 
 * [漫谈四种主流软件架构演进史](https://mp.weixin.qq.com/s/zlqzM08yOwapOXT_6rYqFw)
 * [大型网站图片服务器架构的演进](https://mp.weixin.qq.com/s/JuY0ceCrabnnbswbJE_4QA)
@@ -160,7 +160,7 @@
 * [前端：后端，我要分手，咱两不合适](https://mp.weixin.qq.com/s/xYtO_D46nVfRpCYgykVMGg)
 * [gitflow操作流程](https://mp.weixin.qq.com/s?__biz=Mzg3MTExMTQ5Nw==&mid=2247484437&amp;idx=1&amp;sn=794ebd6dc8bcd0390a8ef2592a4af89d&source=41#wechat_redirect)
 
-### 杂记
+### 5.6. 杂记
 
 * [给程序员的几条建议，精彩配图](https://mp.weixin.qq.com/s/AjscejPieCYik7ORMCgH7A)
 * [老鸟程序员才知道的40个小技巧](https://mp.weixin.qq.com/s/gedyKtWuYmeKdVIzgLjy-Q)
