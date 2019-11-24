@@ -53,7 +53,7 @@ module.exports = themeConfig = {
         {
             text: '开源项目',
             items: [
-                { text: '项目列表', link: '/opensource/' },
+                { text: '项目列表', link: '/p/' },
                 { text: 'ShiroJwt', link: '/shirojwt/' },
                 { text: 'SeckillEvolution', link: '/seckill-evolution/' },
                 { text: 'ViewGenerator', link: '/viewgenerator/' }
@@ -151,7 +151,7 @@ module.exports = themeConfig = {
             ['02-Technical-Interpretation.md', '史上最污技术解读'],
             ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
         ],
-        '/opensource/': [
+        '/p/': [
             ['', '开源项目'],
         ],
         // 开源项目
