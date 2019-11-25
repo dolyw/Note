@@ -1,5 +1,7 @@
 # 数据库的ACID
 
+![图片](https://img13.360buyimg.com/img/jfs/t28492/205/667054040/339020/26ffb450/5bfaacb5N7019206d.jpg)
+
 ACID是指在可靠数据库管理系统(DBMS)中，**事务(Transaction)**所应该具有的**四个特性**
 
 * **原子性(Atomicity)**
