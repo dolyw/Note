@@ -4,6 +4,12 @@
 
 **在应对秒杀，抢购等高并发压力的场景时，限流已经成为了标配技术解决方案**，为保证系统的平稳运行起到了关键性的作用。不管应用场景是哪种，**限流无非就是针对超过预期的流量，通过预先设定的限流规则选择性的对某些请求进行限流“熔断”**。通过限流，我们可以很好地控制系统的**QPS**，从而达到保护系统的目的。接下来的内容将会介绍一下常用的限流算法以及他们各自的特点
 
+**地址**
+
+* 文章: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
+* Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
+* Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
+
 ## 1. 计数器(时间窗口)
 
 ### 1.1. 固定时间窗口
@@ -85,26 +91,26 @@
 
 **单机版本**
 
-根据简单的实现了下，可以自己封装为一个方法(做成注解的形式)
+简单的实现了下，可以自己封装为一个方法(或者做成注解的形式)，详细查看: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
 
 ```java
 /**
- * 时间窗口内最大请求数
+ * 一个时间窗口内最大请求数(限流最大请求数)
  */
-private static final long MAX_NUM_REQUEST = 10;
+private static final Long MAX_NUM_REQUEST = 2L;
 
 /**
- * 一个时间窗口时间(毫秒)
+ * 一个时间窗口时间(毫秒)(限流时间)
  */
-private static final long TIME_REQUEST = 10000;
+private static final Long TIME_REQUEST = 1000L;
 
 /**
- * 一个时间窗口内请求的数量
+ * 一个时间窗口内请求的数量累计(限流请求数累计)
  */
 private AtomicInteger requestNum = new AtomicInteger(0);
 
 /**
- * 一个时间窗口开始时间
+ * 一个时间窗口开始时间(限流开始时间)
  */
 private AtomicLong requestTime = new AtomicLong(System.currentTimeMillis());
 
@@ -120,28 +126,33 @@ private AtomicLong requestTime = new AtomicLong(System.currentTimeMillis());
 @GetMapping
 public String index() {
     long nowTime = System.currentTimeMillis();
-    // 判断是在当前时间窗口
+    // 判断是在当前时间窗口(限流开始时间)
     if (nowTime < requestTime.longValue() + TIME_REQUEST) {
-        // 判断当前时间窗口请求内是否超过最大请求控制数
+        // 判断当前时间窗口请求内是否限流最大请求数
         if (requestNum.longValue() < MAX_NUM_REQUEST) {
-            // 在时间窗口内，请求数加一
+            // 在时间窗口内且请求数量还没超过最大，请求数加一
             requestNum.incrementAndGet();
             logger.info("请求成功，当前请求是{}次", requestNum.intValue());
             return "请求成功，当前请求是" + requestNum.intValue() + "次";
         }
     } else {
-        // 超时后重置
+        // 超时后重置(开启一个新的时间窗口)
         requestTime = new AtomicLong(nowTime);
         requestNum = new AtomicInteger(0);
     }
     logger.info("请求失败，被限流，当前请求是{}次", requestNum.intValue());
-    return "请求失败，被限流";
+    return "请求失败，被限流，当前请求是" + requestNum.intValue() + "次";
 }
 ```
 
 **分布式版本**
 
-一般分布式我们都是借助 Redis + Lua 来实现，两个脚本，一个秒级限流(秒杀)，一个自定义参数限流
+一般分布式我们都是借助 Redis + Lua 来实现，放两个 Lua 脚本参考
+
+* 一个秒级限流(秒杀)
+* 一个自定义参数限流
+
+详细使用可以查看: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
 
 * 秒级限流(秒杀)
 
@@ -176,12 +187,54 @@ end
 * 自定义参数限流
 
 ```lua
+-- 实现原理
+-- 每次请求都去 Redis 取到当前限流开始时间和限流累计请求数
+-- 判断限流开始时间加超时时间戳(限流时间)大于当前请求时间戳
+-- 再判断当前时间窗口请求内是否超过限流最大请求数
+-- 当达到阈值时返回错误，表示请求被限流，否则通过
+-- 写入 Redis 的操作用 Lua 脚本来完成
+-- 利用 Redis 的单线程机制可以保证每个 Redis 请求的原子性
 
+-- 一个时间窗口开始时间(限流开始时间)key名称
+local timeKey = KEYS[1]
+-- 一个时间窗口内请求的数量累计(限流累计请求数)key名称
+local requestKey = KEYS[2]
+-- 限流大小，限流最大请求数
+local maxRequest = tonumber(ARGV[1])
+-- 当前请求时间戳
+local nowTime = tonumber(ARGV[2])
+-- 超时时间戳，一个时间窗口时间(毫秒)(限流时间)
+local timeRequest = tonumber(ARGV[3])
+
+-- 获取限流开始时间，不存在为0
+local currentTime = tonumber(redis.call('get', timeKey) or "0")
+-- 获取限流累计请求数，不存在为0
+local currentRequest = tonumber(redis.call('get', requestKey) or "0")
+
+-- 判断当前请求时间戳是不是在当前时间窗口中
+-- 限流开始时间加超时时间戳(限流时间)大于当前请求时间戳
+if currentTime + timeRequest > nowTime then
+    -- 判断当前时间窗口请求内是否超过限流最大请求数
+    if currentRequest < maxRequest then
+        -- 在时间窗口内且请求数没超，请求数加一
+        redis.call('set', requestKey, currentRequest + 1)
+        return currentRequest + 1;
+    else
+        -- 在时间窗口内且超过限流最大请求数，不操作
+        return 0;
+    end
+else
+    -- 超时后重置，开启一个新的时间窗口
+    redis.call('set', timeKey, nowTime)
+    redis.call('set', requestKey, '0')
+    return -1;
+end
 ```
 
 ### 5.2. 令牌桶算法
 
-这个也不做详细说明了，放一个 Lua 做参考
+* 单机的可以直接使用 Guava 包中的 RateLimiter 
+* 分布式的借助 Redis + Lua 来实现，放一个 Lua 脚本做参考
 
 ```lua
 -- 令牌桶限流

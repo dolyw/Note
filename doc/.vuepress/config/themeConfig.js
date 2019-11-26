@@ -169,7 +169,8 @@ module.exports = themeConfig = {
             ['01-Tradition-Process', '1. 传统方式'],
             ['02-Optimistic-Lock', '2. 使用乐观锁'],
             ['03-Optimistic-Lock-Redis', '3. 使用缓存'],
-            ['04-Distributed-Limit', '4. 使用分布式限流']
+            ['04-Distributed-Limit', '4. 使用分布式限流'],
+            ['05-MQ-Async.md', '5. 使用队列异步下单']
         ],
         '/viewgenerator/': [
             ['', 'ViewGenerator']

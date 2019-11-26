@@ -370,7 +370,15 @@ public interface ISeckillService {
 
 ### 4.4. 使用分布式限流
 
+这次我们引入**限流**，这里可以先查看一篇文章: [高并发下的限流分析](http://note.dolyw.com/seckill/02-Distributed-Limit.html)
 
+之前说到**乐观锁更新**操作还是执行了近**100**次**SQL**，为了遵从**最后落地到数据库的请求数要尽量少**的原则，这里我们使用**限流**，把大部分无效请求拦截，尽可能保证最终到达数据库的都是有效请求
+
+使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，文章地址: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
+
+待补充
 
 ### 4.5. 使用队列异步下单
+
+待补充
 
