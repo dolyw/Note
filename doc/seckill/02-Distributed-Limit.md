@@ -149,12 +149,12 @@ public String index() {
 
 一般分布式我们都是借助 Redis + Lua 来实现，放两个 Lua 脚本参考
 
-* 一个秒级限流(秒杀)
-* 一个自定义参数限流
+* 一个秒级限流(每秒限制多少请求)
+* 一个自定义参数限流(自定义多少时间限制多少请求)
 
 详细使用可以查看: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
 
-* 秒级限流(秒杀)
+* 秒级限流(每秒限制多少请求)
 
 ```lua
 -- 实现原理
@@ -184,7 +184,7 @@ else
 end
 ```
 
-* 自定义参数限流
+* 自定义参数限流(自定义多少时间限制多少请求)
 
 ```lua
 -- 实现原理
@@ -215,19 +215,24 @@ local currentRequest = tonumber(redis.call('get', requestKey) or "0")
 -- 限流开始时间加超时时间戳(限流时间)大于当前请求时间戳
 if currentTime + timeRequest > nowTime then
     -- 判断当前时间窗口请求内是否超过限流最大请求数
-    if currentRequest < maxRequest then
-        -- 在时间窗口内且请求数没超，请求数加一
-        redis.call('set', requestKey, currentRequest + 1)
-        return currentRequest + 1;
-    else
-        -- 在时间窗口内且超过限流最大请求数，不操作
+    if currentRequest + 1 > maxRequest then
+        -- 在时间窗口内且超过限流最大请求数，返回
         return 0;
+    else
+        -- 在时间窗口内且请求数没超，请求数加一
+        redis.call("INCRBY", requestKey, 1)
+        return currentRequest + 1;
     end
 else
     -- 超时后重置，开启一个新的时间窗口
     redis.call('set', timeKey, nowTime)
     redis.call('set', requestKey, '0')
-    return -1;
+    -- 设置过期时间
+    redis.call("EXPIRE", timeKey, timeRequest / 1000)
+    redis.call("EXPIRE", requestKey, timeRequest / 1000)
+    -- 请求数加一
+    redis.call("INCRBY", requestKey, 1)
+    return 1;
 end
 ```
 

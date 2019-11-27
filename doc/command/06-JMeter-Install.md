@@ -1,6 +1,6 @@
 # JMeter的安装使用
 
-JMeter的安装及配置
+> JMeter的安装使用
 
 ## 下载
 

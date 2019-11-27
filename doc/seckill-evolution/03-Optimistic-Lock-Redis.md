@@ -706,7 +706,7 @@ logger.info("版本号:{} {} {}", stockDto.getCount(), stockDto.getSale(), stock
 2019-11-23 13:08:49.020  INFO --- [o-8080-exec-199] : 版本号:1 9 9
 ```
 
-### 3.2. 结果总结
+### 4.2. 结果总结
 
 最后我们可以看下**Druid**的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
 
@@ -714,6 +714,6 @@ logger.info("版本号:{} {} {}", stockDto.getCount(), stockDto.getSale(), stock
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123010.png)
 
-不过**乐观锁更新**操作还是执行了近**100**次**SQL**，遵从**最后落地到数据库的请求数要尽量少**的原则，有没有办法优化这里呢，可以的，**实际上很多都是无效请求**，这里我们可以使用**限流**，把大部分无效请求拦截了，尽可能保证最终到达数据库的都是有效请求
+不过**乐观锁更新**操作还是执行了**157**次**SQL**，遵从**最后落地到数据库的请求数要尽量少**的原则，有没有办法优化这里呢，可以的，**实际上很多都是无效请求**，这里我们可以使用**限流**，把大部分无效请求拦截了，尽可能保证最终到达数据库的都是有效请求
 
 **使用分布式限流**: [http://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](http://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
