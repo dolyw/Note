@@ -46,6 +46,27 @@ module.exports = {
                     path: '<%- frontmatter.to.path %>'
                 }
             }
+            /* {
+                choosen: 'gitalk',
+                options: {
+                    // keyConfig可以看QQ收藏截图
+                    clientID: keyConfig.clientID,
+                    clientSecret: keyConfig.clientSecret,
+                    repo: "Note",
+                    owner: "wliduo",
+                    admin: ["wliduo", "dolyw"],
+                    // 页面的唯一标识。长度必须小于50。
+                    id: decodeURI("<%- frontmatter.to.path || window.location.pathname %>"),
+                    // 类似Facebook评论框的全屏遮罩效果.
+                    distractionFreeMode: false,
+                    // GitHub issue 的标签。
+                    labels: ['Gitalk'],
+                    // GitHub issue 的标题。
+                    title: "[Gitalk]",
+                    // GitHub issue 的内容。
+                    body: "<%- window.location.origin %><%- frontmatter.to.path || window.location.pathname %>"
+                }
+            } */
         ]
     ],
     markdown: {

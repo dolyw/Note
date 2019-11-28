@@ -39,6 +39,7 @@ module.exports = themeConfig = {
         {
             text: '架构记录',
             items: [
+                { text: '分布式', link: '/distributed/' },
                 { text: '秒杀架构', link: '/seckill/' }
             ]
         },
@@ -118,6 +119,12 @@ module.exports = themeConfig = {
         '/front/': [
             ['', '前端记录'],
             ['notes', '组件UI库记录']
+        ],
+        // 分布式
+        '/distributed/': [
+            ['', 'Distributed'],
+            ['00-CAP-BASE.md', 'CAP和BASE理论'],
+            ['01-Distributed-Transaction.md', '浅析分布式事务']
         ],
         // 秒杀架构
         '/seckill/': [

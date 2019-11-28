@@ -6,7 +6,7 @@
 
 **地址**
 
-* 文章: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
+* 文章: [4. 使用分布式限流](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
 * Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
 * Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
 
@@ -91,7 +91,7 @@
 
 **单机版本**
 
-简单的实现了下，可以自己封装为一个方法(或者做成注解的形式)，详细查看: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
+简单的实现了下，可以自己封装为一个方法(或者做成注解的形式)，详细查看: [4. 使用分布式限流](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
 
 ```java
 /**
@@ -152,7 +152,7 @@ public String index() {
 * 一个秒级限流(每秒限制多少请求)
 * 一个自定义参数限流(自定义多少时间限制多少请求)
 
-详细使用可以查看: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
+详细使用可以查看: [4. 使用分布式限流](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
 
 * 秒级限流(每秒限制多少请求)
 
