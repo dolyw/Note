@@ -15,8 +15,12 @@ module.exports = {
     port: 4000,
     // 插件
     plugins: [
+        // 页面加载条
         require('./plugins/diy-loader'),
+        // 图片点击查看
         require('vuepress-plugin-viewer'),
+        // 点击链接平滑滚动
+        ['vuepress-plugin-smooth-scroll'],
         ['@vuepress/back-to-top'],
         ['@vuepress/active-header-links'],
         [

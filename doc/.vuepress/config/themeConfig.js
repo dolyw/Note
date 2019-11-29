@@ -8,7 +8,7 @@ module.exports = themeConfig = {
     // 默认是 false, 设置为 true 来启用
     editLinks: true,
     // 默认为 "Edit this page"
-    editLinkText: '在GitHub上编辑此页',
+    editLinkText: '在 GitHub 上编辑此页',
     // 将同时提取markdown中h1和h2标题，显示在侧边栏上
     sidebarDepth: 2,
     // 文档更新时间，每个文件git最后提交的时间
@@ -113,7 +113,7 @@ module.exports = themeConfig = {
         '/database/': [
             ['', '数据库的ACID'],
             ['00-Isolation', '事务隔离级别'],
-            ['01-DB-Lock', '数据库的那些锁']
+            ['01-DB-Lock', 'MySQL数据库的那些锁']
         ],
         // 前端记录
         '/front/': [
