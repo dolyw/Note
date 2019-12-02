@@ -9,7 +9,7 @@
 |隔离级别|Read Uncommitted(未提交读)|Read Committed(提交读)|Repeatable Read(可重复读)|Serializable(可串行化)|
 |:-: |:-: |:-: |:-: |:-: |
 |**脏读(Dirty Read)** |Y |- |- |-
-|**更新丢失(Lost Update)** |Y |Y |- |-
+|**丢失更新(Lost Update)** |Y |Y |- |-
 |**不可重复读(NonRepeatable Read)** |Y |Y |- |-
 |**幻读(Phantom Read)** |Y |Y |Y |-
 |**默认级别数据库** |- |Oracle，SQL Server |MySQL(InnoDB) |-
@@ -25,9 +25,12 @@
 
 当一个事务读取另一个事务尚未提交的修改时，产生脏读
 
-* **更新丢失(Lost Update)**
+* **丢失更新(Lost Update)**
 
-当系统允许两个事务同时更新同一数据时，发生更新丢失
+当系统允许两个事务同时更新同一数据时，**后一个事务拿到了前一个事务的中间状态数据(一个事务的更新操作被另外一个事务的更新操作所覆盖)**，一个事务的更新覆盖了其它事务的更新结果导致丢失更新
+
+1. 第一类丢失更新，回滚丢失，隔离级别可以解决
+2. 第二类丢失更新，覆盖丢失/两次更新问题，只能通过锁解决，[乐观锁或悲观锁](01-DB-Lock.html)
 
 * **不可重复读(NonRepeatable Read)**
 
@@ -54,7 +57,7 @@
 
 ## Repeatable Read(可重复读)
 
-**可重复读可以确保同一个事务，在多次读取同样数据的时候，得到同样的结果**。可重复读解决了脏读的问题，不过理论上，这会导致另外一个棘手的问题，幻读(Phantom Read)。MySQL中的InnoDB和Falcon存储引擎通过MVCC(Multi-Version Concurrency Control, 多版本并发控制)机制解决了该问题，需要注意的是，多版本控制只是解决了不可重复读的问题，而加上间隙锁(也就是它这里所谓的并发控制)才解决了幻读问题
+**可重复读可以确保同一个事务，在多次读取同样数据的时候，得到同样的结果**。可重复读解决了脏读的问题，不过理论上，这会导致另外一个棘手的问题，幻读(Phantom Read)。MySQL中的InnoDB和Falcon存储引擎通过MVCC(Multi-Version Concurrency Control，多版本并发控制)机制解决了该问题，需要注意的是，多版本控制只是解决了不可重复读的问题，而加上间隙锁(也就是它这里所谓的并发控制)才解决了幻读问题
 
 ## Serializable(可串行化)
 
