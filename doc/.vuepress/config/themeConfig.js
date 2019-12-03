@@ -28,11 +28,10 @@ module.exports = themeConfig = {
             text: '学习记录',
             items: [
                 { text: 'Java', link: '/java/' },
-                { text: 'Netty', link: '/netty/' },
                 { text: 'Docker', link: '/docker/' },
                 { text: 'Elasticsearch', link: '/elasticsearch/' },
-                { text: '缓存', link: '/cache/' },
-                { text: '数据库', link: '/database/' },
+                { text: 'Cache', link: '/cache/' },
+                { text: 'Database', link: '/database/' },
                 { text: '前端记录', link: '/front/' }
             ]
         },
@@ -47,17 +46,18 @@ module.exports = themeConfig = {
             text: '其他补充',
             items: [
                 { text: '工具命令', link: '/command/' },
-                { text: '零散记录', link: '/other/' },
-                { text: '编程闲话', link: '/gossip/' }
+                { text: '编程闲话', link: '/gossip/' },
+                { text: '零散记录', link: '/other/' }
             ]
         },
         {
             text: '开源项目',
             items: [
                 { text: '项目列表', link: '/p/' },
-                { text: 'ShiroJwt', link: '/shirojwt/' },
-                { text: 'SeckillEvolution', link: '/seckill-evolution/' },
-                { text: 'ViewGenerator', link: '/viewgenerator/' }
+                { text: '鉴权-ShiroJwt', link: '/shirojwt/' },
+                { text: '秒杀-SeckillEvolution', link: '/seckill-evolution/' },
+                { text: '聊天-NettyStudy', link: '/netty/' },
+                { text: '代码生成器-ViewGenerator', link: '/viewgenerator/' }
             ]
         },
         { text: '关于投食', link: '/about.md' },
@@ -80,10 +80,15 @@ module.exports = themeConfig = {
         // 学习记录
         '/java/': [
             ['', 'Java'],
-            ['01-Thread-Safe.md', 'Java中的线程安全'],
-            ['02-Thread-Pool.md', 'Java中的线程池的创建及使用'],
-            ['03-List-De-Duplication.md', 'List集合去重方式及效率对比'],
-            ['04-50-Details.md', 'Java性能优化的50个细节']
+            ['01-Java-Basics', 'Java拾遗-基础'],
+            ['02-Java-Collection', 'Java拾遗-容器'],
+            ['03-Java-Concurrent', 'Java拾遗-并发'],
+            ['04-Java-JVM', 'Java拾遗-虚拟机(JVM)'],
+            ['05-Java-IO', 'Java拾遗-输入/输出(IO)'],
+            ['11-Thread-Safe.md', '其他-Java中的线程安全'],
+            ['12-Thread-Pool.md', '其他-Java中的线程池的创建及使用'],
+            ['13-List-De-Duplication.md', '其他-List集合去重方式及效率对比'],
+            ['14-50-Details.md', '其他-Java性能优化的50个细节']
         ],
         '/netty/': [
             ['', 'Netty'],
@@ -106,14 +111,17 @@ module.exports = themeConfig = {
             ['05-MySqlES.md', 'MySql数据同步Elasticsearch']
         ],
         '/cache/': [
-            ['', '缓存失效的场景'],
+            ['', 'Cache'],
+            ['02-Cache-Invalidation', '缓存失效的场景'],
             ['00-DataBaseConsistency.md', 'Redis与数据库一致性'],
             ['01-DataBaseConsistency.md', 'Redis与数据库一致性补充']
         ],
         '/database/': [
-            ['', '数据库的ACID'],
-            ['00-Isolation', '事务隔离级别'],
-            ['01-DB-Lock', 'MySQL数据库的那些锁']
+            ['', 'Database'],
+            ['00-Isolation', 'ACID以及事务隔离级别'],
+            ['01-MySQL-Lock', 'MySQL那些锁'],
+            ['02-DB-NF', 'Database中的范式理论'],
+            ['03-MySQL-Index-B+', 'MySQL索引以及B+树']
         ],
         // 前端记录
         '/front/': [
@@ -142,6 +150,13 @@ module.exports = themeConfig = {
             ['05-Git-MultiPush.md', 'Git一次Push到多个远端'],
             ['06-JMeter-Install', 'JMeter的安装使用']
         ],
+        // 编程闲话
+        '/gossip/': [
+            ['', 'Java码农的悲哀'],
+            ['01-Programmer-Slang.md', '码农有趣的黑话'],
+            ['02-Technical-Interpretation.md', '史上最污技术解读'],
+            ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
+        ],
         // 零散记录
         '/other/': [
             ['', '推荐阅读'],
@@ -150,13 +165,6 @@ module.exports = themeConfig = {
             ['03-Interview.md', '一些不错的面试记录收集'],
             ['05-Github-Failure.md', '解决GitHub访问不了的方法'],
             ['04-Jekyll.md', '在Windows下安装与使用Jekyll']
-        ],
-        // 编程闲话
-        '/gossip/': [
-            ['', 'Java程序员的悲哀'],
-            ['01-Programmer-Slang.md', '码农有趣的黑话'],
-            ['02-Technical-Interpretation.md', '史上最污技术解读'],
-            ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
         ],
         '/p/': [
             ['', '开源项目'],

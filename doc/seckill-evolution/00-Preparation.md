@@ -1,15 +1,20 @@
 # 整体流程
 
-> 目录: [https://note.dolyw.com/seckill-evolution](https://note.dolyw.com/seckill-evolution)
-
 一直想自己写一个简单的秒杀架构的演变，加强自己，参考了很多博客和文章，如有不正确的地方请指出，感谢:yum:
 
-![图片](https://img10.360buyimg.com/img/jfs/t1/20766/5/2569/346352/5c1ed00bE0f164803/9604980c7397e91c.jpg)
-
-**项目地址**
+**地址**
 
 * Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
 * Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
+
+[**目录**](/seckill-evolution/)
+
+* **0. 整体流程**
+* [1. 传统方式](01-Tradition-Process.html)
+* [2. 使用乐观锁](02-Optimistic-Lock.html)
+* [3. 使用缓存](03-Optimistic-Lock-Redis.html)
+* [4. 使用分布式限流](04-Distributed-Limit.html)
+* [5. 使用队列异步下单](05-MQ-Async.html)
 
 ## 1. 常见场景
 
@@ -330,7 +335,7 @@ public interface ISeckillService {
 
 ### 4.1. 传统方式
 
-我们首先搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，不做任何限制，使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/01-Tradition-Process.html](http://note.dolyw.com/seckill-evolution/01-Tradition-Process.html)
+我们首先搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，不做任何限制，使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，地址: [1. 传统方式](01-Tradition-Process.html)
 
 可以发现**并发事务下会出现错误**，出现**卖超问题**，这是因为同一时间大量线程同时请求校验库存，扣库存，创建订单，这三个操作不在同一个原子，比如，很多线程同时读到库存为**10**，这样都穿过了校验库存的判断，所以出现卖超问题
 
@@ -338,9 +343,9 @@ public interface ISeckillService {
 
 ### 4.2. 使用乐观锁
 
-我们再搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，但是这次我们需要使用**乐观锁**，这里可以先查看一篇文章: [数据库的那些锁](http://note.dolyw.com/database/01-DB-Lock.html)
+我们再搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，但是这次我们需要使用**乐观锁**，这里可以先查看一篇文章: [MySQL那些锁](http://note.dolyw.com/database/01-MySQL-Lock.html)
 
-使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html](http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html)
+使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，地址: [2. 使用乐观锁](02-Optimistic-Lock.html)
 
 可以发现乐观锁解决**卖超问题**，多个线程同时在**检查库存**的时候都会拿到当前商品的相同乐观锁版本号，然后在**扣库存**时，如果版本号不对，就会扣减失败，抛出异常结束，这样每个版本号就只能有第一个线程扣库存操作成功，其他相同版本号的线程秒杀失败，就不会存在**卖超问题**了
 
@@ -358,7 +363,7 @@ public interface ISeckillService {
 
 这次主要改造是**检查库存和扣库存**方法，**检查库存**直接去**Redis**获取，不再去查数据库，而在**扣库存**这里本身是使用的乐观锁操作，只有操作成功(扣库存成功)的才需要**更新缓存数据**
 
-使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，文章地址: [http://note.dolyw.com/seckill-evolution/03-Optimistic-Lock-Redis.html](http://note.dolyw.com/seckill-evolution/03-Optimistic-Lock-Redis.html)
+使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，地址: [3. 使用缓存](03-Optimistic-Lock-Redis.html)
 
 我们可以看下使用缓存后**Druid**的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
 
@@ -370,11 +375,9 @@ public interface ISeckillService {
 
 ### 4.4. 使用分布式限流
 
-这次我们引入**限流**，这里可以先查看一篇文章: [高并发下的限流分析](http://note.dolyw.com/seckill/02-Distributed-Limit.html)
+我们继续搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，这次我们引入**限流**，这里可以先查看一篇文章: [高并发下的限流分析](http://note.dolyw.com/seckill/02-Distributed-Limit.html)
 
-之前说到**乐观锁更新**操作还是执行了**157**次**SQL**，为了遵从**最后落地到数据库的请求数要尽量少**的原则，这里我们使用**限流**，把大部分无效请求拦截，尽可能保证最终到达数据库的都是有效请求
-
-使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，文章地址: [https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](https://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
+使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，地址: [4. 使用分布式限流](04-Distributed-Limit.html)
 
 我们可以看下 Druid 的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
 
@@ -386,9 +389,9 @@ public interface ISeckillService {
 
 ### 4.5. 使用队列异步下单
 
-那我们还可以怎么优化提高吞吐量以及性能呢，我们上文所有例子其实都是**同步请求**，完全可以利用**同步转异步来提高性能**，这里我们将下订单的操作进行异步化，利用消息队列来进行解耦，这样可以然 DB 异步执行下单
+那我们还可以怎么优化提高吞吐量以及性能呢，我们上文所有例子其实都是**同步请求**，完全可以利用**同步转异步来提高性能**，这里我们将下订单的操作进行异步化，利用消息队列来进行解耦，这样可以让 DB 异步执行下单
 
 **每当一个请求通过了限流和库存校验之后就将订单信息发给消息队列，这样一个请求就可以直接返回了，消费程序做下订单的操作，对数据进行入库落地**，因为异步了，所以最终需要采取回调或者是其他提醒的方式提醒用户购买完成
 
-待补充
+地址: [5. 使用队列异步下单](05-MQ-Asynct.html)
 

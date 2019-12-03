@@ -1,10 +1,10 @@
 ## Elasticsearch
 
-::: danger Elasticsearch
+::: warning Elasticsearch
 Elasticsearch的学习记录
 :::
 
-本栏的主要内容如下：
+本栏的主要内容如下
 
 * [简单了解Elasticsearch](00-GettingStarted.html)
 * [安装本地Elasticsearch，安装本地Elasticsearch-Head，本地Elasticsearch集群搭建](01-LocalInstallation.html)

@@ -2,6 +2,8 @@
 
 > 一个简单的秒杀架构的演变
 
+![图片](https://img10.360buyimg.com/img/jfs/t1/20766/5/2569/346352/5c1ed00bE0f164803/9604980c7397e91c.jpg)
+
 ## 介绍
 
 一直想自己写一个简单的秒杀架构的演变，加强自己，参考了很多博客和文章，如有不正确的地方请指出，感谢:yum:
@@ -26,7 +28,7 @@
 **其他**
 
 * [JMeter的安装使用](https://note.dolyw.com/command/06-JMeter-Install.html)
-* [数据库的那些锁](http://note.dolyw.com/database/01-DB-Lock.html)
+* [MySQL那些锁](http://note.dolyw.com/database/01-MySQL-Lock.html)
 * [Redis与数据库一致性](https://note.dolyw.com/cache/00-DataBaseConsistency.html)
 * [高并发下的限流分析](http://note.dolyw.com/seckill/02-Distributed-Limit.html)
 

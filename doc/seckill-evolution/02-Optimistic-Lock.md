@@ -1,15 +1,22 @@
 # 使用乐观锁
 
-> 目录: [https://note.dolyw.com/seckill-evolution](https://note.dolyw.com/seckill-evolution)
-
-**项目地址**
+**地址**
 
 * Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
 * Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
 
+[**目录**](/seckill-evolution/)
+
+* [0. 整体流程](00-Preparation.html)
+* [1. 传统方式](01-Tradition-Process.html)
+* **2. 使用乐观锁**
+* [3. 使用缓存](03-Optimistic-Lock-Redis.html)
+* [4. 使用分布式限流](04-Distributed-Limit.html)
+* [5. 使用队列异步下单](05-MQ-Async.html)
+
 ## 1. 思路介绍
 
-这次我们引入**乐观锁**，这里可以先查看一篇文章: [数据库的那些锁](http://note.dolyw.com/database/01-DB-Lock.html)
+这次我们引入**乐观锁**，这里可以先查看一篇文章: [MySQL那些锁](http://note.dolyw.com/database/01-MySQL-Lock.html)
 
 主要改造是**扣库存**，每个线程在**检查库存**的时候会拿到当前商品的乐观锁版本号，然后在**扣库存**时，如果版本号不对，就会扣减失败，抛出异常结束，这样每个版本号就只能有一个线程操作成功，其他相同版本号的线程秒杀失败，就不会存在**卖超问题**了
 
@@ -182,7 +189,5 @@ int updateByOptimisticLock(StockDto stockDto);
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123005.png)
 
 可以看到，查询库存执行了**500**次，遵从**最后落地到数据库的请求数要尽量少**的原则，其实我们可以把这个数据放缓存，提升性能
-
-**使用缓存**: [http://note.dolyw.com/seckill-evolution/03-Optimistic-Lock-Redis.html](http://note.dolyw.com/seckill-evolution/03-Optimistic-Lock-Redis.html)
 
 

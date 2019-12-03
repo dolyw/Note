@@ -1,11 +1,18 @@
 # 秒杀传统方式
 
-> 目录: [https://note.dolyw.com/seckill-evolution](https://note.dolyw.com/seckill-evolution)
-
-**项目地址**
+**地址**
 
 * Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
 * Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
+
+[**目录**](/seckill-evolution/)
+
+* [0. 整体流程](00-Preparation.html)
+* **1. 传统方式**
+* [2. 使用乐观锁](02-Optimistic-Lock.html)
+* [3. 使用缓存](03-Optimistic-Lock-Redis.html)
+* [4. 使用分布式限流](04-Distributed-Limit.html)
+* [5. 使用队列异步下单](05-MQ-Async.html)
 
 ## 1. 思路介绍
 
@@ -154,5 +161,3 @@ public class SeckillTraditionServiceImpl implements ISeckillService {
 这就是卖超问题了，这是因为同一时间大量线程同时请求校验库存，扣库存，创建订单，这三个操作不在同一个原子，比如，很多线程同时读到库存为**10**，这样都穿过了校验库存的判断，所以出现卖超问题
 
 在这种情况下就引入了**锁**的概念，锁区分为**乐观锁和悲观锁**，悲观锁都是牺牲性能保证数据，所以在这种高并发场景下，一般都是使用**乐观锁**解决
-
-**使用乐观锁**: [http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html](http://note.dolyw.com/seckill-evolution/02-Optimistic-Lock.html)

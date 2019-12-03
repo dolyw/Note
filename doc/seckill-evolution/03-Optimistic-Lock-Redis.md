@@ -1,11 +1,18 @@
 # 使用缓存
 
-> 目录: [https://note.dolyw.com/seckill-evolution](https://note.dolyw.com/seckill-evolution)
-
-**项目地址**
+**地址**
 
 * Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
 * Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
+
+[**目录**](/seckill-evolution/)
+
+* [0. 整体流程](00-Preparation.html)
+* [1. 传统方式](01-Tradition-Process.html)
+* [2. 使用乐观锁](02-Optimistic-Lock.html)
+* **3. 使用缓存**
+* [4. 使用分布式限流](04-Distributed-Limit.html)
+* [5. 使用队列异步下单](05-MQ-Async.html)
 
 ## 1. 思路介绍
 
@@ -715,5 +722,3 @@ logger.info("版本号:{} {} {}", stockDto.getCount(), stockDto.getSale(), stock
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123010.png)
 
 不过**乐观锁更新**操作还是执行了**157**次**SQL**，遵从**最后落地到数据库的请求数要尽量少**的原则，有没有办法优化这里呢，可以的，**实际上很多都是无效请求**，这里我们可以使用**限流**，把大部分无效请求拦截了，尽可能保证最终到达数据库的都是有效请求
-
-**使用分布式限流**: [http://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html](http://note.dolyw.com/seckill-evolution/04-Distributed-Limit.html)
