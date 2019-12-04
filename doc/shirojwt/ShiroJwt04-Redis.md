@@ -2,44 +2,21 @@
 
 SpringBoot + Shiro + JWT集成Redis缓存(Jedis)
 
-## 序言
-
-> 目录:[https://blog.csdn.net/wang926454/article/details/82971291](https://blog.csdn.net/wang926454/article/details/82971291)
-
-首先感谢SmithCruise提供的思路，文章地址：[https://www.jianshu.com/p/f37f8c295057](https://www.jianshu.com/p/f37f8c295057)  
-
-根据SmithCruise的项目进行后续更新  
-
-* 将其改为数据库形式(MySQL)
-* 实现Shiro的Cache(Redis)功能
-* 解决无法直接返回401错误
-* Token刷新(RefreshToken)
-
-当前博客源码：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
-
-我的项目地址
+**我的项目地址**
 
 * Github：[https://github.com/wang926454/ShiroJwt](https://github.com/wang926454/ShiroJwt)
 * Gitee(码云)：[https://gitee.com/dolyw/ShiroJwt](https://gitee.com/dolyw/ShiroJwt)
 
-## 实现Shiro的Cache(Redis)功能
+## 1. 实现流程
 
-### 主要参考
+* 建立JedisPool(启动注入JedisPool)(使用Jedis操作Redis)
+* 重写Shiro的Cache保存读取和Cache管理器
 
-1. [https://blog.csdn.net/why15732625998/article/details/78729254](https://blog.csdn.net/why15732625998/article/details/78729254)
-2. [http://www.cnblogs.com/GodHeng/p/9301330.html](http://www.cnblogs.com/GodHeng/p/9301330.html)
-3. [https://blog.csdn.net/W_Z_W_888/article/details/79979103](https://blog.csdn.net/W_Z_W_888/article/details/79979103)
+## 2. 代码实现
 
-### 实现方式
+### 2.1. JedisPool搭建
 
-* 建立JedisPool(启动注入JedisPool)
-* Jedis操作Redis
-* 重写Shiro的Cache保存读取
-* 重写Shiro缓存(Cache)管理器
-
-### JedisPool搭建
-
-#### 首先加入Jedis的Jar(Shiro的集成这里就不说了)
+首先加入Jedis的Jar(Shiro的集成这里就不说了)
 
 ```xml
 <!-- Redis-Jedis -->
@@ -50,7 +27,8 @@ SpringBoot + Shiro + JWT集成Redis缓存(Jedis)
 </dependency>
 ```
 
-#### config.properties(Redis的配置属性)
+* config.properties(Redis的配置属性)
+
 ```java
 # Redis服务器地址
 redis.host=127.0.0.1
@@ -70,7 +48,8 @@ redis.pool.max-idle=8
 redis.pool.min-idle=0
 ```
 
-#### JedisConfig.java(JedisPool启动配置Bean)
+* JedisConfig.java(JedisPool启动配置Bean)
+
 ```java
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +65,7 @@ import redis.clients.jedis.JedisPoolConfig;
 /**
  * Jedis配置，项目启动注入JedisPool
  * http://www.cnblogs.com/GodHeng/p/9301330.html
- * @author Wang926454
+ * @author dolyw.com
  * @date 2018/9/5 10:35
  */
 @Configuration
@@ -201,7 +180,8 @@ public class JedisConfig {
 }
 ```
 
-#### JedisUtil(Jedis工具类)
+* JedisUtil(Jedis工具类)
+
 ```java
 import com.wang.exception.CustomException;
 import org.slf4j.Logger;
@@ -214,7 +194,7 @@ import java.util.Set;
 
 /**
  * JedisUtil(推荐存Byte数组，存Json字符串效率更慢)
- * @author Wang926454
+ * @author dolyw.com
  * @date 2018/9/4 15:45
  */
 @Component
@@ -247,7 +227,7 @@ public class JedisUtil {
      * 获取Jedis实例
      * @param 
      * @return redis.clients.jedis.Jedis
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:47
      */
     public static synchronized Jedis getJedis() {
@@ -267,7 +247,7 @@ public class JedisUtil {
      * 释放Jedis资源
      * @param
      * @return void
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/5 9:16
      */
     public static void closePool() {
@@ -282,7 +262,7 @@ public class JedisUtil {
      * 获取redis键值-object
      * @param key
      * @return java.lang.Object
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:47
      */
     public static Object getObject(String key) {
@@ -308,7 +288,7 @@ public class JedisUtil {
      * @param key
 	 * @param value
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:49
      */
     public static String setObject(String key, Object value) {
@@ -331,7 +311,7 @@ public class JedisUtil {
 	 * @param value
 	 * @param expiretime
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:50
      */
     public static String setObject(String key, Object value, int expiretime) {
@@ -357,7 +337,7 @@ public class JedisUtil {
      * 获取redis键值-Json
      * @param key
      * @return java.lang.Object
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:47
      */
     public static String getJson(String key) {
@@ -379,7 +359,7 @@ public class JedisUtil {
      * @param key
      * @param value
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:49
      */
     public static String setJson(String key, String value) {
@@ -402,7 +382,7 @@ public class JedisUtil {
      * @param value
      * @param expiretime
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:50
      */
     public static String setJson(String key, String value, int expiretime) {
@@ -428,7 +408,7 @@ public class JedisUtil {
      * 删除key
      * @param key
      * @return java.lang.Long
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:50
      */
     public static Long delKey(String key) {
@@ -449,7 +429,7 @@ public class JedisUtil {
      * key是否存在
      * @param key
      * @return java.lang.Boolean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:51
      */
     public static Boolean exists(String key) {
@@ -470,7 +450,7 @@ public class JedisUtil {
      * 模糊查询获取key集合
      * @param key
      * @return java.util.Set<java.lang.String>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/6 9:43
      */
     public static Set<String> keysS(String key) {
@@ -491,7 +471,7 @@ public class JedisUtil {
      * 模糊查询获取key集合
      * @param key
      * @return java.util.Set<java.lang.String>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/6 9:43
      */
     public static Set<byte[]> keysB(String key) {
@@ -512,7 +492,7 @@ public class JedisUtil {
      * 获取过期剩余时间
      * @param key
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/11 16:26
      */
     public static Long getExpireTime(String key) {
@@ -533,14 +513,15 @@ public class JedisUtil {
 }
 ```
 
-#### SerializableUtil(JedisUtil用到)
+* SerializableUtil(JedisUtil用到)
+
 ```java
 import com.wang.exception.CustomException;
 import java.io.*;
 
 /**
  * Serializable工具(JDK)(也可以使用Protobuf自行百度)
- * @author Wang926454
+ * @author dolyw.com
  * @date 2018/9/4 15:13
  */
 public class SerializableUtil {
@@ -549,7 +530,7 @@ public class SerializableUtil {
      * 序列化
      * @param object
      * @return byte[]
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:14
      */
     public static byte[] serializable(Object object) {
@@ -582,7 +563,7 @@ public class SerializableUtil {
      * 反序列化
      * @param bytes
      * @return java.lang.Object
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:14
      */
     public static Object unserializable(byte[] bytes) {
@@ -614,7 +595,8 @@ public class SerializableUtil {
 }
 ```
 
-#### StringUtil(JedisUtil用到)
+* StringUtil(JedisUtil用到)
+
 ```java
 public class StringUtil {
     /**
@@ -626,7 +608,7 @@ public class StringUtil {
      * String为空判断(不允许空格)
      * @param str
      * @return boolean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 14:49
      */
     public static boolean isBlank(String str) {
@@ -637,7 +619,7 @@ public class StringUtil {
      * String不为空判断(不允许空格)
      * @param str
      * @return boolean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 14:51
      */
     public static boolean isNotBlank(String str) {
@@ -648,7 +630,7 @@ public class StringUtil {
      * Byte数组为空判断
      * @param bytes
      * @return boolean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:39
      */
     public static boolean isNull(byte[] bytes){
@@ -660,7 +642,7 @@ public class StringUtil {
      * Byte数组不为空判断
      * @param bytes
      * @return boolean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 15:41
      */
     public static boolean isNotNull(byte[] bytes) {
@@ -671,7 +653,7 @@ public class StringUtil {
      * 驼峰转下划线工具
      * @param param
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 14:52
      */
     public static String camelToUnderline(String param) {
@@ -697,7 +679,7 @@ public class StringUtil {
      * 下划线转驼峰工具
      * @param param
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 14:52
      */
     public static String underlineToCamel(String param) {
@@ -725,7 +707,7 @@ public class StringUtil {
      * 在字符串两周添加''
      * @param param
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 14:53
      */
     public static String addSingleQuotes(String param) {
@@ -734,9 +716,12 @@ public class StringUtil {
 }
 ```
 
-### 重写Shiro的Cache保存读取和Shiro的Cache管理器
+### 2.2. 重写Cache
 
-#### CustomCache.java(Cache保存读取)
+重写Shiro的Cache保存读取和Shiro的Cache管理器
+
+* CustomCache.java(Cache保存读取)
+
 ```java
 import com.wang.util.JWTUtil;
 import com.wang.util.JedisUtil;
@@ -747,7 +732,7 @@ import java.util.*;
 
 /**
  * 重写Shiro的Cache保存读取
- * @author Wang926454
+ * @author dolyw.com
  * @date 2018/9/4 17:31
  */
 public class CustomCache<K,V> implements Cache<K,V> {
@@ -766,7 +751,7 @@ public class CustomCache<K,V> implements Cache<K,V> {
      * 缓存的key名称获取为shiro:cache:account
      * @param key
      * @return java.lang.String
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/9/4 18:33
      */
     private String getKey(Object key){
@@ -850,7 +835,8 @@ public class CustomCache<K,V> implements Cache<K,V> {
 }
 ```
 
-#### CustomCacheManager.java(缓存(Cache)管理器)
+* CustomCacheManager.java(缓存(Cache)管理器)
+
 ```java
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
@@ -858,7 +844,7 @@ import org.apache.shiro.cache.CacheManager;
 
 /**
  * 重写Shiro缓存管理器
- * @author Wang926454
+ * @author dolyw.com
  * @date 2018/9/4 17:41
  */
 public class CustomCacheManager implements CacheManager {
@@ -869,14 +855,15 @@ public class CustomCacheManager implements CacheManager {
 }
 ```
 
-#### 最后在Shiro的配置Bean里设置我们重写的缓存(Cache)管理器
+最后在Shiro的配置Bean里设置我们重写的缓存(Cache)管理器
+
 ```java
 /**
  * 配置使用自定义Realm，关闭Shiro自带的session
  * 详情见文档 http://shiro.apache.org/session-management.html#SessionManagement-StatelessApplications%28Sessionless%29
  * @param userRealm
  * @return org.apache.shiro.web.mgt.DefaultWebSecurityManager
- * @author Wang926454
+ * @author dolyw.com
  * @date 2018/8/31 10:55
  */
 @Bean("securityManager")
@@ -896,11 +883,21 @@ public DefaultWebSecurityManager getManager(UserRealm userRealm) {
 }
 ```
 
-#### OK，我们现在可以在Realm的doGetAuthorizationInfo()方法打断点看下请求第一次后Redis多了一条缓存数据，下次就不会再调用doGetAuthorizationInfo()方法，除非缓存失效
+## 3. 最后测试
+
+OK，我们现在可以在 Realm 的 doGetAuthorizationInfo() 方法打断点看下请求第一次后 Redis 多了一条缓存数据，下次就不会再调用 doGetAuthorizationInfo() 方法，除非缓存失效
+
 ![image text](https://docs.dolyw.com/Project/ShiroJwt/image/20181009001.png)
 
-#### 当前博客源码：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
+**当前博客源码**：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
 
-#### 我的项目地址
+**我的项目地址**
+
 * Github：[https://github.com/wang926454/ShiroJwt](https://github.com/wang926454/ShiroJwt)
 * Gitee(码云)：[https://gitee.com/dolyw/ShiroJwt](https://gitee.com/dolyw/ShiroJwt)
+
+**参考**
+
+1. [https://blog.csdn.net/why15732625998/article/details/78729254](https://blog.csdn.net/why15732625998/article/details/78729254)
+2. [http://www.cnblogs.com/GodHeng/p/9301330.html](http://www.cnblogs.com/GodHeng/p/9301330.html)
+3. [https://blog.csdn.net/W_Z_W_888/article/details/79979103](https://blog.csdn.net/W_Z_W_888/article/details/79979103)

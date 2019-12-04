@@ -189,5 +189,3 @@ int updateByOptimisticLock(StockDto stockDto);
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123005.png)
 
 可以看到，查询库存执行了**500**次，遵从**最后落地到数据库的请求数要尽量少**的原则，其实我们可以把这个数据放缓存，提升性能
-
-

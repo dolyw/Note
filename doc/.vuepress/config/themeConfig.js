@@ -43,11 +43,10 @@ module.exports = themeConfig = {
             ]
         },
         {
-            text: '其他补充',
+            text: '零星笔记',
             items: [
                 { text: '工具命令', link: '/command/' },
-                { text: '编程闲话', link: '/gossip/' },
-                { text: '零散记录', link: '/other/' }
+                { text: '零散记录', link: '/note/' }
             ]
         },
         {
@@ -60,7 +59,14 @@ module.exports = themeConfig = {
                 { text: '代码生成器-ViewGenerator', link: '/viewgenerator/' }
             ]
         },
-        { text: '关于投食', link: '/about.md' },
+        {
+            text: '其他补充',
+            items: [
+                { text: '其他记录', link: '/other/' },
+                { text: '编程闲话', link: '/gossip/' }
+            ]
+        },
+        { text: '关于', link: '/about.md' },
         // 外部链接
         /* { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' }, */
         // 下拉列表
@@ -126,7 +132,8 @@ module.exports = themeConfig = {
         // 前端记录
         '/front/': [
             ['', '前端记录'],
-            ['notes', '组件UI库记录']
+            ['00-Notes', '组件UI库记录'],
+            ['01-Knowledge-System.md', '前端知识体系']
         ],
         // 分布式
         '/distributed/': [
@@ -150,21 +157,13 @@ module.exports = themeConfig = {
             ['05-Git-MultiPush.md', 'Git一次Push到多个远端'],
             ['06-JMeter-Install', 'JMeter的安装使用']
         ],
-        // 编程闲话
-        '/gossip/': [
-            ['', 'Java码农的悲哀'],
-            ['01-Programmer-Slang.md', '码农有趣的黑话'],
-            ['02-Technical-Interpretation.md', '史上最污技术解读'],
-            ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
-        ],
         // 零散记录
-        '/other/': [
+        '/note/': [
             ['', '推荐阅读'],
-            ['01-CV.md', '怎么样写一个好的简历'],
-            ['02-CV2.md', '怎么样写一个好的简历To'],
-            ['03-Interview.md', '一些不错的面试记录收集'],
-            ['05-Github-Failure.md', '解决GitHub访问不了的方法'],
-            ['04-Jekyll.md', '在Windows下安装与使用Jekyll']
+            ['00-Technical-Map.md', '图谱记录'],
+            ['01-CV.md', '写一个好的简历'],
+            ['02-CV2.md', '写一个好的简历To'],
+            ['03-Interview.md', '面试题记录收集']
         ],
         '/p/': [
             ['', '开源项目'],
@@ -189,6 +188,19 @@ module.exports = themeConfig = {
         ],
         '/viewgenerator/': [
             ['', 'ViewGenerator']
+        ],
+        // 编程闲话
+        '/gossip/': [
+            ['', 'Java码农的悲哀'],
+            ['01-Programmer-Slang.md', '码农有趣的黑话'],
+            ['02-Technical-Interpretation.md', '史上最污技术解读'],
+            ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
+        ],
+        // 其他记录
+        '/other/': [
+            ['', '其他记录'],
+            ['01-Jekyll.md', '在Windows下安装与使用Jekyll'],
+            ['02-Github-Failure.md', '解决GitHub访问不了的方法']
         ]
     }
 }

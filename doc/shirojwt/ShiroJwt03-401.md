@@ -2,33 +2,17 @@
 
 Shiro + JWT + SpringBoot + MySQL + Redis(Jedis)实现无状态鉴权机制(Restful风格API)(解决无法直接返回401错误)
 
-## 序言
-
-> 目录:[https://blog.csdn.net/wang926454/article/details/82971291](https://blog.csdn.net/wang926454/article/details/82971291)
-
-首先感谢SmithCruise提供的思路，文章地址：[https://www.jianshu.com/p/f37f8c295057](https://www.jianshu.com/p/f37f8c295057)  
-
-根据SmithCruise的项目进行后续更新  
-
-* 将其改为数据库形式(MySQL)
-* 实现Shiro的Cache(Redis)功能
-* 解决无法直接返回401错误
-* Token刷新(RefreshToken)
-
-当前博客源码：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
-
-我的项目地址
+**我的项目地址**
 
 * Github：[https://github.com/wang926454/ShiroJwt](https://github.com/wang926454/ShiroJwt)
 * Gitee(码云)：[https://gitee.com/dolyw/ShiroJwt](https://gitee.com/dolyw/ShiroJwt)
 
-## 解决无法直接返回401错误
+#### 实现代码
 
-主要参考：[https://blog.csdn.net/chuhx/article/details/51148877](https://blog.csdn.net/chuhx/article/details/51148877)
+不再进行转发，直接 response，具体查看 JWTFilter.java
 
-### 不再进行转发，直接response，具体查看JWTFilter.java
+* 转发的代码段
 
-#### 转发代码段
 ```java
 /**
  * 将非法请求跳转到 /401
@@ -43,7 +27,8 @@ private void response401(ServletRequest req, ServletResponse resp) {
 }
 ```
 
-#### 直接返回代码段
+* 直接返回的代码段
+
 ```java
 /**
  * 无需转发，直接返回Response信息
@@ -68,7 +53,8 @@ private void response401(ServletRequest req, ServletResponse resp, String msg) {
 }
 ```
 
-#### JWTFilter.java
+* JWTFilter.java
+
 ```java
 package com.wang.config.shiro;
 
@@ -88,7 +74,7 @@ import java.io.PrintWriter;
 
 /**
  * JWT过滤
- * @author Wang926454
+ * @author dolyw.com
  * @date 2018/8/30 15:47
  */
 public class JWTFilter extends BasicHttpAuthenticationFilter {
@@ -186,8 +172,13 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
 }
 ```
 
-#### 当前博客源码：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
+当前博客源码：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
 
-#### 我的项目地址
+**我的项目地址**
+
 * Github：[https://github.com/wang926454/ShiroJwt](https://github.com/wang926454/ShiroJwt)
 * Gitee(码云)：[https://gitee.com/dolyw/ShiroJwt](https://gitee.com/dolyw/ShiroJwt)
+
+**参考**
+
+1. [https://blog.csdn.net/chuhx/article/details/51148877](https://blog.csdn.net/chuhx/article/details/51148877)

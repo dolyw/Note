@@ -2,29 +2,12 @@
 
 Shiro + JWT + SpringBoot + MySQL + Redis(Jedis)实现无状态鉴权机制(Restful风格API)(改为数据库形式(MySQL))
 
-## 序言
-
-> 目录:[https://blog.csdn.net/wang926454/article/details/82971291](https://blog.csdn.net/wang926454/article/details/82971291)
-
-首先感谢SmithCruise提供的思路，文章地址：[https://www.jianshu.com/p/f37f8c295057](https://www.jianshu.com/p/f37f8c295057)  
-
-根据SmithCruise的项目进行后续更新  
-
-* 将其改为数据库形式(MySQL)
-* 实现Shiro的Cache(Redis)功能
-* 解决无法直接返回401错误
-* Token刷新(RefreshToken)
-
-当前博客源码：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
-
-我的项目地址
+**我的项目地址**
 
 * Github：[https://github.com/wang926454/ShiroJwt](https://github.com/wang926454/ShiroJwt)
 * Gitee(码云)：[https://gitee.com/dolyw/ShiroJwt](https://gitee.com/dolyw/ShiroJwt)
 
-## 将其改为数据库形式(MySQL)
-
-### 表设计
+## 1. 表设计
 
 首先就是建表，常见的五个表(不懂自行百度)
 ```sql
@@ -89,11 +72,14 @@ insert into role_permission values(null, 2, 1);
 ```
 这里我们新增了三个用户，一个管理员(读写权限)，一个普通用户(读权限)，一个游客(没有权限)
 
-### 项目构建
+## 2. 项目构建
 
 首先自行按照我推荐的SmithCruise的文章进行了解，IDEA自行构建一个SpringBoot项目
 
-#### pom.xml
+### 2.1. 配置文件
+
+* pom.xml
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -262,7 +248,8 @@ insert into role_permission values(null, 2, 1);
 
 这里我采用的是Druid数据源和Fastjson，再使用了Pagehelper和通用Mapper插件(可以节省大部分简单增删改查的代码)，再是Shiro和JWT的Jar包
 
-#### application.yml
+* application.yml
+
 ```yml
 server:
     port: 8080
@@ -308,11 +295,13 @@ logging:
   level.com.wang.mapper: debug
 ```
 
-这些都没什么好说的，数据源配置，mybatis配置，logging设置mapper为debug，可以打印出SQL语句  
+这些都没什么好说的，数据源配置，mybatis配置，logging设置mapper为debug，可以打印出SQL语句
+
 pagehelper配置详细:[https://github.com/abel533/MyBatis-Spring-Boot](https://github.com/abel533/MyBatis-Spring-Boot)  
 通用mapper配置详细:[https://github.com/abel533/Mapper/wiki/1.3-spring-boot](https://github.com/abel533/Mapper/wiki/1.3-spring-boot)  
 
-#### mybatis-config.xml
+* mybatis-config.xml
+
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
@@ -346,7 +335,8 @@ pagehelper配置详细:[https://github.com/abel533/MyBatis-Spring-Boot](https://
 </configuration>
 ```
 
-#### generatorConfig.xml(逆向工程文件)
+* generatorConfig.xml(逆向工程文件)
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -397,16 +387,22 @@ pagehelper配置详细:[https://github.com/abel533/MyBatis-Spring-Boot](https://
 </generatorConfiguration>
 ```
 
-OK，逆向生成entity和mapper及mapper的xml文件，详细查看:[https://github.com/abel533/Mapper/wiki/4.2.codegenerator](https://github.com/abel533/Mapper/wiki/4.2.codegenerator)  
-先配置src\main\resources\generator\generatorConfig.xml文件，在pom.xml这一级目录(即项目根目录下)的命令行窗口执行下面的命令即可(前提是配置了mvn)(IDEA可以直接在Maven窗口Plugins中双击执行)
+### 2.2. 生成代码
+
+OK，逆向生成entity和mapper及mapper的xml文件，详细查看:[https://github.com/abel533/Mapper/wiki/4.2.codegenerator](https://github.com/abel533/Mapper/wiki/4.2.codegenerator)
+
+先配置 `src\main\resources\generator\generatorConfig.xml` 文件，在 pom.xml 这一级目录(即项目根目录下)的命令行窗口执行下面的命令即可(前提是配置了mvn)(IDEA可以直接在Maven窗口Plugins中双击执行)
+
 ```
 mvn mybatis-generator:generate
 ```
+
 ![image text](https://docs.dolyw.com/Project/ShiroJwt/image/20181008001.png)
 
-#### 新建DTO
+## 3. 实现代码
 
-##### UserDto
+* UserDto
+
 ```java
 package com.wang.model;
 
@@ -422,7 +418,8 @@ public class UserDto extends User implements Serializable {
 }
 ```
 
-##### RoleDto
+* RoleDto
+
 ```java
 package com.wang.model;
 
@@ -440,9 +437,10 @@ public class RoleDto extends Role implements Serializable {
 
 剩下PermissionDto.java，UserRoleDto.java，RolePermissionDto.java三个文件类似，这样可以将数据库实体进行隔离，Dto可以存放非数据库字段，数据库新增字段重新逆向也不会互相影响
 
-#### 重写UserRealm(从数据库查询密码及权限)
+### 3.1. 重写UserRealm
 
-##### UserRealm.java
+* 重写UserRealm(从数据库查询密码及权限)
+
 ```java
 package com.wang.config.shiro;
 
@@ -543,7 +541,8 @@ public class UserRealm extends AuthorizingRealm {
 }
 ```
 
-##### UserMapper.java
+* UserMapper.java
+
 ```java
 package com.wang.mapper;
 
@@ -556,7 +555,8 @@ public interface UserMapper extends Mapper<UserDto> {
 
 这次使用了通用Mapper，selectOne()即是通用Mapper里集成的方法，详情查看方法介绍:[https://github.com/abel533/Mapper/wiki/2.1-simple](https://github.com/abel533/Mapper/wiki/2.1-simple)
 
-##### RoleMapper.java
+* RoleMapper.java
+
 ```java
 package com.wang.mapper;
 
@@ -570,14 +570,15 @@ public interface RoleMapper extends Mapper<RoleDto> {
      * 根据User查询Role
      * @param userDto
      * @return java.util.List<com.wang.model.RoleDto>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/31 11:30
      */
     public List<RoleDto> findRoleByUser(UserDto userDto);
 }
 ```
 
-##### RoleMapper.xml
+* RoleMapper.xml
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -612,7 +613,8 @@ public interface RoleMapper extends Mapper<RoleDto> {
 </mapper>
 ```
 
-##### PermissionMapper.java
+* PermissionMapper.java
+
 ```java
 package com.wang.mapper;
 
@@ -626,14 +628,15 @@ public interface PermissionMapper extends Mapper<PermissionDto> {
      * 根据Role查询Permission
      * @param roleDto
      * @return java.util.List<com.wang.model.PermissionDto>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/31 11:30
      */
     public List<PermissionDto> findPermissionByRole(RoleDto roleDto);
 }
 ```
 
-##### PermissionMapper.xml
+* PermissionMapper.xml
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -668,9 +671,14 @@ public interface PermissionMapper extends Mapper<PermissionDto> {
 </mapper>
 ```
 
-这样就改成数据库形式(MySQL)的了，最后再上一下UserController和UserService，Service使用了一个通用的BaseService这样在Controller操作简单的CRUD时不需要再去建立Service层的方法
+这样就改成数据库形式(MySQL)的了
 
-##### UserController.java
+### 3.2. Web层实现
+
+最后再上一下UserController和UserService，Service使用了一个通用的BaseService这样在Controller操作简单的CRUD时不需要再去建立Service层的方法
+
+* UserController.java
+
 ```java
 package com.wang.controller;
 
@@ -694,7 +702,7 @@ import java.util.Map;
 
 /**
  * UserController
- * @author Wang926454
+ * @author dolyw.com
  * @date 2018/8/29 15:45
  */
 @RestController
@@ -711,7 +719,7 @@ public class UserController {
      * 获取所有用户
      * @param 
      * @return java.util.Map<java.lang.String,java.lang.Object>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 10:41
      */
     @GetMapping("/user")
@@ -728,7 +736,7 @@ public class UserController {
      * 获取指定用户
      * @param id
      * @return java.util.Map<java.lang.String,java.lang.Object>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 10:42
      */
     @GetMapping("/user/{id}")
@@ -745,7 +753,7 @@ public class UserController {
      * 新增用户
      * @param userDto
      * @return java.util.Map<java.lang.String,java.lang.Object>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 10:42
      */
     @PostMapping("/user")
@@ -764,7 +772,7 @@ public class UserController {
      * 更新用户
      * @param userDto
      * @return java.util.Map<java.lang.String,java.lang.Object>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 10:42
      */
     @PutMapping("/user")
@@ -782,7 +790,7 @@ public class UserController {
      * 删除用户
      * @param id
      * @return java.util.Map<java.lang.String,java.lang.Object>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 10:43
      */
     @DeleteMapping("/user/{id}")
@@ -800,7 +808,7 @@ public class UserController {
      * 登录授权
      * @param userDto
      * @return com.wang.model.common.ResponseBean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 16:21
      */
     @PostMapping("/user/login")
@@ -819,7 +827,7 @@ public class UserController {
      * 测试登录
      * @param
      * @return com.wang.model.common.ResponseBean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 16:18
      */
     @GetMapping("/user/article")
@@ -837,7 +845,7 @@ public class UserController {
      * @RequiresAuthentication和subject.isAuthenticated()返回true一个性质
      * @param 
      * @return com.wang.model.common.ResponseBean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 16:18
      */
     @GetMapping("/user/article2")
@@ -850,7 +858,7 @@ public class UserController {
      * 401没有权限异常
      * @param
      * @return com.wang.model.common.ResponseBean
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/30 16:18
      */
     @RequestMapping(path = "/401")
@@ -861,7 +869,8 @@ public class UserController {
 }
 ```
 
-##### IBaseService.java
+* IBaseService.java
+
 ```java
 package com.wang.service;
 
@@ -876,7 +885,7 @@ public interface IBaseService<T> {
      * 根据实体中的属性值进行查询，查询条件使用等号
      * @param record
      * @return java.util.List<T>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     List<T> select(T record);
@@ -885,7 +894,7 @@ public interface IBaseService<T> {
      * 根据主键字段进行查询，方法参数必须包含完整的主键属性，查询条件使用等号
      * @param key
      * @return T
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     T selectByPrimaryKey(Object key);
@@ -894,7 +903,7 @@ public interface IBaseService<T> {
      * 查询全部结果，select(null)方法能达到同样的效果
      * @param 
      * @return java.util.List<T>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     List<T> selectAll();
@@ -903,7 +912,7 @@ public interface IBaseService<T> {
      * 根据实体中的属性进行查询，只能有一个返回值，有多个结果是抛出异常，查询条件使用等号
      * @param record
      * @return T
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     T selectOne(T record);
@@ -912,7 +921,7 @@ public interface IBaseService<T> {
      * 根据实体中的属性查询总数，查询条件使用等号
      * @param record
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     int selectCount(T record);
@@ -922,7 +931,7 @@ public interface IBaseService<T> {
      * 保存一个实体，null的属性也会保存，不会使用数据库默认值
      * @param record
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     int insert(T record);
@@ -931,7 +940,7 @@ public interface IBaseService<T> {
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
      * @param record
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     int insertSelective(T record);
@@ -941,7 +950,7 @@ public interface IBaseService<T> {
      * 根据主键更新实体全部字段，null值会被更新
      * @param record
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     int updateByPrimaryKey(T record);
@@ -950,7 +959,7 @@ public interface IBaseService<T> {
      * 根据主键更新属性不为null的值
      * @param record
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     int updateByPrimaryKeySelective(T record);
@@ -960,7 +969,7 @@ public interface IBaseService<T> {
      * 根据实体属性作为条件进行删除，查询条件使用等号
      * @param record
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:43
      */
     int delete(T record);
@@ -969,7 +978,7 @@ public interface IBaseService<T> {
      * 根据主键字段进行删除，方法参数必须包含完整的主键属性
      * @param key
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:44
      */
     int deleteByPrimaryKey(Object key);
@@ -979,7 +988,7 @@ public interface IBaseService<T> {
      * 根据Example条件进行查询，这个查询支持通过Example类指定查询列，通过selectProperties方法指定查询列
      * @param example
      * @return java.util.List<T>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:44
      */
     List<T> selectByExample(Object example);
@@ -988,7 +997,7 @@ public interface IBaseService<T> {
      * 根据Example条件进行查询总数
      * @param example
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:44
      */
     int selectCountByExample(Object example);
@@ -998,7 +1007,7 @@ public interface IBaseService<T> {
      * @param record
 	 * @param example
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:44
      */
     int updateByExample(@Param("record") T record, @Param("example") Object example);
@@ -1008,7 +1017,7 @@ public interface IBaseService<T> {
      * @param record
 	 * @param example
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:44
      */
     int updateByExampleSelective(@Param("record") T record, @Param("example") Object example);
@@ -1017,7 +1026,7 @@ public interface IBaseService<T> {
      * 根据Example条件删除数据
      * @param example
      * @return int
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:44
      */
     int deleteByExample(Object example);
@@ -1028,7 +1037,7 @@ public interface IBaseService<T> {
      * @param record
 	 * @param rowBounds
      * @return java.util.List<T>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:44
      */
     List<T> selectByRowBounds(T record, RowBounds rowBounds);
@@ -1038,14 +1047,15 @@ public interface IBaseService<T> {
      * @param example
 	 * @param rowBounds
      * @return java.util.List<T>
-     * @author Wang926454
+     * @author dolyw.com
      * @date 2018/8/9 15:44
      */
     List<T> selectByExampleAndRowBounds(Object example, RowBounds rowBounds);
 }
 ```
 
-##### BaseServiceImpl.java
+* BaseServiceImpl.java
+
 ```java
 package com.wang.service.impl;
 
@@ -1156,7 +1166,8 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
 }
 ```
 
-##### IUserService.java
+* IUserService.java
+
 ```java
 package com.wang.service;
 
@@ -1166,7 +1177,8 @@ public interface IUserService extends IBaseService<UserDto>{
 }
 ```
 
-##### UserServiceImpl.java
+* UserServiceImpl.java
+
 ```java
 package com.wang.service.impl;
 
@@ -1179,15 +1191,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserDto> implements IUserSe
 }
 ```
 
-#### 最后项目结构图
+### 3.3. 项目结构图
 
 ![image text](https://docs.dolyw.com/Project/ShiroJwt/image/20181008002.png)
 ![image text](https://docs.dolyw.com/Project/ShiroJwt/image/20181008003.png)
 
-#### 其他文件和SmithCruise文章内一致，地址：[https://www.jianshu.com/p/f37f8c295057](https://www.jianshu.com/p/f37f8c295057)
+其他文件和SmithCruise文章内一致，地址：[https://www.jianshu.com/p/f37f8c295057](https://www.jianshu.com/p/f37f8c295057)
 
-#### 当前博客源码：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
+**当前博客源码**：[https://download.csdn.net/download/wang926454/10726052](https://download.csdn.net/download/wang926454/10726052)
 
-#### 我的项目地址
+**我的项目地址**
+
 * Github：[https://github.com/wang926454/ShiroJwt](https://github.com/wang926454/ShiroJwt)
 * Gitee(码云)：[https://gitee.com/dolyw/ShiroJwt](https://gitee.com/dolyw/ShiroJwt)

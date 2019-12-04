@@ -25,4 +25,4 @@ yarn doc:build
 
 **替换**
 
-https://cdn.jsdelivr.net/gh/wliduo/Note@master/docs`/`assets/
+https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs`/`assets/
