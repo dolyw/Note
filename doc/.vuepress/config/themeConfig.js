@@ -39,7 +39,9 @@ module.exports = themeConfig = {
             text: '架构记录',
             items: [
                 { text: '分布式', link: '/distributed/' },
-                { text: '秒杀架构', link: '/seckill/' }
+                { text: '秒杀架构', link: '/seckill/' },
+                /* { text: 'Dubbo', link: '/dubbo/' }, */
+                { text: 'SpringCloud', link: '/springcloud/' }
             ]
         },
         {
@@ -146,6 +148,10 @@ module.exports = themeConfig = {
             ['', '秒杀架构'],
             ['01-Design-Thinking.md', '秒杀系统的设计思考'],
             ['02-Distributed-Limit', '高并发下的限流分析']
+        ],
+        '/springcloud/': [
+            ['', 'SpringCloud'],
+            ['00-Version', '版本区别']
         ],
         // 工具命令
         '/command/': [
