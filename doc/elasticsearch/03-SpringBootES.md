@@ -4,8 +4,8 @@ SpringBoot整合Elasticsearch的方式(TransportClient、Data-ES、Elasticsearch
 
 ## 代码地址
 
-* Github：[https://github.com/dolyw/Elasticsearch/tree/master/01-SpringBoot-ES-Local](https://github.com/dolyw/Elasticsearch/tree/master/01-SpringBoot-ES-Local)
-* Gitee(码云)：[https://gitee.com/dolyw/Elasticsearch/tree/master/01-SpringBoot-ES-Local](https://gitee.com/dolyw/Elasticsearch/tree/master/01-SpringBoot-ES-Local)
+* Github：[https://github.com/dolyw/ProjectStudy/tree/master/Elasticsearch/01-SpringBoot-ES-Local](https://github.com/dolyw/ProjectStudy/tree/master/Elasticsearch/01-SpringBoot-ES-Local)
+* Gitee(码云)：[https://gitee.com/dolyw/ProjectStudy/tree/master/Elasticsearch/01-SpringBoot-ES-Local](https://gitee.com/dolyw/ProjectStudy/tree/master/Elasticsearch/01-SpringBoot-ES-Local)
 
 ## 软件架构
 

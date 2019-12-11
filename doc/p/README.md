@@ -1,5 +1,25 @@
 # 开源项目
 
+## ProjectStudy
+
+::: danger 我的学习代码记录(Elasticsearch，Netty，Dubbo，SpringBoot，SpringCloud)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/dolyw/ProjectStudy/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/dolyw/ProjectStudy.svg?style=social&label=Stars)](https://github.com/dolyw/ProjectStudy)
+[![GitHub forks](https://img.shields.io/github/forks/dolyw/ProjectStudy.svg?style=social&label=Fork)](https://github.com/dolyw/ProjectStudy)
+
+**地址**
+
+* Elasticsearch: [https://note.dolyw.com/elasticsearch](https://note.dolyw.com/elasticsearch)
+* Netty: [https://note.dolyw.com/netty](https://note.dolyw.com/netty)
+* SpringCloud: [https://note.dolyw.com/springcloud](https://note.dolyw.com/springcloud)
+
+**代码**
+
+* Github：[https://github.com/dolyw/ProjectStudy](https://github.com/dolyw/ProjectStudy)
+* Gitee(码云)：[https://gitee.com/dolyw/ProjectStudy](https://gitee.com/dolyw/ProjectStudy)
+:::
+
 ## ShiroJwt
 
 ::: tip ShiroJwt(JWT鉴权学习)
@@ -57,33 +77,4 @@
 
 * Github：[https://github.com/dolyw/VueStudy](https://github.com/dolyw/VueStudy)
 * Gitee(码云)：[https://gitee.com/dolyw/VueStudy](https://gitee.com/dolyw/VueStudy)
-:::
-
-## NettyStudy
-
-::: tip NettyStudy(Netty学习系列示例代码及教程)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/dolyw/NettyStudy/pulls)
-[![GitHub stars](https://img.shields.io/github/stars/dolyw/NettyStudy.svg?style=social&label=Stars)](https://github.com/dolyw/NettyStudy)
-[![GitHub forks](https://img.shields.io/github/forks/dolyw/NettyStudy.svg?style=social&label=Fork)](https://github.com/dolyw/NettyStudy)
-
-**地址**
-
-* Github：[https://github.com/dolyw/NettyStudy](https://github.com/dolyw/NettyStudy)
-* Gitee(码云)：[https://gitee.com/dolyw/NettyStudy](https://gitee.com/dolyw/NettyStudy)
-:::
-
-## Elasticsearch
-
-::: danger Elasticsearch(Elasticsearch以及Docker化学习系列示例代码及教程)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/dolyw/Elasticsearch/pulls)
-[![GitHub stars](https://img.shields.io/github/stars/dolyw/Elasticsearch.svg?style=social&label=Stars)](https://github.com/dolyw/Elasticsearch)
-[![GitHub forks](https://img.shields.io/github/forks/dolyw/Elasticsearch.svg?style=social&label=Fork)](https://github.com/dolyw/Elasticsearch)
-
-**地址**
-
-* 文章: [https://note.dolyw.com/elasticsearch](https://note.dolyw.com/elasticsearch)
-* Github：[https://github.com/dolyw/Elasticsearch](https://github.com/dolyw/Elasticsearch)
-* Gitee(码云)：[https://gitee.com/dolyw/Elasticsearch](https://gitee.com/dolyw/Elasticsearch)
 :::

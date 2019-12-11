@@ -4,14 +4,14 @@ SpringBoot整合ES的方式(TransportClient、Data-ES、Elasticsearch SQL、REST
 
 ## 代码地址
 
-* Github：[https://github.com/dolyw/Elasticsearch/tree/master/02-SpringBoot-ES-Docker](https://github.com/dolyw/Elasticsearch/tree/master/02-SpringBoot-ES-Docker)
-* Gitee(码云)：[https://gitee.com/dolyw/Elasticsearch/tree/master/02-SpringBoot-ES-Docker](https://gitee.com/dolyw/Elasticsearch/tree/master/02-SpringBoot-ES-Docker)
+* Github：[https://github.com/dolyw/ProjectStudy/tree/master/Elasticsearch/02-SpringBoot-ES-Docker](https://github.com/dolyw/ProjectStudy/tree/master/Elasticsearch/02-SpringBoot-ES-Docker)
+* Gitee(码云)：[https://gitee.com/dolyw/ProjectStudy/tree/master/Elasticsearch/02-SpringBoot-ES-Docker](https://gitee.com/dolyw/ProjectStudy/tree/master/Elasticsearch/02-SpringBoot-ES-Docker)
 
 ## 项目介绍
 
 详细的过程查看: 
 
-* SpringBoot整合Elasticsearch的方式(TransportClient、Data-ES、Elasticsearch SQL、REST Client): [https://github.com/dolyw/Elasticsearch/tree/master/01-SpringBoot-ES-Local](https://github.com/dolyw/Elasticsearch/tree/master/01-SpringBoot-ES-Local)
+* SpringBoot整合Elasticsearch的方式(TransportClient、Data-ES、Elasticsearch SQL、REST Client): [SpringBoot整合Elasticsearch](03-SpringBootES.html)
 
 * Docker环境下搭建Elasticsearch，Elasticsearch集群，Elasticsearch-Head以及IK分词插件和拼音分词插件: [https://note.dolyw.com/docker/03-Elasticsearch.html](https://note.dolyw.com/docker/03-Elasticsearch.html)
 
