@@ -75,8 +75,8 @@ module.exports = themeConfig = {
         {
             text: '联系',
             items: [
+                { text: '首页', link: 'https://dolyw.com/go?url=https://dolyw.com' },
                 { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
-                { text: '博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' },
                 { text: '音乐', link: 'https://dolyw.com/go?url=https://res.dolyw.com' },
                 { text: '留言', link: 'https://dolyw.com/go?url=https://msg.dolyw.com' },
                 { text: '简历', link: 'https://dolyw.com/go?url=https://cv.dolyw.com' },
