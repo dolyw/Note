@@ -88,11 +88,11 @@ module.exports = themeConfig = {
         // 学习记录
         '/java/': [
             ['', 'Java'],
-            ['01-Java-Basics', 'Java拾遗-基础'],
-            ['02-Java-Collection', 'Java拾遗-容器'],
+            /* ['01-Java-Basics', 'Java拾遗-基础'],
+            ['02-Java-Collection', 'Java拾遗-容器'], */
             ['03-Java-Concurrent', 'Java拾遗-并发'],
-            ['04-Java-JVM', 'Java拾遗-虚拟机(JVM)'],
-            ['05-Java-IO', 'Java拾遗-输入/输出(IO)'],
+            /* ['04-Java-JVM', 'Java拾遗-虚拟机(JVM)'],
+            ['05-Java-IO', 'Java拾遗-输入/输出(IO)'], */
             ['11-Thread-Safe.md', '其他-Java中的线程安全'],
             ['12-Thread-Pool.md', '其他-Java中的线程池的创建及使用'],
             ['13-List-De-Duplication.md', '其他-List集合去重方式及效率对比'],
@@ -128,7 +128,7 @@ module.exports = themeConfig = {
             ['', 'Database'],
             ['00-Isolation', 'ACID以及事务隔离级别'],
             ['01-MySQL-Lock', 'MySQL那些锁'],
-            ['02-DB-NF', 'Database中的范式理论'],
+            /* ['02-DB-NF', 'Database中的范式理论'], */
             ['03-MySQL-Index-B+', 'MySQL索引以及B+树']
         ],
         // 前端记录
@@ -151,7 +151,8 @@ module.exports = themeConfig = {
         ],
         '/dubbo/': [
             ['', 'Dubbo'],
-            ['00-ZooKeeper-Use', 'ZooKeeper安装使用']
+            ['00-ZooKeeper-Use', 'ZooKeeper使用'],
+            ['01-Quick-Start', 'Dubbo简单的使用']
         ],
         '/springcloud/': [
             ['', 'SpringCloud'],

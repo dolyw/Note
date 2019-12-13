@@ -22,7 +22,7 @@
 
 ## ShiroJwt
 
-::: tip ShiroJwt(JWT鉴权学习)
+::: tip ShiroJwt(Shiro + JWT鉴权)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/wang926454/ShiroJwt/pulls)
 [![GitHub stars](https://img.shields.io/github/stars/wang926454/ShiroJwt.svg?style=social&label=Stars)](https://github.com/wang926454/ShiroJwt)
