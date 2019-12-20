@@ -4,11 +4,11 @@
 本栏的主要内容如下
 :::
 
-* [Java拾遗-基础](01-Java-Basics.html)
-* [Java拾遗-容器](02-Java-Collection.html)
+<!-- * [Java拾遗-基础](01-Java-Basics.html) -->
+<!-- * [Java拾遗-容器](02-Java-Collection.html) -->
 * [Java拾遗-并发](03-Java-Concurrent.html)
-* [Java拾遗-虚拟机(JVM)](04-Java-JVM.html)
-* [Java拾遗-输入/输出(IO)](05-Java-IO.html)
+<!-- * [Java拾遗-虚拟机(JVM)](04-Java-JVM.html) -->
+<!-- * [Java拾遗-输入/输出(IO)](05-Java-IO.html) -->
 
 ::: danger 其他
 本栏的主要内容如下
