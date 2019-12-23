@@ -82,7 +82,13 @@ dataLogDir=D:/Tools/apache-zookeeper-3.5.6-bin/log
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191212011.png)
 
-## 5. 最后
+## 5. 可视化
+
+* ZooInspector
+* ZooViewer
+* ZkTools
+
+## 6. 最后
 
 * [BAT面试之ZooKeeper知识点整理](https://blog.csdn.net/qq_34988624/article/details/86433658)
 

@@ -10,8 +10,8 @@
 
 **推荐阅读**
 
-* [数据库的ACID](/database/)
-* [事务隔离级别](00-Isolation.html)
+* [数据库的ACID](00-Isolation.html)
+* [事务隔离级别](00-Isolation.html#隔离性-isolation)
 
 ## 2. 按使用方式
 

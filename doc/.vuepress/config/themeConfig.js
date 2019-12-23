@@ -28,11 +28,13 @@ module.exports = themeConfig = {
             text: '学习记录',
             items: [
                 { text: 'Java', link: '/java/' },
-                { text: 'Docker', link: '/docker/' },
-                { text: 'Elasticsearch', link: '/elasticsearch/' },
-                { text: 'Cache', link: '/cache/' },
                 { text: 'Database', link: '/database/' },
-                { text: '前端记录', link: '/front/' }
+                { text: 'Cache', link: '/cache/' },
+                { text: 'Elasticsearch', link: '/elasticsearch/' },
+                { text: 'Docker', link: '/docker/' },
+                { text: '工具命令', link: '/command/' },
+                { text: '前端记录', link: '/front/' },
+                { text: '零散记录', link: '/note/' }
             ]
         },
         {
@@ -44,13 +46,13 @@ module.exports = themeConfig = {
                 { text: 'SpringCloud', link: '/springcloud/' }
             ]
         },
-        {
+        /* {
             text: '零星笔记',
             items: [
                 { text: '工具命令', link: '/command/' },
                 { text: '零散记录', link: '/note/' }
             ]
-        },
+        }, */
         {
             text: '开源项目',
             items: [
@@ -106,8 +108,11 @@ module.exports = themeConfig = {
             ['', 'Docker'],
             ['00-GettingStarted.md', 'Docker入门安装'],
             ['01-VisualizationTools.md', 'Docker界面可视化'],
+            ['01-Docker-Study.md', 'Docker知识学习'],
             ['02-Tomcat.md', 'Docker下Tomcat的使用'],
-            ['03-Elasticsearch.md', 'Docker下Elasticsearch的使用']
+            ['03-Elasticsearch.md', 'Docker下Elasticsearch的使用'],
+            ['04-ZooKeeper-Cluster.md', 'Docker下ZooKeeper的使用'],
+            ['05-Dubbo-Admin.md', 'Docker下Dubbo-Admin的使用']
         ],
         '/elasticsearch/': [
             ['', 'Elasticsearch'],
@@ -151,8 +156,10 @@ module.exports = themeConfig = {
         ],
         '/dubbo/': [
             ['', 'Dubbo'],
-            ['00-ZooKeeper-Use', 'ZooKeeper使用'],
-            ['01-Quick-Start', 'Dubbo简单的使用']
+            ['00-ZooKeeper-Use', 'ZooKeeper安装使用'],
+            ['02-ZooKeeper-Cluster', 'ZooKeeper的集群'],
+            ['01-Quick-Start', 'Dubbo简单的使用'],
+            ['03-Dubbo-Admin', 'Dubbo-Admin的安装使用']
         ],
         '/springcloud/': [
             ['', 'SpringCloud'],
@@ -210,6 +217,7 @@ module.exports = themeConfig = {
         // 其他记录
         '/other/': [
             ['', '其他记录'],
+            ['00-Windows10', 'Windows 10的一些记录'],
             ['01-Jekyll.md', '在Windows下安装与使用Jekyll'],
             ['02-Github-Failure.md', '解决GitHub访问不了的方法']
         ]

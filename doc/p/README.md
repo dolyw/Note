@@ -12,6 +12,7 @@
 
 * Elasticsearch: [https://note.dolyw.com/elasticsearch](https://note.dolyw.com/elasticsearch)
 * Netty: [https://note.dolyw.com/netty](https://note.dolyw.com/netty)
+* Dubbo: [https://note.dolyw.com/dubbo](https://note.dolyw.com/dubbo)
 * SpringCloud: [https://note.dolyw.com/springcloud](https://note.dolyw.com/springcloud)
 
 **代码**
