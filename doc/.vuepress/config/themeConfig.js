@@ -168,6 +168,7 @@ module.exports = themeConfig = {
         // 工具命令
         '/command/': [
             ['', '工具命令'],
+            ['00-Tool-Note.md', '工具软件记录'],
             ['01-Git-Command.md', 'Git命令记录'],
             ['02-Linux-Command.md', 'Linux命令记录'],
             ['03-Docker-Command.md', 'Docker命令记录'],
@@ -207,19 +208,19 @@ module.exports = themeConfig = {
         '/viewgenerator/': [
             ['', 'ViewGenerator']
         ],
+        // 其他记录
+        '/other/': [
+            ['', '其他记录'],
+            ['00-Windows-Optimize', 'Windows的优化记录'],
+            ['01-Jekyll.md', '在Windows下安装与使用Jekyll'],
+            ['02-Github-Failure.md', '解决GitHub访问不了的方法']
+        ],
         // 编程闲话
         '/gossip/': [
             ['', 'Java码农的悲哀'],
             ['01-Programmer-Slang.md', '码农有趣的黑话'],
             ['02-Technical-Interpretation.md', '史上最污技术解读'],
             ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
-        ],
-        // 其他记录
-        '/other/': [
-            ['', '其他记录'],
-            ['00-Windows10', 'Windows 10的一些记录'],
-            ['01-Jekyll.md', '在Windows下安装与使用Jekyll'],
-            ['02-Github-Failure.md', '解决GitHub访问不了的方法']
         ]
     }
 }

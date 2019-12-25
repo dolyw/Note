@@ -4,6 +4,7 @@
 
 ## 目录列表
 
+* [Windows的软件记录](00-Tool-Note.html)
 * [Git命令记录](01-Git-Command.html)
 * [Linux命令记录](02-Linux-Command.html)
 * [Docker命令记录](03-Docker-Command.html)

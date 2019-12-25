@@ -41,20 +41,23 @@ PS C:\>
 ```yml
 version: '3'
 services:
-  zookeeper:
+  zk:
     image: zookeeper
+    container_name: zk
     ports:
       - 2181:2181
-  admin:
+  dubbo-admin:
     image: apache/dubbo-admin
+    container_name: dubbo-admin
+    # 等待zk启动后再启动
     depends_on:
-      - zookeeper
+      - zk
     ports:
       - 8080:8080
     environment:
-      - admin.registry.address=zookeeper://zookeeper:2181
-      - admin.config-center=zookeeper://zookeeper:2181
-      - admin.metadata-report.address=zookeeper://zookeeper:2181
+      - admin.registry.address=zookeeper://zk:2181
+      - admin.config-center=zookeeper://zk:2181
+      - admin.metadata-report.address=zookeeper://zk:2181
 ```
 
 ## 4. 其他
@@ -64,18 +67,21 @@ services:
 ```yml
 version: '3'
 services:
-  zookeeper:
+  zk:
     image: zookeeper
+    container_name: zk
     ports:
       - 2181:2181
-  admin:
+  dubbo-admin:
     image: chenchuxin/dubbo-admin
+    container_name: dubbo-admin
+    # 等待zk启动后再启动
     depends_on:
-      - zookeeper
+      - zk
     ports:
       - 8080:8080
     environment:
-      - dubbo.registry.address=zookeeper://zookeeper:2181
+      - dubbo.registry.address=zookeeper://zk:2181
       - dubbo.admin.root.password=root
       - dubbo.admin.guest.password=guest
 ```

@@ -54,7 +54,8 @@ services:
         # Dockerfile使用build(.表示当前目录)，image使用现成的镜像
         # build: .
         image: zookeeper
-        restart: always
+        # 跟随一起启动
+        # restart: always
         container_name: zk1
         ports:
             - "2181:2181"
@@ -64,7 +65,8 @@ services:
 
     zk2:
         image: zookeeper
-        restart: always
+        # 跟随一起启动
+        # restart: always
         container_name: zk2
         ports:
             - "2182:2181"
@@ -74,7 +76,8 @@ services:
 
     zk3:
         image: zookeeper
-        restart: always
+        # 跟随一起启动
+        # restart: always
         container_name: zk3
         ports:
             - "2183:2181"
