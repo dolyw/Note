@@ -6,13 +6,13 @@
 
 直接去官网下载即可: [http://jmeter.apache.org/download_jmeter.cgi](http://jmeter.apache.org/download_jmeter.cgi)
 
-点击下图的zip文件即可
+点击下图的 Zip 文件即可
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191114001.png)
 
 ## 安装
 
-解压zip文件，直接运行**bin**目录下的**jmeter.bat**就可以启动了，前提是要安装Java环境，这里就不说了
+解压 Zip 文件，直接运行**bin**目录下的**jmeter.bat**就可以启动了，前提是要安装 Java 环境，这里就不说了
 
 打开可以切换中文，如下图
 

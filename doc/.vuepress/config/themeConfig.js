@@ -168,17 +168,18 @@ module.exports = themeConfig = {
         // 工具命令
         '/command/': [
             ['', '工具命令'],
-            ['00-Tool-Note.md', '工具软件记录'],
             ['01-Git-Command.md', 'Git命令记录'],
             ['02-Linux-Command.md', 'Linux命令记录'],
             ['03-Docker-Command.md', 'Docker命令记录'],
             ['04-Git-MultiUser.md', 'SSH同时使用多个Git账户'],
             ['05-Git-MultiPush.md', 'Git一次Push到多个远端'],
-            ['06-JMeter-Install', 'JMeter的安装使用']
+            ['06-JMeter-Install', 'JMeter的安装使用'],
+            ['07-IDEA-SonarQube', 'IDEA使用SonarQube检测代码']
         ],
         // 零散记录
         '/note/': [
             ['', '推荐阅读'],
+            ['00-Tool-Note.md', '软件记录'],
             ['00-Technical-Map.md', '图谱记录'],
             ['01-CV.md', '写一个好的简历'],
             ['02-CV2.md', '写一个好的简历To'],
