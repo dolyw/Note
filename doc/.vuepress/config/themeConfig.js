@@ -14,6 +14,8 @@ module.exports = themeConfig = {
     // 文档更新时间，每个文件git最后提交的时间
     lastUpdated: '上次更新时间',
     nav: [
+        // 外部链接
+        { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
         // 内部链接，以doc为根目录
         { text: '主页', link: '/' },
         /* {
@@ -63,6 +65,7 @@ module.exports = themeConfig = {
                 { text: '代码生成器-ViewGenerator', link: '/viewgenerator/' }
             ]
         },
+        // 下拉列表
         {
             text: '其他补充',
             items: [
@@ -70,10 +73,7 @@ module.exports = themeConfig = {
                 { text: '编程闲话', link: '/gossip/' }
             ]
         },
-        { text: '关于', link: '/about.md' },
-        // 外部链接
-        /* { text: '我的博客', link: 'https://dolyw.com/go?url=https://blog.dolyw.com' }, */
-        // 下拉列表
+        { text: '关于', link: '/about.md' }/* ,
         {
             text: '联系',
             items: [
@@ -84,7 +84,7 @@ module.exports = themeConfig = {
                 { text: '简历', link: 'https://dolyw.com/go?url=https://cv.dolyw.com' },
                 { text: 'GitHub', link: 'https://dolyw.com/go?url=https://github.com/dolyw' }
             ]
-        }
+        } */
     ],
     sidebar: {
         // 学习记录
