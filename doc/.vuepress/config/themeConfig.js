@@ -1,4 +1,6 @@
 module.exports = themeConfig = {
+    // Github显示
+    repo: 'https://github.com/dolyw',
     // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
     docsRepo: 'dolyw/Note',
     // 假如文档不是放在仓库的根目录下：
@@ -15,7 +17,17 @@ module.exports = themeConfig = {
     lastUpdated: '上次更新时间',
     nav: [
         // 外部链接
-        { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
+        {
+            text: '整站地图',
+            items: [
+                { text: '首页', link: 'https://dolyw.com/go?url=https://dolyw.com' },
+                { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
+                { text: '生活', link: 'https://dolyw.com/go?url=https://life.dolyw.com' },
+                { text: '音乐', link: 'https://dolyw.com/go?url=https://res.dolyw.com' },
+                { text: '留言', link: 'https://dolyw.com/go?url=https://msg.dolyw.com' },
+                { text: '简历', link: 'https://dolyw.com/go?url=https://cv.dolyw.com' }
+            ]
+        },
         // 内部链接，以doc为根目录
         { text: '主页', link: '/' },
         /* {
@@ -35,8 +47,7 @@ module.exports = themeConfig = {
                 { text: 'Elasticsearch', link: '/elasticsearch/' },
                 { text: 'Docker', link: '/docker/' },
                 { text: '工具命令', link: '/command/' },
-                { text: '前端记录', link: '/front/' },
-                { text: '零散记录', link: '/note/' }
+                { text: '前端记录', link: '/front/' }
             ]
         },
         {
@@ -69,22 +80,12 @@ module.exports = themeConfig = {
         {
             text: '其他补充',
             items: [
+                { text: '零散记录', link: '/note/' },
                 { text: '其他记录', link: '/other/' },
                 { text: '编程闲话', link: '/gossip/' }
             ]
         },
-        { text: '关于', link: '/about.md' }/* ,
-        {
-            text: '联系',
-            items: [
-                { text: '首页', link: 'https://dolyw.com/go?url=https://dolyw.com' },
-                { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
-                { text: '音乐', link: 'https://dolyw.com/go?url=https://res.dolyw.com' },
-                { text: '留言', link: 'https://dolyw.com/go?url=https://msg.dolyw.com' },
-                { text: '简历', link: 'https://dolyw.com/go?url=https://cv.dolyw.com' },
-                { text: 'GitHub', link: 'https://dolyw.com/go?url=https://github.com/dolyw' }
-            ]
-        } */
+        { text: '关于', link: '/about.md' }
     ],
     sidebar: {
         // 学习记录
@@ -176,15 +177,6 @@ module.exports = themeConfig = {
             ['06-JMeter-Install', 'JMeter的安装使用'],
             ['07-IDEA-SonarQube', 'IDEA使用SonarQube检测代码']
         ],
-        // 零散记录
-        '/note/': [
-            ['', '推荐阅读'],
-            ['00-Tool-Note.md', '软件记录'],
-            ['00-Technical-Map.md', '图谱记录'],
-            ['01-CV.md', '写一个好的简历'],
-            ['02-CV2.md', '写一个好的简历To'],
-            ['03-Interview.md', '面试题记录收集']
-        ],
         '/p/': [
             ['', '开源项目'],
         ],
@@ -209,10 +201,19 @@ module.exports = themeConfig = {
         '/viewgenerator/': [
             ['', 'ViewGenerator']
         ],
+        // 零散记录
+        '/note/': [
+            ['', '推荐阅读'],
+            ['00-Technical-Map.md', '图谱记录'],
+            ['03-Interview.md', '面试题记录']
+        ],
         // 其他记录
         '/other/': [
             ['', '其他记录'],
+            ['00-Tool-Note.md', '软件记录'],
             ['00-Windows-Optimize', 'Windows的优化记录'],
+            ['01-CV.md', '写一个好的简历'],
+            ['02-CV2.md', '写一个好的简历To'],
             ['01-Jekyll.md', '在Windows下安装与使用Jekyll'],
             ['02-Github-Failure.md', '解决GitHub访问不了的方法']
         ],
