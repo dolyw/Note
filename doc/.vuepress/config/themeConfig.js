@@ -54,6 +54,7 @@ module.exports = themeConfig = {
             text: '架构记录',
             items: [
                 { text: '分布式', link: '/distributed/' },
+                { text: '消息队列', link: '/mq/' },
                 { text: '秒杀架构', link: '/seckill/' },
                 { text: 'Dubbo', link: '/dubbo/' },
                 { text: 'SpringCloud', link: '/springcloud/' }
@@ -148,6 +149,12 @@ module.exports = themeConfig = {
             ['', 'Distributed'],
             ['00-CAP-BASE.md', 'CAP和BASE理论'],
             ['01-Distributed-Transaction.md', '浅析分布式事务']
+        ],
+        // 消息队列
+        '/mq/': [
+            ['', 'MQ'],
+            ['00-MQ-Select', 'MQ了解及对比选型'],
+            ['10-RabbitMQ', 'RabbitMQ安装使用']
         ],
         // 秒杀架构
         '/seckill/': [
