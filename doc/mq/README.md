@@ -13,3 +13,4 @@
 
 * [ActiveMQ集群搭建](https://www.cnblogs.com/arjenlee/p/9303229.html)
 * [ActiveMQ集群整体认识](https://segmentfault.com/a/1190000014592517)
+* [RabbitMQ系列文章](https://www.cnblogs.com/vipstone/p/9275256.html)

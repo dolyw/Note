@@ -15,6 +15,7 @@
 * [Docker下Elasticsearch的使用](03-Elasticsearch.html)
 * [Docker下ZooKeeper的使用](04-ZooKeeper-Cluster.html)
 * [Docker下Dubbo-Admin的使用](05-Dubbo-Admin.html)
+* [Docker下RabbitMQ的使用](06-RabbitMQ.html)
 
 ## 完成进度
 

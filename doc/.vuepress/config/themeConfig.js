@@ -45,7 +45,6 @@ module.exports = themeConfig = {
                 { text: 'Database', link: '/database/' },
                 { text: 'Cache', link: '/cache/' },
                 { text: 'Elasticsearch', link: '/elasticsearch/' },
-                { text: 'Docker', link: '/docker/' },
                 { text: '工具命令', link: '/command/' },
                 { text: '前端记录', link: '/front/' }
             ]
@@ -56,6 +55,7 @@ module.exports = themeConfig = {
                 { text: '分布式', link: '/distributed/' },
                 { text: '消息队列', link: '/mq/' },
                 { text: '秒杀架构', link: '/seckill/' },
+                { text: 'Docker', link: '/docker/' },
                 { text: 'Dubbo', link: '/dubbo/' },
                 { text: 'SpringCloud', link: '/springcloud/' }
             ]
@@ -106,16 +106,6 @@ module.exports = themeConfig = {
             ['', 'Netty'],
             ['00-Netty-SocketIO.md', 'Netty-SocketIO实现聊天室']
         ],
-        '/docker/': [
-            ['', 'Docker'],
-            ['00-GettingStarted.md', 'Docker入门安装'],
-            ['01-VisualizationTools.md', 'Docker界面可视化'],
-            ['01-Docker-Study.md', 'Docker知识学习'],
-            ['02-Tomcat.md', 'Docker下Tomcat的使用'],
-            ['03-Elasticsearch.md', 'Docker下Elasticsearch的使用'],
-            ['04-ZooKeeper-Cluster.md', 'Docker下ZooKeeper的使用'],
-            ['05-Dubbo-Admin.md', 'Docker下Dubbo-Admin的使用']
-        ],
         '/elasticsearch/': [
             ['', 'Elasticsearch'],
             ['00-GettingStarted.md', '简单了解Elasticsearch'],
@@ -154,13 +144,24 @@ module.exports = themeConfig = {
         '/mq/': [
             ['', 'MQ'],
             ['00-MQ-Select', 'MQ了解及对比选型'],
-            ['10-RabbitMQ', 'RabbitMQ安装使用']
+            ['10-RabbitMQ', 'RabbitMQ的安装使用']
         ],
         // 秒杀架构
         '/seckill/': [
             ['', '秒杀架构'],
             ['01-Design-Thinking.md', '秒杀系统的设计思考'],
             ['02-Distributed-Limit', '高并发下的限流分析']
+        ],
+        '/docker/': [
+            ['', 'Docker'],
+            ['00-GettingStarted.md', 'Docker入门安装'],
+            ['01-VisualizationTools.md', 'Docker界面可视化'],
+            ['01-Docker-Study.md', 'Docker知识学习'],
+            ['02-Tomcat.md', 'Docker下Tomcat的使用'],
+            ['03-Elasticsearch.md', 'Docker下Elasticsearch的使用'],
+            ['04-ZooKeeper-Cluster.md', 'Docker下ZooKeeper的使用'],
+            ['05-Dubbo-Admin.md', 'Docker下Dubbo-Admin的使用'],
+            ['06-RabbitMQ.md', 'Docker下RabbitMQ的使用']
         ],
         '/dubbo/': [
             ['', 'Dubbo'],

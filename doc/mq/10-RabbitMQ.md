@@ -1,4 +1,4 @@
-# RabbitMQ安装使用
+# RabbitMQ的安装使用
 
 RabbitMQ 是以 AMQP 协议实现的一种中间件产品，它可以支持多种操作系统，多种编程语言，几乎可以覆盖所有主流的企业级技术平台
 
@@ -79,7 +79,27 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116017.png)
 
-重装后去掉空格就好了，发现服务无法启动，最后发现好像是我 Windows 10 用户名为中文的原因
+重装后去掉空格就好了
+
+## 3. 使用
+
+启动 RabbitMQ，输入命令 `rabbitmq-server`
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117002.png)
+
+发现服务无法启动，最后发现好像是我 Windows 10 用户名为中文的原因，修改用户名为英文，参考: [https://www.cnblogs.com/WhiteTears/p/8947337.html](https://www.cnblogs.com/WhiteTears/p/8947337.html)
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117001.png)
+
+再启动就行了，然后访问: [http://localhost:15672](http://localhost:15672)，用guest/guest登录就可以打开管理的 Web 界面
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117003.png)
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117004.png)
+
+## 4. Docker
+
+转移到 Docker 专栏: [Docker下RabbitMQ的使用及集群搭建 ](/docker/06-RabbitMQ.html)
 
 **参考**
 
