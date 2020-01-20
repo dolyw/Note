@@ -53,8 +53,9 @@ module.exports = themeConfig = {
             text: '架构记录',
             items: [
                 { text: '分布式', link: '/distributed/' },
-                { text: '消息队列', link: '/mq/' },
                 { text: '秒杀架构', link: '/seckill/' },
+                { text: '消息队列', link: '/mq/' },
+                { text: '文件系统', link: '/fs/' },
                 { text: 'Docker', link: '/docker/' },
                 { text: 'Dubbo', link: '/dubbo/' },
                 { text: 'SpringCloud', link: '/springcloud/' }
@@ -140,17 +141,24 @@ module.exports = themeConfig = {
             ['00-CAP-BASE.md', 'CAP和BASE理论'],
             ['01-Distributed-Transaction.md', '浅析分布式事务']
         ],
-        // 消息队列
-        '/mq/': [
-            ['', 'MQ'],
-            ['00-MQ-Select', 'MQ了解及对比选型'],
-            ['10-RabbitMQ', 'RabbitMQ的安装使用']
-        ],
         // 秒杀架构
         '/seckill/': [
             ['', '秒杀架构'],
             ['01-Design-Thinking.md', '秒杀系统的设计思考'],
             ['02-Distributed-Limit', '高并发下的限流分析']
+        ],
+        // 消息队列
+        '/mq/': [
+            ['', '消息队列'],
+            ['00-MQ-Select', '消息队列了解及对比选型'],
+            ['10-RabbitMQ', 'RabbitMQ的安装使用']
+        ],
+        // 文件系统
+        '/fs/': [
+            ['', '文件系统'],
+            ['00-FS-Select', '文件系统了解及对比选型'],
+            ['01-FS-MinIO', 'MinIO的安装使用'],
+            ['02-FS-FastDFS', 'FastDFS的安装使用']
         ],
         '/docker/': [
             ['', 'Docker'],

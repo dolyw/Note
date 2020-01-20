@@ -19,10 +19,10 @@
 yarn doc:build
 ```
 
-**把地址替换为jsdelivr的进行加速**
+**把地址替换为jsdelivr的进行加速，多替换两次，VS Code 只能一次查 10000 个**
 
-`/`assets/
+`"/`assets/
 
 **替换**
 
-https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs`/`assets/
+"https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs`/`assets/
