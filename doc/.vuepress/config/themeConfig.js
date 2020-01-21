@@ -169,7 +169,8 @@ module.exports = themeConfig = {
             ['03-Elasticsearch.md', 'Docker下Elasticsearch的使用'],
             ['04-ZooKeeper-Cluster.md', 'Docker下ZooKeeper的使用'],
             ['05-Dubbo-Admin.md', 'Docker下Dubbo-Admin的使用'],
-            ['06-RabbitMQ.md', 'Docker下RabbitMQ的使用']
+            ['06-RabbitMQ.md', 'Docker下RabbitMQ的使用'],
+            ['07-MinIO', 'Docker下MinIO的使用']
         ],
         '/dubbo/': [
             ['', 'Dubbo'],

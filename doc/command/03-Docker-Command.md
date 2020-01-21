@@ -84,3 +84,30 @@ docker logs -f -t --since="2018-02-18" user-uat | grep error >> logs_error.txt
 > E: Unable to locate package vim  
 > 这时候需要敲：**apt-get update**，这个命令的作用是：同步/etc/apt/sources.list和/etc/apt/sources.list.d中列出的源的索引，这样才能获取到最新的软件包  
 > 等更新完毕以后再敲命令：**apt-get install vim**命令即可
+
+## docker-compose
+
+```bash
+// 验证文件配置
+docker-compose config
+// 验证文件配置，当配置正确时，不输出任何内容，当文件配置错误，输出错误信息
+docker-compose config -q
+// 查看当前有哪些容器
+docker-compose ps
+// 下载所有镜像
+docker-compose pull
+// 启动
+docker-compose up
+// 后台启动
+docker-compose up -d
+// 停止
+docker-compose down
+// 查看日志
+docker-compose logs
+// 查看实时日志
+docker-compose logs -f
+// 查看nginx的日志
+docker-compose logs nginx
+// 查看nginx的实时日志
+docker-compose logs -f nginx
+```
