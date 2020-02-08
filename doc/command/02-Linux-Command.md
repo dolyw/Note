@@ -11,6 +11,8 @@ nohup java -jar dev.jar &
 nohup java -jar dev.jar >logs.out &
 // Jar启动，日志文件>logs.out
 nohup java -jar dev.jar >logs.out 2>&1
+// Jar启动，日志文件>logs.out，推荐
+nohup java -jar dev.jar >logs.out 2>&1 &
 ```
 
 ### Tomcat
