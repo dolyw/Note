@@ -273,7 +273,7 @@ public class MinioUtil {
      * @author wliduo[i@dolyw.com]
      * @date 2020/2/6 16:05
      */
-    public InputStream  getFile(String objectName) {
+    public InputStream getFile(String objectName) {
         try {
             // 文件是否存在
             minioClient.statObject(bucket, objectName);
@@ -284,6 +284,46 @@ public class MinioUtil {
             return null;
         }
     }
+
+    /**
+	 * 直接下载文件
+	 * 
+	 * @param req
+	 * @param res
+	 * @param fid
+	 * @param fileName
+	 * @return void
+	 * @throws 
+	 * @author wliduo[i@dolyw.com]
+	 * @date 2020/3/5 9:45
+	 */
+    public void lookUploadFile(HttpServletRequest req, HttpServletResponse res, String fid, String fileName) {
+		try (InputStream in = minioUtil.getFile(fid);
+			 OutputStream output = res.getOutputStream()) {
+			// 得到输入流
+			if (in == null) {
+				try (PrintWriter printWriter = res.getWriter()) {
+					printWriter.append("404 - File Not Exist");
+				} catch (IOException e) {
+					logger.error("数据异常: {}", e);
+				}
+				return;
+			}
+			res.reset();
+			// res.setContentType(getMimeType(fileName));
+            // https://gitee.com/dolyw/codes/2h1r6avwxumegjs89ztyn86
+			res.addHeader("content-Disposition", "inline;filename=" + java.net.URLEncoder.encode(fileName, "UTF-8"));
+			byte[] b = new byte[4096];
+			int i = 0;
+			while ((i = in.read(b)) > 0) {
+				output.write(b, 0, i);
+			}
+		} catch (MalformedURLException me) {
+			logger.error("数据异常: {}", me);
+		} catch (IOException e) {
+			logger.error("数据异常: {}", e);
+		}
+	}
 
     /**
      * 获取外链
