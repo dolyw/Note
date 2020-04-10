@@ -98,7 +98,8 @@ module.exports = themeConfig = {
             ['03-Java-Concurrent', 'Java拾遗-并发'],
             /* ['04-Java-JVM', 'Java拾遗-虚拟机(JVM)'],
             ['05-Java-IO', 'Java拾遗-输入/输出(IO)'], */
-            ['06-Java-Lambda-Stream', 'Java8的Lambda和Stream流'], 
+            ['06-Java-Lambda-Stream', 'Java8的Lambda和Stream流'],
+            ['10-Java-Source.md', '其他-Java源码阅读'],
             ['11-Thread-Safe.md', '其他-Java中的线程安全'],
             ['12-Thread-Pool.md', '其他-Java中的线程池的创建及使用'],
             ['13-List-De-Duplication.md', '其他-List集合去重方式及效率对比'],

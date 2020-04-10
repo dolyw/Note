@@ -13,6 +13,8 @@ nohup java -jar dev.jar >logs.out &
 nohup java -jar dev.jar >logs.out 2>&1
 // Jar启动，日志文件>logs.out，推荐
 nohup java -jar dev.jar >logs.out 2>&1 &
+// Jar启动，日志文件>catalina.out，推荐
+nohup /app/java/jdk1.8.0_171/bin/java -Xms1024m -Xmx4096m -Xmn1024m -jar PDMS.jar --spring.profiles.active=sit >/app/midl_PDMS/catalina.out 2>&1 &
 ```
 
 ### Tomcat
@@ -26,6 +28,7 @@ bin/shutdown.sh
 tail -f logs/catalina.out
 // 查看进程
 ps -ef |grep tomcat
+ps -ef |grep java
 // 杀进程，不推荐，推荐采用JVM安全退出
 kill -9 pid
 ```

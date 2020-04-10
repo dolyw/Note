@@ -17,7 +17,7 @@ module.exports = {
     plugins: [
         // 页面加载条
         require('./plugins/diy-loader'),
-        // 图片点击查看
+        // 图片点击查看 https://github.com/dongyuanxin/blog/blob/master/.vuepress/config.js
         require('vuepress-plugin-viewer'),
         // 点击链接平滑滚动
         ['vuepress-plugin-smooth-scroll'],
