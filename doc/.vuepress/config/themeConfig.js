@@ -93,17 +93,17 @@ module.exports = themeConfig = {
         // 学习记录
         '/java/': [
             ['', 'Java'],
-            /* ['01-Java-Basics', 'Java拾遗-基础'],
-            ['02-Java-Collection', 'Java拾遗-容器'], */
+            /* ['01-Java-Basics', 'Java拾遗-基础'], */
+            ['02-Java-Collection', 'Java拾遗-集合'],
             ['03-Java-Concurrent', 'Java拾遗-并发'],
-            /* ['04-Java-JVM', 'Java拾遗-虚拟机(JVM)'],
-            ['05-Java-IO', 'Java拾遗-输入/输出(IO)'], */
+            ['04-Java-JVM', 'Java拾遗-虚拟机(JVM)'],
+            /* ['05-Java-IO', 'Java拾遗-输入/输出(IO)'], */
             ['06-Java-Lambda-Stream', 'Java8的Lambda和Stream流'],
             ['10-Java-Source.md', '其他-Java源码阅读'],
-            ['11-Thread-Safe.md', '其他-Java中的线程安全'],
-            ['12-Thread-Pool.md', '其他-Java中的线程池的创建及使用'],
-            ['13-List-De-Duplication.md', '其他-List集合去重方式及效率对比'],
-            ['14-50-Details.md', '其他-Java性能优化的50个细节']
+            ['11-Thread-Safe.md', '以前-Java中的线程安全'],
+            ['12-Thread-Pool.md', '以前-Java中的线程池的创建及使用'],
+            ['13-List-De-Duplication.md', '以前-List集合去重方式及效率对比'],
+            ['14-50-Details.md', '以前-Java性能优化的50个细节']
         ],
         '/netty/': [
             ['', 'Netty'],
