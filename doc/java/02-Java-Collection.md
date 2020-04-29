@@ -1,8 +1,8 @@
 # Java拾遗-集合
 
-<!-- ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/04/20200413001.png) -->
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/04/20200429001.png)
 
-> **这里不考虑 JUC 的类，JDK 版本为 1.8**
+> **JDK 版本为 1.8**
 
 ## 1. 简介
 
@@ -14,10 +14,6 @@ Java 中的集合层次结构分为 **单列集合(Collection)** 和 **双列集
 
 ::: tip 总结
 * List，Set，Queue，Map 都是接口，前三个继承至 Collection 接口，Map 为独立接口
-* List 下有 ArrayList，LinkedList，Vector
-* Set 下有 HashSet，LinkedHashSet，TreeSet
-* Queue 下有 ArrayDeque，PriorityQueue，而且 LinkedList 也实现了 Queue 接口
-* Map 下有 Hashtable，HashMap，LinkedHashMap，TreeMap
 :::
 
 ## 2. List
@@ -62,7 +58,7 @@ HashSet 的有序扩展，底层数据结构是链表和哈希表(FIFO 插入有
 
 ## 3. Queue
 
-Queue 下有 ArrayDeque，PriorityQueue，而且 LinkedList 也实现了 Queue 接口，Queue 使用率低
+Queue 下有 ArrayDeque，PriorityQueue，而且 LinkedList 也实现了 Queue 接口
 
 待补充
 
@@ -94,7 +90,11 @@ HashMap 是线程不安全的，效率较高，**如果要线程安全可以使�
 
 待补充
 
-### 5.1. ArrayList
+### 5.2. ConcurrentHashMap
+
+待补充
+
+### 5.3. ArrayList
 
 待补充
 
