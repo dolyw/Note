@@ -1,5 +1,5 @@
 const keyConfig = require("./config/keyConfig");
-const themeConfig = require("./config/themeConfig");
+const themeConfig = require("./themeConfig");
 
 module.exports = {
     title: '笔记',

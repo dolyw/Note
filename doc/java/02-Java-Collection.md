@@ -84,7 +84,7 @@ HashMap 是线程不安全的，效率较高，**如果要线程安全可以使�
 
 ## 5. 底层
 
-主要是常用的几个容器了解清楚，HashMap，ArrayList
+主要是常用的几个容器了解清楚
 
 ### 5.1. HashMap
 
@@ -95,6 +95,14 @@ HashMap 是线程不安全的，效率较高，**如果要线程安全可以使�
 待补充
 
 ### 5.3. ArrayList
+
+待补充
+
+### 5.4. LinkedList
+
+待补充
+
+### 5.5. CopyOnWriteArrayList
 
 待补充
 
