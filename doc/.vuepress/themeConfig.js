@@ -97,7 +97,9 @@ module.exports = themeConfig = {
             /* ['01-Java-Basics', 'Java拾遗-基础'], */
             ['03-Java-Concurrent', 'Java拾遗-并发'],
             ['02-Java-Collection', 'Java拾遗-集合'],
-            ['04-Java-JVM', 'Java拾遗-虚拟机(JVM)'],
+            /* ['04-Java-JVM-1', 'Java拾遗-JVM认识'], */
+            ['04-Java-JVM-2', 'Java拾遗-JVM垃圾'],
+            /* ['04-Java-JVM-3', 'Java拾遗-JVM调优'], */
             /* ['05-Java-IO', 'Java拾遗-输入/输出(IO)'], */
             ['06-Java-Lambda-Stream', 'Java8的Lambda和Stream流'],
             ['10-Java-Source.md', '其他-Java源码阅读'],

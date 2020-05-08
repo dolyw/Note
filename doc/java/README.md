@@ -7,7 +7,9 @@
 <!-- * [Java拾遗-基础](01-Java-Basics.html) -->
 * [Java拾遗-并发](03-Java-Concurrent.html)
 * [Java拾遗-集合](02-Java-Collection.html)
-* [Java拾遗-虚拟机(JVM)](04-Java-JVM.html)
+* [Java拾遗-JVM认识](04-Java-JVM-1.html)
+* [Java拾遗-JVM垃圾](04-Java-JVM-2.html)
+<!-- * [Java拾遗-JVM调优](04-Java-JVM-3.html) -->
 <!-- * [Java拾遗-输入/输出(IO)](05-Java-IO.html) -->
 * [Java8的Lambda和Stream流](06-Java-Lambda-Stream.html)
 
