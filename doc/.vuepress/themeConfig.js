@@ -41,11 +41,12 @@ module.exports = themeConfig = {
         {
             text: '学习记录',
             items: [
+                { text: 'Design', link: '/design/' },
+                { text: 'Network', link: '/network/' },
                 { text: 'Java', link: '/java/' },
                 { text: 'Database', link: '/database/' },
                 { text: 'Cache', link: '/cache/' },
                 { text: 'Elasticsearch', link: '/elasticsearch/' },
-                { text: '设计模式', link: '/design/' },
                 { text: '工具命令', link: '/command/' },
                 { text: '前端记录', link: '/front/' }
             ]
@@ -53,13 +54,13 @@ module.exports = themeConfig = {
         {
             text: '架构记录',
             items: [
-                { text: '分布式', link: '/distributed/' },
-                { text: '秒杀架构', link: '/seckill/' },
+                { text: 'SpringBoot', link: '/springboot/' },
+                { text: 'Dubbo', link: '/dubbo/' },
+                { text: 'Docker', link: '/docker/' },
                 { text: '消息队列', link: '/mq/' },
                 { text: '文件系统', link: '/fs/' },
-                { text: 'Docker', link: '/docker/' },
-                { text: 'Dubbo', link: '/dubbo/' },
-                { text: 'SpringCloud', link: '/springcloud/' }
+                { text: '秒杀架构', link: '/seckill/' },
+                { text: '分布式事物', link: '/distributed/' }
             ]
         },
         /* {
@@ -73,6 +74,7 @@ module.exports = themeConfig = {
             text: '开源项目',
             items: [
                 { text: '项目列表', link: '/p/' },
+                { text: '学习记录-ProjectStudy', link: 'https://github.com/dolyw/ProjectStudy' },
                 { text: '鉴权-ShiroJwt', link: '/shirojwt/' },
                 { text: '秒杀-SeckillEvolution', link: '/seckill-evolution/' },
                 { text: '聊天-NettyStudy', link: '/netty/' },
@@ -91,6 +93,16 @@ module.exports = themeConfig = {
         { text: '关于', link: '/about.md' }
     ],
     sidebar: {
+        '/design/': [
+            ['', '设计模式(Design Pattern)'],
+            ['01-Singleton-Pattern.md', '单例模式(Singleton Pattern)']
+        ],
+        // 计算机网络
+        '/network/': [
+            ['', '计算机网络'],
+            ['09-TCP-UDP-Tool', '网络工具使用'],
+            ['10-SpringBoot-UDP', 'SpringBoot开启UDP服务']
+        ],
         // 学习记录
         '/java/': [
             ['', 'Java'],
@@ -184,9 +196,11 @@ module.exports = themeConfig = {
             ['01-Quick-Start', 'Dubbo简单的使用'],
             ['03-Dubbo-Admin', 'Dubbo-Admin的安装使用']
         ],
-        '/springcloud/': [
-            ['', 'SpringCloud'],
-            ['00-Version', '版本区别']
+        '/springboot/': [
+            ['', 'SpringBoot'],
+            ['10-Okhttp3', '使用Okhttp3'],
+            ['11-Async', '使用@Async异步注解'],
+            ['00-Version', 'SpringCloud版本']
         ],
         // 工具命令
         '/command/': [
@@ -245,10 +259,6 @@ module.exports = themeConfig = {
             ['01-Programmer-Slang.md', '码农有趣的黑话'],
             ['02-Technical-Interpretation.md', '史上最污技术解读'],
             ['03-Make-System.md', '阎王爷让我给他做个后台管理系统']
-        ],
-        '/design/': [
-            ['', '设计模式(Design Pattern)'],
-            ['01-Singleton-Pattern.md', '单例模式(Singleton Pattern)']
         ]
     }
 }

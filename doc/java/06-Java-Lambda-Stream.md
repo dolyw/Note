@@ -6,6 +6,28 @@
 
 ## 去重
 
+* List<String>去重
+
+```java
+public static void main(String[] args) {
+    List<String> icpCodeList = new ArrayList<>();
+    icpCodeList.add("CAA");
+    icpCodeList.add("SAA");
+    icpCodeList.add("CAA");
+    icpCodeList.add("SAA");
+    icpCodeList.add("CAA");
+    System.out.println(icpCodeList.toString());
+    // distinct()只能对于简单的如List<String>，List<int>等起作用，而对于List<T>不起作用
+    icpCodeList = icpCodeList.stream().distinct().collect(Collectors.toList());
+    System.out.println(icpCodeList.toString());
+}
+```
+> 输出
+```json
+[CAA, SAA, CAA, SAA, CAA]
+[CAA, SAA]
+```
+
 * Map根据Key为Id去重，转换为List
 
 ```java

@@ -1,6 +1,6 @@
 # Distributed
 
-::: danger 分布式
+::: danger 分布式事务
 记录一些分布式相关的学习笔记
 :::
 

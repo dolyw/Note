@@ -35,11 +35,11 @@ docker cp D:/Tools/docker/elasticsearch.yml es1:/usr/share/elasticsearch/config/
 
 ```bash
 // 显示所有的容器，包括未运行的
-docker -a
+docker ps -a
 // 显示最近创建的容器
-docker -l
+docker ps -l
 // 列出最近创建的n个容器
-docker -n
+docker ps -n
 ```
 
 ## Rm
