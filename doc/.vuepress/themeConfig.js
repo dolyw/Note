@@ -95,7 +95,8 @@ module.exports = themeConfig = {
     sidebar: {
         '/design/': [
             ['', '设计模式(Design Pattern)'],
-            ['01-Singleton-Pattern.md', '单例模式(Singleton Pattern)']
+            ['01-Singleton-Pattern.md', '单例模式(Singleton Pattern)'],
+            ['02-Strategy-Pattern.md', '策略模式(Strategy Pattern)']
         ],
         // 计算机网络
         '/network/': [
