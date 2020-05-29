@@ -170,7 +170,8 @@ ssh-keygen -t rsa -C "1107224733@qq.com"
 
 ```java
 Host coding
-HostName git.dev.tencent.com
+# HostName git.dev.tencent.com
+HostName e.coding.net
 User git
 IdentityFile ~/.ssh/id_rsa_coding
 ```
