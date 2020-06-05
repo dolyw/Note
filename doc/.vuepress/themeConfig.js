@@ -98,7 +98,9 @@ module.exports = themeConfig = {
             ['01-Singleton-Pattern.md', '单例模式(Singleton Pattern)'],
             ['02-Strategy-Pattern.md', '策略模式(Strategy Pattern)'],
             ['03-Factory-Method.md', '工厂方法(Factory Method)'],
-            ['04-Abstract-Factory.md', '抽象工厂(Abstract Factory)']
+            ['04-Abstract-Factory.md', '抽象工厂(Abstract Factory)'],
+            ['05-Facade-Pattern.md', '外观模式(Facade Pattern)'],
+            ['06-Mediator-Pattern.md', '中介者模式(Mediator Pattern)']
         ],
         // 计算机网络
         '/network/': [

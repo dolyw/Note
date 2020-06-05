@@ -11,9 +11,12 @@
 * [策略模式(Strategy Pattern)](02-Strategy-Pattern.html)
 * [工厂方法(Factory Method)](03-Factory-Method.html)
 * [抽象工厂(Abstract Factory)](04-Abstract-Factory.html)
+* [外观模式(Facade Pattern)](05-Facade-Pattern.html)
+* [中介者模式(Mediator Pattern)](06-Mediator-Pattern.html)
 
 **推荐阅读**
 
 * [菜鸟教程](https://www.runoob.com/design-pattern/)
 * [C语言中文网](http://c.biancheng.net/view/1317.html)
 * [DesignPatterns](https://github.com/bjmashibing/DesignPatterns)
+
