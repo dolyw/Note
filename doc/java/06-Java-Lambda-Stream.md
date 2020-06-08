@@ -6,7 +6,7 @@
 
 ## 去重
 
-* List<String>去重
+* List去重
 
 ```java
 public static void main(String[] args) {
@@ -133,6 +133,68 @@ public static void main(String[] args) {
 {2:[{"blockId":2,"blockName":"Name11"},{"blockId":2,"blockName":"Name22"}],3:[{"blockId":3,"blockName":"Name33"}]}
 {2:["Name11","Name22"],3:["Name33"]}
 {2:2,3:1}
+```
+
+## 排序
+
+* Map排序
+
+```java
+// 初始数据
+Map<String, Float> map = new HashMap<>();
+map.put("1", 11f);
+map.put("3", 33.1f);
+map.put("5", 12f);
+map.put("2", 22f);
+map.put("4", 33.2f);
+List<Map.Entry<String, Float>> list = new ArrayList<>();
+list.addAll(map.entrySet());
+// 排序从大到小，从小到大将1和-1互换即可
+Collections.sort(list, (o1, o2) -> {
+    if (o1.getValue() > o2.getValue()) {
+        return -1;
+    }
+    if (o1.getValue().equals(o2.getValue())) {
+        return 0;
+    }
+    return 1;
+});
+list.forEach(entry -> {
+    System.out.println("key:" + entry.getKey() + ",value:" + entry.getValue());
+});
+```
+> 输出
+```json
+key:4,value:33.2
+key:3,value:33.1
+key:2,value:22.0
+key:5,value:12.0
+key:1,value:11.0
+```
+
+* List排序
+
+```java
+// 初始数据
+List<String> list  =   new ArrayList<>();
+for  ( int  i  =   0 ; i  <   9 ; i ++ )  {
+    list.add( "T" + i);
+}
+// 倒序排列
+Collections.reverse(list);
+System.out.println(list);
+// 顺序排列
+Collections.sort(list);
+System.out.println(list);
+// 随机排序
+Collections.shuffle(list);
+System.out.println(list);
+```
+> 输出
+```json
+[T8, T7, T6, T5, T4, T3, T2, T1, T0]
+[T0, T1, T2, T3, T4, T5, T6, T7, T8]
+[T6, T1, T0, T3, T7, T5, T8, T4, T2]
 ```
 
 ## 随意转换

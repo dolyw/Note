@@ -13,3 +13,4 @@
 * [Git一次Push到多个远端](05-Git-MultiPush.html)
 * [JMeter的安装使用](06-JMeter-Install.html)
 * [IDEA使用SonarQube检测代码](07-IDEA-SonarQube.html)
+* [Jenkins的安装使用](08-Jenkins-Use.html)

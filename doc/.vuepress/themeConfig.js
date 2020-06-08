@@ -216,7 +216,8 @@ module.exports = themeConfig = {
             ['04-Git-MultiUser.md', 'SSH同时使用多个Git账户'],
             ['05-Git-MultiPush.md', 'Git一次Push到多个远端'],
             ['06-JMeter-Install', 'JMeter的安装使用'],
-            ['07-IDEA-SonarQube', 'IDEA使用SonarQube检测代码']
+            ['07-IDEA-SonarQube', 'IDEA使用SonarQube检测代码'],
+            ['08-Jenkins-Use', 'Jenkins的安装使用']
         ],
         '/p/': [
             ['', '开源项目'],
