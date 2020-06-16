@@ -20,26 +20,19 @@ module.exports = themeConfig = {
         {
             text: '整站地图',
             items: [
-                { text: '首页', link: 'https://dolyw.com/go?url=https://dolyw.com' },
-                { text: '导航', link: 'https://dolyw.com/go?url=https://map.dolyw.com' },
-                { text: '生活', link: 'https://dolyw.com/go?url=https://life.dolyw.com' },
-                { text: '音乐', link: 'https://dolyw.com/go?url=https://res.dolyw.com' },
-                { text: '留言', link: 'https://dolyw.com/go?url=https://msg.dolyw.com' },
-                { text: '简历', link: 'https://dolyw.com/go?url=https://cv.dolyw.com' }
+                { text: '主页', link: '/' },
+                { text: '关于', link: '/about.md' },
+                { text: '导航', link: 'https://map.dolyw.com' },
+                { text: '生活', link: 'https://blog.dolyw.com' },
+                { text: '音乐', link: 'https://res.dolyw.com' },
+                { text: '留言', link: 'https://msg.dolyw.com' },
+                { text: '简历', link: 'https://cv.dolyw.com' }
             ]
         },
         // 内部链接，以doc为根目录
-        { text: '主页', link: '/' },
-        /* {
-            text: 'Data',
-            items: [
-                { text: 'Redis', link: '/redis/' },
-                { text: 'MySQL', link: '/mysql/' },
-                { text: 'Elasticsearch', link: '/elasticsearch/' }
-            ]
-        }, */
+        /* { text: '主页', link: '/' }, { text: '关于', link: '/about.md' }, */
         {
-            text: '学习记录',
+            text: '学习笔记',
             items: [
                 { text: 'Design', link: '/design/' },
                 { text: 'Network', link: '/network/' },
@@ -47,12 +40,11 @@ module.exports = themeConfig = {
                 { text: 'Database', link: '/database/' },
                 { text: 'Cache', link: '/cache/' },
                 { text: 'Elasticsearch', link: '/elasticsearch/' },
-                { text: '工具命令', link: '/command/' },
-                { text: '前端记录', link: '/front/' }
+                { text: '工具命令', link: '/command/' }
             ]
         },
         {
-            text: '架构记录',
+            text: '架构笔记',
             items: [
                 { text: 'SpringBoot', link: '/springboot/' },
                 { text: 'Dubbo', link: '/dubbo/' },
@@ -60,37 +52,31 @@ module.exports = themeConfig = {
                 { text: '消息队列', link: '/mq/' },
                 { text: '文件系统', link: '/fs/' },
                 { text: '秒杀架构', link: '/seckill/' },
-                { text: '分布式事物', link: '/distributed/' }
-            ]
-        },
-        /* {
-            text: '零星笔记',
-            items: [
-                { text: '工具命令', link: '/command/' },
-                { text: '零散记录', link: '/note/' }
-            ]
-        }, */
-        {
-            text: '开源项目',
-            items: [
-                { text: '项目列表', link: '/p/' },
-                { text: '学习记录-ProjectStudy', link: 'https://github.com/dolyw/ProjectStudy' },
-                { text: '鉴权-ShiroJwt', link: '/shirojwt/' },
-                { text: '秒杀-SeckillEvolution', link: '/seckill-evolution/' },
-                { text: '聊天-NettyStudy', link: '/netty/' },
-                { text: '代码生成器-ViewGenerator', link: '/viewgenerator/' }
+                { text: '分布式相关', link: '/distributed/' }
             ]
         },
         // 下拉列表
         {
-            text: '其他补充',
+            text: '零星笔记',
             items: [
-                { text: '零散记录', link: '/note/' },
-                { text: '其他记录', link: '/other/' },
+                { text: '零散杂记', link: '/note/' },
+                { text: '前端记录', link: '/front/' },
+                { text: '书籍面试', link: '/book/' },
+                { text: '其他笔记', link: '/other/' },
                 { text: '编程闲话', link: '/gossip/' }
             ]
         },
-        { text: '关于', link: '/about.md' }
+        {
+            text: '开源项目',
+            items: [
+                { text: '项目列表', link: '/p/' },
+                { text: 'ProjectStudy', link: 'https://github.com/dolyw/ProjectStudy' },
+                { text: 'ShiroJwt', link: '/shirojwt/' },
+                { text: 'SeckillEvolution', link: '/seckill-evolution/' },
+                { text: 'NettyStudy', link: '/netty/' },
+                { text: 'ViewGenerator', link: '/viewgenerator/' }
+            ]
+        }
     ],
     sidebar: {
         '/design/': [
@@ -161,7 +147,8 @@ module.exports = themeConfig = {
         '/distributed/': [
             ['', 'Distributed'],
             ['00-CAP-BASE.md', 'CAP和BASE理论'],
-            ['01-Distributed-Transaction.md', '浅析分布式事务']
+            ['01-Distributed-Transaction.md', '浅析分布式事务'],
+            ['10-Distributed-Session', '浅析分布式Session']
         ],
         // 秒杀架构
         '/seckill/': [
@@ -243,19 +230,23 @@ module.exports = themeConfig = {
         '/viewgenerator/': [
             ['', 'ViewGenerator']
         ],
-        // 零散记录
+        // 零散杂记
         '/note/': [
+            ['', '零散杂记'],
+        ],
+        // 书籍面试
+        '/book/': [
             ['', '推荐阅读'],
             ['00-Technical-Map.md', '图谱记录'],
-            ['03-Interview.md', '面试题记录']
-        ],
-        // 其他记录
-        '/other/': [
-            ['', '其他记录'],
-            ['00-Tool-Note.md', '软件记录'],
-            ['00-Windows-Optimize', 'Windows的优化记录'],
             ['01-CV.md', '写一个好的简历'],
             ['02-CV2.md', '写一个好的简历To'],
+            ['03-Interview.md', '面试题记录']
+        ],
+        // 其他笔记
+        '/other/': [
+            ['', '其他笔记'],
+            ['00-Tool-Note.md', '常用软件记录'],
+            ['00-Windows-Optimize', 'Windows的优化记录'],
             ['01-Jekyll.md', '在Windows下安装与使用Jekyll'],
             ['02-Github-Failure.md', '解决GitHub访问不了的方法']
         ],
