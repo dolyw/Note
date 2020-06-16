@@ -365,5 +365,6 @@ public class SessionController {
 * [SpringBoot之使用Spring Session集群-Redis](https://www.cnblogs.com/shyroke/p/8039430.html)
 * [springboot中的spring-session用mysql实现session共享实践](https://blog.csdn.net/u011442726/article/details/104040330)
 * [springboot 2.X jdbc 实现session共享mysql](https://blog.csdn.net/qq_34173549/article/details/82187405)
+* [ShiroDemo](https://gitee.com/kingzha/ShiroDemo)
 
 

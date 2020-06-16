@@ -10,6 +10,19 @@
 
 下载地址: [https://nmap.org/download.html](https://nmap.org/download.html)，下载 `nmap-7.80-setup.exe`，还有 `Npcap` 可以下载，有需要也可以直接下载
 
+## 3. NC
+
+安装: `yum install nc.x86_64` 和 `yum install -y nc`
+
+```bash
+# 用来测试UDP端口是否正常
+# A端
+nc -ul 18000
+# B端，x.x.x.x是A端IP
+nc -u x.x.x.x 18000
+# 在B端随便输入字符，看是否能够传到A端
+```
+
 **参考**
 
 * [Nmap for windows 下命令行使用](https://blog.51cto.com/talk1985/1934186)

@@ -92,7 +92,8 @@ module.exports = themeConfig = {
         '/network/': [
             ['', '计算机网络'],
             ['09-TCP-UDP-Tool', '网络工具使用'],
-            ['10-SpringBoot-UDP', 'SpringBoot开启UDP服务']
+            ['10-SpringBoot-UDP', 'SpringBoot开启UDP服务'],
+            ['11-Nginx-UDP', 'Nginx转发UDP信息']
         ],
         // 学习记录
         '/java/': [
