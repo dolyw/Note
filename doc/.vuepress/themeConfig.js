@@ -234,6 +234,7 @@ module.exports = themeConfig = {
         // 零散杂记
         '/note/': [
             ['', '零散杂记'],
+            ['01-GPS-Conversion', '地图坐标系的转换']
         ],
         // 书籍面试
         '/book/': [
