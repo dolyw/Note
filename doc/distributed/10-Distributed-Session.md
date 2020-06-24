@@ -67,7 +67,7 @@ server {
 	#root /usr/local/nginx/html;
 	#index index.html index.htm;
 	location / {
-		proxy_pass http: xx.xxx.xxx.xx;
+		proxy_pass http://aaa/;
 		index index.html index.htm;
 	}
 }
@@ -200,6 +200,14 @@ public class SessionController {
 ### 5.3. Run
 
 本地的 Redis 服务这里就不说了，启动服务，调用方法会发现 Redis 缓存了 Session 数据，可以启动多个端口，测试，还可以重启应用，可以发现 Session 里的属性值也还存在
+
+### 5.4. Shiro
+
+可以和 Spring 或者 SpringBoot 集成
+
+Source: [https://github.com/alexxiyang/shiro-redis](https://github.com/alexxiyang/shiro-redis)
+Doc: [http://alexxiyang.github.io/shiro-redis/](http://alexxiyang.github.io/shiro-redis/)
+参考: [https://www.jianshu.com/p/d318caaf3dc0](https://www.jianshu.com/p/d318caaf3dc0)
 
 ## 6. MySQL实现
 

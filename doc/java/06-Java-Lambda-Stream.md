@@ -4,6 +4,10 @@
 
 ![图片](https://img10.360buyimg.com/img/jfs/t28009/85/679233078/344896/8bef206a/5bfaa166N310607a5.jpg)
 
+* **一般有 filter 操作时，不用并行流 parallelStream，如果用的话可能会导致线程安全问题**
+* **distinct() 只能对于简单的如 List<String>，List<int> 等起作用，而对于 List<T> 不起作用**
+* **判断对象要重写 hash**
+
 ## 去重
 
 * List去重
@@ -92,6 +96,88 @@ public static void main(String[] args) {
 ```json
 [{"blockId":2,"blockName":"Name11"},{"blockId":2,"blockName":"Name22"},{"blockId":3,"blockName":"Name33"}]
 [{"blockId":2,"blockName":"Name11"},{"blockId":3,"blockName":"Name33"}]
+```
+
+## 交差并集
+
+```java
+public static void main(String[] args) {
+    // 判断对象要重写hash
+    // 一般有filter操作时，不用并行流parallelStream，如果用的话可能会导致线程安全问题
+    List<String> list1 = new ArrayList();
+    list1.add("1111");
+    list1.add("2222");
+    list1.add("3333");
+
+    List<String> list2 = new ArrayList();
+    list2.add("3333");
+    list2.add("4444");
+    list2.add("5555");
+
+    // 交集
+    List<String> intersection = list1.stream().filter(item -> list2.contains(item)).collect(Collectors.toList());
+    System.out.println("---得到交集 intersection---");
+    intersection.parallelStream().forEach(System.out :: println);
+
+    // 差集 (list1 - list2)
+    List<String> reduce1 = list1.stream().filter(item -> !list2.contains(item)).collect(Collectors.toList());
+    System.out.println("---得到差集 reduce1 (list1 - list2)---");
+    reduce1.parallelStream().forEach(System.out :: println);
+
+    // 差集 (list2 - list1)
+    List<String> reduce2 = list2.stream().filter(item -> !list1.contains(item)).collect(Collectors.toList());
+    System.out.println("---得到差集 reduce2 (list2 - list1)---");
+    reduce2.parallelStream().forEach(System.out :: println);
+
+    // 并集
+    List<String> listAll = list1.parallelStream().collect(Collectors.toList());
+    List<String> listAll2 = list2.parallelStream().collect(Collectors.toList());
+    listAll.addAll(listAll2);
+    System.out.println("---得到并集 listAll---");
+    listAll.parallelStream().forEach(System.out :: println);
+
+    // 去重并集
+    List<String> listAllDistinct = listAll.stream().distinct().collect(Collectors.toList());
+    System.out.println("---得到去重并集 listAllDistinct---");
+    listAllDistinct.parallelStream().forEach(System.out :: println);
+
+    System.out.println("---原来的List1---");
+    list1.parallelStream().forEach(System.out :: println);
+    System.out.println("---原来的List2---");
+    list2.parallelStream().forEach(System.out :: println);
+}
+```
+> 输出
+```json
+---得到交集 intersection---
+3333
+---得到差集 reduce1 (list1 - list2)---
+2222
+1111
+---得到差集 reduce2 (list2 - list1)---
+5555
+4444
+---得到并集 listAll---
+3333
+4444
+3333
+1111
+2222
+5555
+---得到去重并集 listAllDistinct---
+3333
+1111
+5555
+2222
+4444
+---原来的List1---
+2222
+3333
+1111
+---原来的List2---
+4444
+5555
+3333
 ```
 
 ## GroupingBy

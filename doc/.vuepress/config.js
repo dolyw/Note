@@ -18,7 +18,22 @@ module.exports = {
         // 页面加载条
         require('./plugins/diy-loader'),
         // 图片点击查看 https://github.com/dongyuanxin/blog/blob/master/.vuepress/config.js
-        require('vuepress-plugin-viewer'),
+        // require('vuepress-plugin-viewer'),
+        [
+            '@vuepress/medium-zoom',
+            {
+                // selector: 'img.zoom-custom-imgs',
+                // medium-zoom options here
+                // See: https://github.com/francoischalifour/medium-zoom#options
+                options: {
+                    margin: 24,
+                    // background: '#BADA55',
+                    // container: '#zoom-container',
+                    // template: '#zoom-template'
+                    scrollOffset: 0
+                }
+            }
+        ],
         // 点击链接平滑滚动
         ['vuepress-plugin-smooth-scroll'],
         ['@vuepress/back-to-top'],

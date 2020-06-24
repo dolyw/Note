@@ -120,7 +120,36 @@ templates/web为web报告保存路径
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191114022.png)
 
+### 2. 持续加压插件
+
+Stepping Thread Group步进线程组已经不被官方推荐了，所以现在我们使用Concurrency Thread Group并发线程组
+
+Concurrency Thread Group: [[https://jmeter-plugins.org/wiki/ConcurrencyThreadGroup/](https://jmeter-plugins.org/wiki/ConcurrencyThreadGroup/)]
+
+点击Download，点击版本号即可下载文件
+
+下载之后解压，将解压后的lib包覆盖到Jmeter目录下的lib目录，重启Jmeter，就可以看到有了ConcurrencyThreadGroup
+
+* [Jmeter学习笔记（二十一）——Concurrency Thread Group阶梯式加压测试](https://www.cnblogs.com/pachongshangdexuebi/p/11739064.html)
+
+### 3. 响应时间插件
+
+Response Times Over Time: [https://jmeter-plugins.org/wiki/ResponseTimesOverTime/](https://jmeter-plugins.org/wiki/ResponseTimesOverTime/)
+
+点击Download，点击版本号即可下载文件
+
+下载之后解压，将解压后的lib包覆盖到Jmeter目录下的lib目录，重启Jmeter，就可以看到有了ConcurrencyThreadGroup
+
 ## 最后
+
+* []()
+* [JMeter中引入外部的JAR包给bean shell 使用（提供三种方法](https://blog.csdn.net/qq_27791709/article/details/78497949)
+* [JMeter将上一个接口返回值作为下一个接口的请求参数](https://www.cnblogs.com/appium/p/10458133.html)
+
+**Jmeter里http接口的执行顺序是顺序执行**
+
+* 如果在一个线程组里则是顺序执行
+* 如果不在一个线程组里，就勾选独立运行各个线程组，在一个运行结束后启动下一个线程组
 
 线程数量和循环次数将会影响最终的测试报告，请大家多多测试
 

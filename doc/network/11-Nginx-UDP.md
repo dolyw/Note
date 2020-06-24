@@ -106,6 +106,27 @@ server {
 
 详细查看: [Nginx配置中的log_format用法梳理（设置详细的日志格式）](https://www.cnblogs.com/kevingrace/p/5893499.html)
 
+## 4. 负载
+
+```bash
+upstream backserver {
+    # 每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题
+    ip_hash;
+    # down表示当前的server暂时不参与负载
+    server 127.0.0.1:9090 down;
+    # weight默认为1，weight越大，负载的权重就越大
+    server 127.0.0.1:8080 weight=2;
+    server 127.0.0.1:6060;
+    # 其它所有的非backup机器down或者忙的时候，请求backup机器
+    server 127.0.0.1:7070 backup;
+}
+
+server {
+    listen 80;
+    proxy_pass http://backserver/;
+}
+```
+
 **参考**
 
 * [记录一次 nginx udp无法打印日志问题](https://blog.csdn.net/weixin_39639119/article/details/85019822)

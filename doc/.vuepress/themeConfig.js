@@ -59,7 +59,7 @@ module.exports = themeConfig = {
         {
             text: '零星笔记',
             items: [
-                { text: '零散杂记', link: '/note/' },
+                { text: '疑难杂记', link: '/note/' },
                 { text: '前端记录', link: '/front/' },
                 { text: '书籍面试', link: '/book/' },
                 { text: '其他笔记', link: '/other/' },
@@ -233,8 +233,9 @@ module.exports = themeConfig = {
         ],
         // 零散杂记
         '/note/': [
-            ['', '零散杂记'],
-            ['01-GPS-Conversion', '地图坐标系的转换']
+            ['', '疑难杂记'],
+            ['01-GPS-Conversion', '地图坐标系的转换'],
+            ['02-MySQL-Index', 'MySQL字符不同索引失效']
         ],
         // 书籍面试
         '/book/': [
