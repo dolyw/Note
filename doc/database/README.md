@@ -10,6 +10,8 @@ Database的学习记录
 * [MySQL的那些锁](01-MySQL-Lock.html)
 <!-- * [Database中的范式理论](02-DB-NF.html) -->
 * [MySQL索引以及B+树](03-MySQL-Index-B+.html)
+* [MySQL的SQL优化](10-MySQL-SQL.html)
+* [MySQL字符不同索引失效](11-MySQL-Index)
 
 **推荐阅读**
 

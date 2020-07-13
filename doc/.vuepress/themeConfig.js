@@ -129,14 +129,17 @@ module.exports = themeConfig = {
             ['', 'Cache'],
             ['02-Cache-Invalidation', '缓存失效的场景'],
             ['00-DataBaseConsistency.md', 'Redis与数据库一致性'],
-            ['01-DataBaseConsistency.md', 'Redis与数据库一致性补充']
+            ['01-DataBaseConsistency.md', 'Redis与数据库一致性补充'],
+            ['03-Redis-Cluster', 'Redis集群方式实现']
         ],
         '/database/': [
             ['', 'Database'],
             ['00-Isolation', 'ACID以及事务隔离级别'],
             ['01-MySQL-Lock', 'MySQL那些锁'],
             /* ['02-DB-NF', 'Database中的范式理论'], */
-            ['03-MySQL-Index-B+', 'MySQL索引以及B+树']
+            ['03-MySQL-Index-B+', 'MySQL索引以及B+树'],
+            ['10-MySQL-SQL', 'MySQL的SQL优化'],
+            ['11-MySQL-Index', 'MySQL字符不同索引失效']
         ],
         // 前端记录
         '/front/': [
@@ -234,8 +237,7 @@ module.exports = themeConfig = {
         // 零散杂记
         '/note/': [
             ['', '疑难杂记'],
-            ['01-GPS-Conversion', '地图坐标系的转换'],
-            ['02-MySQL-Index', 'MySQL字符不同索引失效']
+            ['01-GPS-Conversion', '地图坐标系的转换']
         ],
         // 书籍面试
         '/book/': [

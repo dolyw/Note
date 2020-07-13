@@ -209,6 +209,143 @@ Source: [https://github.com/alexxiyang/shiro-redis](https://github.com/alexxiyan
 Doc: [http://alexxiyang.github.io/shiro-redis/](http://alexxiyang.github.io/shiro-redis/)
 参考: [https://www.jianshu.com/p/d318caaf3dc0](https://www.jianshu.com/p/d318caaf3dc0)
 
+
+```java
+/**
+ * Shiro-Redis管理
+ *
+ * @param
+ * @return org.crazycake.shiro.RedisManager
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/6/20 16:45
+ */
+@Bean
+public RedisManager redisManager() {
+    RedisManager redisManager = new RedisManager();
+    redisManager.setHost(host);
+    redisManager.setPort(port);
+    redisManager.setPassword(password);
+    redisManager.setExpire(60 * expireTime);
+    redisManager.setTimeout(timeout);
+    return redisManager;
+}
+
+/**
+ * RedisSessionDAO
+ *
+ * @param redisManager
+ * @return org.crazycake.shiro.RedisSessionDAO
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/6/20 16:45
+ */
+@Bean
+public RedisSessionDAO redisSessionDAO(RedisManager redisManager) {
+    RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+    redisSessionDAO.setRedisManager(redisManager);
+    return redisSessionDAO;
+}
+
+/**
+ * RedisCacheManager
+ *
+ * @param redisManager
+ * @return org.crazycake.shiro.RedisCacheManager
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/6/20 16:45
+ */
+@Bean
+public RedisCacheManager redisCacheManager(RedisManager redisManager) {
+    RedisCacheManager redisCacheManager = new RedisCacheManager();
+    redisCacheManager.setRedisManager(redisManager);
+    return redisCacheManager;
+}
+
+/**
+ * RedisSessionManager
+ *
+ * @param redisSessionDAO
+ * @return org.apache.shiro.web.session.mgt.DefaultWebSessionManager
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/6/20 16:45
+ */
+@Bean
+public DefaultWebSessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
+    DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+    sessionManager.setSessionDAO(redisSessionDAO);
+    return sessionManager;
+}
+```
+
+```java
+@Bean
+public SecurityManager securityManager(DefaultWebSessionManager redisSessionManager, RedisCacheManager redisCacheManager){
+    DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+    // 设置UserRealm
+    UserRealm userRealm = new UserRealm();
+    userRealm.setCacheManager(redisCacheManager);
+    securityManager.setRealm(userRealm);
+    // 注入缓存管理器;
+    securityManager.setCacheManager(redisCacheManager);
+    // Session管理器
+    securityManager.setSessionManager(redisSessionManager);
+    return securityManager;
+}
+```
+
+```java
+// findKeysForPagef方法在笔记里
+Set<String> keys = findKeysForPage(redisTemplate, redisSessionDAO.getKeyPrefix() + "*", ServletUtils.getParameterToInt("pageNum"), ServletUtils.getParameterToInt("pageSize"));
+List<SysUserOnlineDto> list = new ArrayList<>();
+SysUserOnlineDto sysUserOnlineDto = null;
+// RedisConnectionFactory redisConnectionFactory = redisTemplate.getConnectionFactory();
+// RedisConnection redisConnection = redisConnectionFactory.getConnection();
+for (String key : keys) {
+    String[] sessionId = key.split(":");
+    if (sessionId.length > 1) {
+        sysUserOnlineDto = new SysUserOnlineDto();
+        sysUserOnlineDto.setSessionId(sessionId[1]);
+        Session session = redisSessionDAO.readSession(sessionId[1]);
+        // Session session =  (Session) SerializeUtils.deserialize(redisConnection.get(key.getBytes()));
+        sysUserOnlineDto.setIpaddr(session.getHost());
+        sysUserOnlineDto.setLastAccessTime(session.getLastAccessTime());
+        sysUserOnlineDto.setStartTimestamp(session.getStartTimestamp());
+        sysUserOnlineDto.setExpireTime(session.getTimeout());
+        if (session.getAttribute("os") != null) {
+            sysUserOnlineDto.setOs(session.getAttribute("os").toString());
+        }
+        if (session.getAttribute("browser") != null) {
+            sysUserOnlineDto.setBrowser(session.getAttribute("browser").toString());
+        }
+        SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection) session.getAttribute("org.apache.shiro.subject.support.DefaultSubjectContext_PRINCIPALS_SESSION_KEY");
+        if (simplePrincipalCollection != null && simplePrincipalCollection.getPrimaryPrincipal() != null) {
+            SysUserDto sysUserDto = (SysUserDto) simplePrincipalCollection.getPrimaryPrincipal();
+            sysUserOnlineDto.setLoginName(sysUserDto.getLoginName());
+            sysUserOnlineDto.setDeptName(sysUserDto.getDept().getDeptName());
+        }
+        list.add(sysUserOnlineDto);
+    }
+}
+```
+
+```java
+RedisConnectionFactory redisConnectionFactory = redisTemplate.getConnectionFactory();
+RedisConnection redisConnection = redisConnectionFactory.getConnection();
+for (String sessionId : ids) {
+    if (ShiroUtils.getSessionId().equals(sessionId)) {
+        return error("当前登陆用户无法强退");
+    }
+    sessionId = redisSessionDAO.getKeyPrefix() + sessionId;
+    if (redisConnection.exists(sessionId.getBytes())) {
+        redisConnection.del(sessionId.getBytes());
+    }
+}
+RedisConnectionUtils.releaseConnection(redisConnection, redisConnectionFactory);
+```
+
 ## 6. MySQL实现
 
 MySQL 实现 Session共享

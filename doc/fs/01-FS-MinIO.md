@@ -62,13 +62,51 @@ export MINIO_SECRET_KEY=miniostorage
 ./minio server /app/minio/data
 # 后台启动
 nohup /app/minio/minio server /app/minio/data > /app/minio/log/minio.log 2>&1 &
+# 查看进程
+ps -ef |grep minio
+# 杀进程
+kill -9 pid
 ```
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/02/20200205002.png)
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/02/20200205003.png)
 
-## 5. 代码
+## 5. 集群
+
+```bash
+/home/tomcat/minio/minio server http://10.5.88.165/home/tomcat/minio/data1 http://10.5.88.165/home/tomcat/minio/data1 \
+           http://10.5.88.166/home/tomcat/minio/data1 http://10.5.88.166/home/tomcat/minio/data1
+
+minio server http://192.168.1.11/export1 http://192.168.1.11/export2 \
+               http://192.168.1.11/export3 http://192.168.1.11/export4 \
+```
+
+```bash
+upstream minio {
+    server 10.5.88.165:9000 weight=10 max_fails=2 fail_timeout=30s;
+    server 10.5.88.166:9000 weight=10 max_fails=2 fail_timeout=30s;
+}
+   
+server {
+    listen 9000;
+    server_name localhost;
+    charset utf-8;
+    default_type text/html;
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        client_body_buffer_size 10M;
+        client_max_body_size 10G;
+        proxy_buffers 1024 4k;
+        proxy_read_timeout 300;
+        proxy_next_upstream error timeout http_404;
+        proxy_pass http://minio;
+    }
+}
+```
+
+## 6. 代码
 
 * pom.xml
 
