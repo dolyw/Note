@@ -13,6 +13,7 @@
 * [抽象工厂(Abstract Factory)](04-Abstract-Factory.html)
 * [外观模式(Facade Pattern)](05-Facade-Pattern.html)
 * [中介者模式(Mediator Pattern)](06-Mediator-Pattern.html)
+* [适配器模式(Adapter Pattern)](07-Adapter-Pattern.html)
 
 **推荐阅读**
 

@@ -86,7 +86,8 @@ module.exports = themeConfig = {
             ['03-Factory-Method.md', '工厂方法(Factory Method)'],
             ['04-Abstract-Factory.md', '抽象工厂(Abstract Factory)'],
             ['05-Facade-Pattern.md', '外观模式(Facade Pattern)'],
-            ['06-Mediator-Pattern.md', '中介者模式(Mediator Pattern)']
+            ['06-Mediator-Pattern.md', '中介者模式(Mediator Pattern)'],
+            ['07-Adapter-Pattern.md', '适配器模式(Adapter Pattern)']
         ],
         // 计算机网络
         '/network/': [
