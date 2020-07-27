@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Feign和Hystrix使用记录 | 笔记</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/favicon.ico">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/count.js"></script>
+    <meta name="description" content="世界上最大的谎言就是你不行">
+    <link rel="preload" href="/assets/css/0.styles.4548ae7d.css" as="style"><link rel="preload" href="/assets/js/app.9ac2b138.js" as="script"><link rel="preload" href="/assets/js/2.0bc910df.js" as="script"><link rel="preload" href="/assets/js/126.e74a436b.js" as="script"><link rel="prefetch" href="/assets/js/10.d1775b1a.js"><link rel="prefetch" href="/assets/js/100.3e2845da.js"><link rel="prefetch" href="/assets/js/101.2fd464a9.js"><link rel="prefetch" href="/assets/js/102.ea0697bc.js"><link rel="prefetch" href="/assets/js/103.7eb4c607.js"><link rel="prefetch" href="/assets/js/104.58b199cc.js"><link rel="prefetch" href="/assets/js/105.4f2e5a7b.js"><link rel="prefetch" href="/assets/js/106.1f61b106.js"><link rel="prefetch" href="/assets/js/107.6e9866b7.js"><link rel="prefetch" href="/assets/js/108.d9fcc36a.js"><link rel="prefetch" href="/assets/js/109.2fa1925a.js"><link rel="prefetch" href="/assets/js/11.5fa5ac6b.js"><link rel="prefetch" href="/assets/js/110.e8e76556.js"><link rel="prefetch" href="/assets/js/111.3afaa0b7.js"><link rel="prefetch" href="/assets/js/112.2a5dc325.js"><link rel="prefetch" href="/assets/js/113.15fdd969.js"><link rel="prefetch" href="/assets/js/114.4cee39e8.js"><link rel="prefetch" href="/assets/js/115.681a20f1.js"><link rel="prefetch" href="/assets/js/116.90b04151.js"><link rel="prefetch" href="/assets/js/117.8c57d56f.js"><link rel="prefetch" href="/assets/js/118.9222dbdd.js"><link rel="prefetch" href="/assets/js/119.ceb2a750.js"><link rel="prefetch" href="/assets/js/12.0d93d8e4.js"><link rel="prefetch" href="/assets/js/120.ed7592aa.js"><link rel="prefetch" href="/assets/js/121.26e0477e.js"><link rel="prefetch" href="/assets/js/122.04d09d46.js"><link rel="prefetch" href="/assets/js/123.51d63a73.js"><link rel="prefetch" href="/assets/js/124.08a8a431.js"><link rel="prefetch" href="/assets/js/125.a80aca14.js"><link rel="prefetch" href="/assets/js/127.4db7874a.js"><link rel="prefetch" href="/assets/js/128.79600dd0.js"><link rel="prefetch" href="/assets/js/129.4da02a3d.js"><link rel="prefetch" href="/assets/js/13.70a93b6c.js"><link rel="prefetch" href="/assets/js/130.657587b3.js"><link rel="prefetch" href="/assets/js/131.08cdba71.js"><link rel="prefetch" href="/assets/js/132.44ebc6e4.js"><link rel="prefetch" href="/assets/js/133.0dde2e7a.js"><link rel="prefetch" href="/assets/js/134.d5ce1f8f.js"><link rel="prefetch" href="/assets/js/135.46530104.js"><link rel="prefetch" href="/assets/js/14.96d38b11.js"><link rel="prefetch" href="/assets/js/15.57a597e7.js"><link rel="prefetch" href="/assets/js/16.8bc11194.js"><link rel="prefetch" href="/assets/js/17.06f721a4.js"><link rel="prefetch" href="/assets/js/18.46191c06.js"><link rel="prefetch" href="/assets/js/19.a29f7c7e.js"><link rel="prefetch" href="/assets/js/20.916b0025.js"><link rel="prefetch" href="/assets/js/21.d5c2e7db.js"><link rel="prefetch" href="/assets/js/22.287c8437.js"><link rel="prefetch" href="/assets/js/23.4efbb008.js"><link rel="prefetch" href="/assets/js/24.e6389893.js"><link rel="prefetch" href="/assets/js/25.6aed1792.js"><link rel="prefetch" href="/assets/js/26.a44679da.js"><link rel="prefetch" href="/assets/js/27.1535cb0e.js"><link rel="prefetch" href="/assets/js/28.e156a494.js"><link rel="prefetch" href="/assets/js/29.5610dfa7.js"><link rel="prefetch" href="/assets/js/3.12ec3e01.js"><link rel="prefetch" href="/assets/js/30.f2ebf7eb.js"><link rel="prefetch" href="/assets/js/31.6c2464e4.js"><link rel="prefetch" href="/assets/js/32.3e9627b9.js"><link rel="prefetch" href="/assets/js/33.f23308dc.js"><link rel="prefetch" href="/assets/js/34.b4086ee7.js"><link rel="prefetch" href="/assets/js/35.d87c14f1.js"><link rel="prefetch" href="/assets/js/36.8c41e6c1.js"><link rel="prefetch" href="/assets/js/37.263a3a7a.js"><link rel="prefetch" href="/assets/js/38.2608452f.js"><link rel="prefetch" href="/assets/js/39.ab0bc7bc.js"><link rel="prefetch" href="/assets/js/4.a0db4ec3.js"><link rel="prefetch" href="/assets/js/40.94220e04.js"><link rel="prefetch" href="/assets/js/41.ed89848b.js"><link rel="prefetch" href="/assets/js/42.1b65fe97.js"><link rel="prefetch" href="/assets/js/43.39f98f2f.js"><link rel="prefetch" href="/assets/js/44.cce2fc85.js"><link rel="prefetch" href="/assets/js/45.414cf687.js"><link rel="prefetch" href="/assets/js/46.3939b97e.js"><link rel="prefetch" href="/assets/js/47.ea2e2496.js"><link rel="prefetch" href="/assets/js/48.56c0c1be.js"><link rel="prefetch" href="/assets/js/49.a6cc514a.js"><link rel="prefetch" href="/assets/js/5.eb90af4c.js"><link rel="prefetch" href="/assets/js/50.e96a7118.js"><link rel="prefetch" href="/assets/js/51.b47568ba.js"><link rel="prefetch" href="/assets/js/52.3dd544a3.js"><link rel="prefetch" href="/assets/js/53.e5ef45d6.js"><link rel="prefetch" href="/assets/js/54.eb4561c3.js"><link rel="prefetch" href="/assets/js/55.666e3e38.js"><link rel="prefetch" href="/assets/js/56.9aed0b48.js"><link rel="prefetch" href="/assets/js/57.9262f920.js"><link rel="prefetch" href="/assets/js/58.e4ca4334.js"><link rel="prefetch" href="/assets/js/59.59b75227.js"><link rel="prefetch" href="/assets/js/6.d4cdc009.js"><link rel="prefetch" href="/assets/js/60.c4646f0c.js"><link rel="prefetch" href="/assets/js/61.e03775fd.js"><link rel="prefetch" href="/assets/js/62.936c08f8.js"><link rel="prefetch" href="/assets/js/63.d019a552.js"><link rel="prefetch" href="/assets/js/64.27105f3b.js"><link rel="prefetch" href="/assets/js/65.e8860063.js"><link rel="prefetch" href="/assets/js/66.59a02d55.js"><link rel="prefetch" href="/assets/js/67.7554b4f4.js"><link rel="prefetch" href="/assets/js/68.873d5ce5.js"><link rel="prefetch" href="/assets/js/69.8488b1f6.js"><link rel="prefetch" href="/assets/js/7.ba963a56.js"><link rel="prefetch" href="/assets/js/70.c6edffdd.js"><link rel="prefetch" href="/assets/js/71.26a3d5f5.js"><link rel="prefetch" href="/assets/js/72.2559c613.js"><link rel="prefetch" href="/assets/js/73.679d6fd8.js"><link rel="prefetch" href="/assets/js/74.bbfb80c1.js"><link rel="prefetch" href="/assets/js/75.15ca6cf2.js"><link rel="prefetch" href="/assets/js/76.0098e9c8.js"><link rel="prefetch" href="/assets/js/77.2d8d2ecd.js"><link rel="prefetch" href="/assets/js/78.2d248f43.js"><link rel="prefetch" href="/assets/js/79.82c86f79.js"><link rel="prefetch" href="/assets/js/8.aa0c72be.js"><link rel="prefetch" href="/assets/js/80.6d672eec.js"><link rel="prefetch" href="/assets/js/81.8145fd7a.js"><link rel="prefetch" href="/assets/js/82.c8663374.js"><link rel="prefetch" href="/assets/js/83.ee018087.js"><link rel="prefetch" href="/assets/js/84.28f8a0a6.js"><link rel="prefetch" href="/assets/js/85.852b4027.js"><link rel="prefetch" href="/assets/js/86.857a7e33.js"><link rel="prefetch" href="/assets/js/87.7deebf5a.js"><link rel="prefetch" href="/assets/js/88.cbdc7573.js"><link rel="prefetch" href="/assets/js/89.28e8533e.js"><link rel="prefetch" href="/assets/js/9.0f4873fe.js"><link rel="prefetch" href="/assets/js/90.1eb20759.js"><link rel="prefetch" href="/assets/js/91.bf08138d.js"><link rel="prefetch" href="/assets/js/92.22e8c62e.js"><link rel="prefetch" href="/assets/js/93.576edb30.js"><link rel="prefetch" href="/assets/js/94.e7d7d070.js"><link rel="prefetch" href="/assets/js/95.d574d961.js"><link rel="prefetch" href="/assets/js/96.2d389af7.js"><link rel="prefetch" href="/assets/js/97.3fabf10b.js"><link rel="prefetch" href="/assets/js/98.83e5a4df.js"><link rel="prefetch" href="/assets/js/99.198d3023.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.4548ae7d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="整站地图" class="dropdown-title"><span class="title">整站地图</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/" class="nav-link">
+  主页
+</a></li><li class="dropdown-item"><!----> <a href="/about.html" class="nav-link">
+  关于
+</a></li><li class="dropdown-item"><!----> <a href="https://map.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  导航
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  生活
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://res.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  音乐
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://msg.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  留言
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://cv.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简历
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习笔记" class="dropdown-title"><span class="title">学习笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/design/" class="nav-link">
+  Design
+</a></li><li class="dropdown-item"><!----> <a href="/network/" class="nav-link">
+  Network
+</a></li><li class="dropdown-item"><!----> <a href="/java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/database/" class="nav-link">
+  Database
+</a></li><li class="dropdown-item"><!----> <a href="/cache/" class="nav-link">
+  Cache
+</a></li><li class="dropdown-item"><!----> <a href="/elasticsearch/" class="nav-link">
+  Elasticsearch
+</a></li><li class="dropdown-item"><!----> <a href="/command/" class="nav-link">
+  工具命令
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="架构笔记" class="dropdown-title"><span class="title">架构笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/springboot/" class="nav-link router-link-active">
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/dubbo/" class="nav-link">
+  Dubbo
+</a></li><li class="dropdown-item"><!----> <a href="/docker/" class="nav-link">
+  Docker
+</a></li><li class="dropdown-item"><!----> <a href="/mq/" class="nav-link">
+  消息队列
+</a></li><li class="dropdown-item"><!----> <a href="/fs/" class="nav-link">
+  文件系统
+</a></li><li class="dropdown-item"><!----> <a href="/seckill/" class="nav-link">
+  秒杀架构
+</a></li><li class="dropdown-item"><!----> <a href="/distributed/" class="nav-link">
+  分布式相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="零星笔记" class="dropdown-title"><span class="title">零星笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note/" class="nav-link">
+  疑难杂记
+</a></li><li class="dropdown-item"><!----> <a href="/front/" class="nav-link">
+  前端记录
+</a></li><li class="dropdown-item"><!----> <a href="/book/" class="nav-link">
+  书籍面试
+</a></li><li class="dropdown-item"><!----> <a href="/other/" class="nav-link">
+  其他笔记
+</a></li><li class="dropdown-item"><!----> <a href="/gossip/" class="nav-link">
+  编程闲话
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开源项目" class="dropdown-title"><span class="title">开源项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/p/" class="nav-link">
+  项目列表
+</a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/ProjectStudy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  ProjectStudy
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="/shirojwt/" class="nav-link">
+  ShiroJwt
+</a></li><li class="dropdown-item"><!----> <a href="/seckill-evolution/" class="nav-link">
+  SeckillEvolution
+</a></li><li class="dropdown-item"><!----> <a href="/netty/" class="nav-link">
+  NettyStudy
+</a></li><li class="dropdown-item"><!----> <a href="/viewgenerator/" class="nav-link">
+  ViewGenerator
+</a></li></ul></div></div> <a href="https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="整站地图" class="dropdown-title"><span class="title">整站地图</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/" class="nav-link">
+  主页
+</a></li><li class="dropdown-item"><!----> <a href="/about.html" class="nav-link">
+  关于
+</a></li><li class="dropdown-item"><!----> <a href="https://map.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  导航
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  生活
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://res.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  音乐
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://msg.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  留言
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://cv.dolyw.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  简历
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习笔记" class="dropdown-title"><span class="title">学习笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/design/" class="nav-link">
+  Design
+</a></li><li class="dropdown-item"><!----> <a href="/network/" class="nav-link">
+  Network
+</a></li><li class="dropdown-item"><!----> <a href="/java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/database/" class="nav-link">
+  Database
+</a></li><li class="dropdown-item"><!----> <a href="/cache/" class="nav-link">
+  Cache
+</a></li><li class="dropdown-item"><!----> <a href="/elasticsearch/" class="nav-link">
+  Elasticsearch
+</a></li><li class="dropdown-item"><!----> <a href="/command/" class="nav-link">
+  工具命令
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="架构笔记" class="dropdown-title"><span class="title">架构笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/springboot/" class="nav-link router-link-active">
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/dubbo/" class="nav-link">
+  Dubbo
+</a></li><li class="dropdown-item"><!----> <a href="/docker/" class="nav-link">
+  Docker
+</a></li><li class="dropdown-item"><!----> <a href="/mq/" class="nav-link">
+  消息队列
+</a></li><li class="dropdown-item"><!----> <a href="/fs/" class="nav-link">
+  文件系统
+</a></li><li class="dropdown-item"><!----> <a href="/seckill/" class="nav-link">
+  秒杀架构
+</a></li><li class="dropdown-item"><!----> <a href="/distributed/" class="nav-link">
+  分布式相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="零星笔记" class="dropdown-title"><span class="title">零星笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note/" class="nav-link">
+  疑难杂记
+</a></li><li class="dropdown-item"><!----> <a href="/front/" class="nav-link">
+  前端记录
+</a></li><li class="dropdown-item"><!----> <a href="/book/" class="nav-link">
+  书籍面试
+</a></li><li class="dropdown-item"><!----> <a href="/other/" class="nav-link">
+  其他笔记
+</a></li><li class="dropdown-item"><!----> <a href="/gossip/" class="nav-link">
+  编程闲话
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开源项目" class="dropdown-title"><span class="title">开源项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/p/" class="nav-link">
+  项目列表
+</a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/ProjectStudy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  ProjectStudy
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="/shirojwt/" class="nav-link">
+  ShiroJwt
+</a></li><li class="dropdown-item"><!----> <a href="/seckill-evolution/" class="nav-link">
+  SeckillEvolution
+</a></li><li class="dropdown-item"><!----> <a href="/netty/" class="nav-link">
+  NettyStudy
+</a></li><li class="dropdown-item"><!----> <a href="/viewgenerator/" class="nav-link">
+  ViewGenerator
+</a></li></ul></div></div> <a href="https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><a href="/springboot/" class="sidebar-link">SpringBoot</a></li><li><a href="/springboot/10-Okhttp3.html" class="sidebar-link">使用Okhttp3</a></li><li><a href="/springboot/11-Async.html" class="sidebar-link">使用@Async异步注解</a></li><li><a href="/springboot/00-Version.html" class="sidebar-link">SpringCloud版本</a></li><li><a href="/springboot/01-Feign-Hystrix.html" class="active sidebar-link">Feign和Hystrix使用记录</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_1-本地开发" class="sidebar-link">1. 本地开发</a></li><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_2-超时时间" class="sidebar-link">2. 超时时间</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_2-1-ribbon" class="sidebar-link">2.1. Ribbon</a></li><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_2-2-feign" class="sidebar-link">2.2. Feign</a></li><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_2-3-hystrix" class="sidebar-link">2.3. Hystrix</a></li><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_2-4-设置规则" class="sidebar-link">2.4. 设置规则</a></li><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_2-5-推荐配置" class="sidebar-link">2.5. 推荐配置</a></li></ul></li><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_3-异常报错" class="sidebar-link">3. 异常报错</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/springboot/01-Feign-Hystrix.html#_3-1-requestmappinghandlermapping" class="sidebar-link">3.1. requestMappingHandlerMapping</a></li></ul></li></ul></li><li><a href="/springboot/02-Hystrix-Sentinel.html" class="sidebar-link">Hystrix和Sentinel的对比使用</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="feign和hystrix使用记录"><a href="#feign和hystrix使用记录" class="header-anchor">#</a> Feign和Hystrix使用记录</h1> <p>Feign 和 Hystrix 使用记录</p> <h2 id="_1-本地开发"><a href="#_1-本地开发" class="header-anchor">#</a> 1. 本地开发</h2> <p>本地开发的时候，连的环境的注册中心，既有开发环境服务，也有同事的本地服务，想指定调用自己本地的服务怎么办</p> <ul><li>修改服务名，这个感觉麻烦了，一样要修改代码里注解 @FeignClient(&quot;xxx&quot;) 的服务名</li> <li>使用 @FeignClient 注解的 Url 属性指定地址为本地 IP</li></ul> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">&quot;xxx&quot;</span><span class="token punctuation">,</span> url <span class="token operator">=</span> <span class="token string">&quot;127.0.0.1:9020&quot;</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="_2-超时时间"><a href="#_2-超时时间" class="header-anchor">#</a> 2. 超时时间</h2> <p>Feign + Hystrix，而 Feign 内部默认使用的是 Ribbon 负载，所以超时时间涉及到这三个的配置</p> <h3 id="_2-1-ribbon"><a href="#_2-1-ribbon" class="header-anchor">#</a> 2.1. Ribbon</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 全局配置</span>
+<span class="token key atrule">ribbon</span><span class="token punctuation">:</span> 
+  <span class="token key atrule">ConnectTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+  <span class="token key atrule">ReadTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+  <span class="token comment"># 同一台实例最大重试次数，不包括首次调用</span>
+  <span class="token key atrule">MaxAutoRetries</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token comment"># 重试负载均衡其他的实例最大重试次数，不包括首次调用</span>
+  <span class="token key atrule">MaxAutoRetriesNextServer</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token comment"># 是否对所有的操作请求都进行重试，如果是 Get 则可以</span>
+  <span class="token comment"># 如果是 Post，Put 等操作没有实现幂等的情况下是很危险的</span>
+  <span class="token key atrule">OkToRetryOnAllOperations</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+
+<span class="token comment"># 服务局部配置，xxx是服务名</span>
+<span class="token key atrule">xxx</span><span class="token punctuation">:</span> 
+  <span class="token key atrule">ribbon</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">ConnectTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+    <span class="token key atrule">ReadTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+    <span class="token comment"># 同一台实例最大重试次数，不包括首次调用</span>
+    <span class="token key atrule">MaxAutoRetries</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token comment"># 重试负载均衡其他的实例最大重试次数，不包括首次调用</span>
+    <span class="token key atrule">MaxAutoRetriesNextServer</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token comment"># 是否对所有的操作请求都进行重试，如果是 Get 则可以</span>
+    <span class="token comment"># 如果是 Post，Put 等操作没有实现幂等的情况下是很危险的</span>
+    <span class="token key atrule">OkToRetryOnAllOperations</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">NFLoadBalancerRuleClassName</span><span class="token punctuation">:</span> com.netflix.loadbalancer.RandomRule
+</code></pre></div><h3 id="_2-2-feign"><a href="#_2-2-feign" class="header-anchor">#</a> 2.2. Feign</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">feign</span><span class="token punctuation">:</span> 
+  <span class="token key atrule">hystrix</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">okhttp</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">httpclient</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">client</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">config</span><span class="token punctuation">:</span> 
+      <span class="token comment"># 全局配置</span>
+      <span class="token key atrule">default</span><span class="token punctuation">:</span> 
+        <span class="token key atrule">connectTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+        <span class="token key atrule">readTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+      <span class="token comment"># 服务局部配置，xxx是服务名</span>
+      <span class="token key atrule">xxx</span><span class="token punctuation">:</span> 
+        <span class="token key atrule">connectTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+        <span class="token key atrule">readTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+  <span class="token comment"># compression:</span>
+    <span class="token comment"># request:</span>
+      <span class="token comment"># enabled: true</span>
+    <span class="token comment"># response:</span>
+      <span class="token comment"># enabled: true</span>
+</code></pre></div><h3 id="_2-3-hystrix"><a href="#_2-3-hystrix" class="header-anchor">#</a> 2.3. Hystrix</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">hystrix</span><span class="token punctuation">:</span>
+  <span class="token key atrule">command</span><span class="token punctuation">:</span>
+    <span class="token key atrule">default</span><span class="token punctuation">:</span>
+      <span class="token comment"># circuitBreaker:</span>
+        <span class="token comment"># sleepWindowInMilliseconds: 10000</span>
+        <span class="token comment"># forceClosed: true</span>
+      <span class="token key atrule">execution</span><span class="token punctuation">:</span>
+        <span class="token key atrule">timeout</span><span class="token punctuation">:</span>
+          <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">isolation</span><span class="token punctuation">:</span>
+          <span class="token key atrule">thread</span><span class="token punctuation">:</span>
+            <span class="token comment"># 熔断时间</span>
+            <span class="token key atrule">timeoutInMilliseconds</span><span class="token punctuation">:</span> <span class="token number">10000</span>
+  <span class="token comment"># shareSecurityContext: true</span>
+</code></pre></div><h3 id="_2-4-设置规则"><a href="#_2-4-设置规则" class="header-anchor">#</a> 2.4. 设置规则</h3> <ul><li>如果同时配置了 Ribbon、Feign 的 connectTimeout 和 readTimeout，那么 Feign 的配置将生效，当 Feign 设置了超时时间，Ribbon 会依据 Feign 的设置同步</li> <li>Ribbon 的 ConnectTimeout 和 ReadTimeout 存在的意义，不使用 Feign，使用 RestTemplate 调用时</li> <li>Ribbon 的配置要想生效必须满足微服务相互调用的时候通过注册中心，如果你是在本地通过 @FeignClient 注解的 url 参数进行服务相互调用的测试，此时 Ribbon 设置的超时时间将会失效，但是通过 Feign 设置的超时时间不会受到影响，仍然会生效</li> <li>其实是 Feign 内部调用就是 Hystrix + Ribbon，Hystrix 在最外层，然后再到 Ribbon，最后里面的是 Http 请求。所以说，Hystrix的熔断时间必须大于Ribbon的 (ConnectTimeout + ReadTimeout)。而如果 Ribbon 开启了重试机制，还需要乘以对应的重试次数，保证在 Ribbon 里的请求还没结束时，Hystrix 的熔断时间不会超时，否则 Hystrix 命令超时后，该命令直接熔断，重试机制就没有任何意义了</li></ul> <h3 id="_2-5-推荐配置"><a href="#_2-5-推荐配置" class="header-anchor">#</a> 2.5. 推荐配置</h3> <p>同时配置 Feign 和 Ribbon 的 connectTimeout 和 readTimeout，如果不配置 Ribbon 的重试次数，默认会重试一次</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">feign</span><span class="token punctuation">:</span> 
+  <span class="token key atrule">hystrix</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">okhttp</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">httpclient</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">client</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">config</span><span class="token punctuation">:</span> 
+      <span class="token comment"># 全局配置</span>
+      <span class="token key atrule">default</span><span class="token punctuation">:</span> 
+        <span class="token key atrule">connectTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+        <span class="token key atrule">readTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+
+<span class="token key atrule">ribbon</span><span class="token punctuation">:</span> 
+  <span class="token key atrule">ConnectTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+  <span class="token key atrule">ReadTimeout</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+  <span class="token comment"># 同一台实例最大重试次数，不包括首次调用</span>
+  <span class="token comment"># MaxAutoRetries: 1</span>
+  <span class="token comment"># 重试负载均衡其他的实例最大重试次数，不包括首次调用</span>
+  <span class="token comment"># MaxAutoRetriesNextServer: 1</span>
+  <span class="token comment"># 是否对所有的操作请求都进行重试，如果是 Get 则可以</span>
+  <span class="token comment"># 如果是 Post，Put 等操作没有实现幂等的情况下是很危险的</span>
+  <span class="token key atrule">OkToRetryOnAllOperations</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">NFLoadBalancerRuleClassName</span><span class="token punctuation">:</span> com.netflix.loadbalancer.RandomRule
+
+<span class="token key atrule">hystrix</span><span class="token punctuation">:</span>
+  <span class="token key atrule">command</span><span class="token punctuation">:</span>
+    <span class="token key atrule">default</span><span class="token punctuation">:</span>
+      <span class="token key atrule">execution</span><span class="token punctuation">:</span>
+        <span class="token key atrule">timeout</span><span class="token punctuation">:</span>
+          <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">isolation</span><span class="token punctuation">:</span>
+          <span class="token key atrule">thread</span><span class="token punctuation">:</span>
+            <span class="token comment"># 熔断时间</span>
+            <span class="token key atrule">timeoutInMilliseconds</span><span class="token punctuation">:</span> <span class="token number">10000</span>
+</code></pre></div><h2 id="_3-异常报错"><a href="#_3-异常报错" class="header-anchor">#</a> 3. 异常报错</h2> <p>记录异常</p> <h3 id="_3-1-requestmappinghandlermapping"><a href="#_3-1-requestmappinghandlermapping" class="header-anchor">#</a> 3.1. requestMappingHandlerMapping</h3> <p>如果我们使用 Feign 实现熔断，首先需要自定义一个熔断类，实现你的 Feign 接口，然后实现方法，这些方法就是熔断方法，最后需要在你的 Feign 接口中指定 fallback 为自定义类，但是启动过程中却出现了</p> <div class="language-java extra-class"><pre class="language-java"><code>org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span><span class="token class-name">BeanCreationException</span><span class="token operator">:</span> <span class="token class-name">Error</span> creating bean <span class="token keyword">with</span> name <span class="token string">'requestMappingHandlerMapping'</span> defined in <span class="token keyword">class</span> path resource
+</code></pre></div><p>最后发现原因是 <code>@FeignClient</code> 使用 fallback 和 <code>@RequestMapping</code> 一起使用报错，这个还是以前写 Demo 就遇到的错误</p> <p><img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/07/20200724001.png" alt="图片"></p> <p>代码举例如下，这样 <code>@FeignClient</code> 使用 fallback 和 <code>@RequestMapping</code> 一起使用报错</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * 服务商订单服务
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/7/22 17:22
+ */</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/ispOrder&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IspOrderController</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">FactoryIspService</span> factoryIspService<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 服务商添加订单
+     *
+     * @param orderDto
+     * @return com.sinosoft.core.core.domain.R&lt;?&gt;
+     * @throws Exception e
+     * @author wliduo[i@dolyw.com]
+     * @date 2020/7/24 10:50
+     */</span>
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/addOrder&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">R</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">addOrder</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">OrderDto</span> orderDto<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> factoryIspService<span class="token punctuation">.</span><span class="token function">getIsp</span><span class="token punctuation">(</span>orderDto<span class="token punctuation">.</span><span class="token function">getIspCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addOrder</span><span class="token punctuation">(</span>orderDto<span class="token punctuation">.</span><span class="token function">getOrderCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * IspOrderFeign
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/7/23 10:43
+ */</span>
+<span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">&quot;isp-order&quot;</span><span class="token punctuation">,</span> fallback <span class="token operator">=</span> <span class="token class-name">IspOrderFeign</span><span class="token punctuation">.</span><span class="token class-name">IspOrderFeignFallback</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/ispOrder&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IspOrderFeign</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 服务商添加订单
+     *
+     * @param orderDto
+     * @return com.sinosoft.core.core.domain.R&lt;?&gt;
+     * @throws Exception e
+     * @author wliduo[i@dolyw.com]
+     * @date 2020/7/24 10:50
+     */</span>
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/addOrder&quot;</span><span class="token punctuation">)</span>
+    <span class="token class-name">R</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">addOrder</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">OrderDto</span> orderDto<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 服务降级实现
+     *
+     * @author wliduo[i@dolyw.com]
+     * @date 2020/7/23 16:57
+     */</span>
+    <span class="token annotation punctuation">@Service</span>
+    <span class="token keyword">class</span> <span class="token class-name">IspOrderFeignFallback</span> <span class="token keyword">implements</span> <span class="token class-name">IspOrderFeign</span> <span class="token punctuation">{</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token class-name">R</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">addOrder</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">OrderDto</span> orderDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token class-name">R</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&quot;服务器繁忙，请稍候再试&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>将 <code>@RequestMapping(&quot;/ispOrder&quot;)</code> 去除即可，下面的 <code>@PostMapping</code> 得加上路径前缀 <code>/ispOrder</code></p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * 服务商订单服务
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/7/22 17:22
+ */</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/ispOrder&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IspOrderController</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">FactoryIspService</span> factoryIspService<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 服务商添加订单
+     *
+     * @param orderDto
+     * @return com.sinosoft.core.core.domain.R&lt;?&gt;
+     * @throws Exception e
+     * @author wliduo[i@dolyw.com]
+     * @date 2020/7/24 10:50
+     */</span>
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/addOrder&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">R</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">addOrder</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">OrderDto</span> orderDto<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> factoryIspService<span class="token punctuation">.</span><span class="token function">getIsp</span><span class="token punctuation">(</span>orderDto<span class="token punctuation">.</span><span class="token function">getIspCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addOrder</span><span class="token punctuation">(</span>orderDto<span class="token punctuation">.</span><span class="token function">getOrderCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * IspOrderFeign
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/7/23 10:43
+ */</span>
+<span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">&quot;isp-order&quot;</span><span class="token punctuation">,</span> fallback <span class="token operator">=</span> <span class="token class-name">IspOrderFeign</span><span class="token punctuation">.</span><span class="token class-name">IspOrderFeignFallback</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IspOrderFeign</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 服务商添加订单
+     *
+     * @param orderDto
+     * @return com.sinosoft.core.core.domain.R&lt;?&gt;
+     * @throws Exception e
+     * @author wliduo[i@dolyw.com]
+     * @date 2020/7/24 10:50
+     */</span>
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/ispOrder/addOrder&quot;</span><span class="token punctuation">)</span>
+    <span class="token class-name">R</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">addOrder</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">OrderDto</span> orderDto<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 服务降级实现
+     *
+     * @author wliduo[i@dolyw.com]
+     * @date 2020/7/23 16:57
+     */</span>
+    <span class="token annotation punctuation">@Service</span>
+    <span class="token keyword">class</span> <span class="token class-name">IspOrderFeignFallback</span> <span class="token keyword">implements</span> <span class="token class-name">IspOrderFeign</span> <span class="token punctuation">{</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token class-name">R</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> <span class="token function">addOrder</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">OrderDto</span> orderDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token class-name">R</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&quot;服务器繁忙，请稍候再试&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><strong>参考</strong></p> <ul><li><a href="https://blog.csdn.net/sinat_41620463/article/details/85083977" target="_blank" rel="noopener noreferrer">spring-cloud微服务 feign调用 本地调试问题<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://blog.csdn.net/yangchao1125/article/details/104410068" target="_blank" rel="noopener noreferrer">Feign 如何设置超时时间（connectionTimeout、readTimout）<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://blog.csdn.net/hhj13978064496/article/details/104653297" target="_blank" rel="noopener noreferrer">Feign的各种超时时间（含局部方法设置超时案例）<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://cloud.tencent.com/developer/article/1440635" target="_blank" rel="noopener noreferrer">Spring Cloud组件那么多超时设置，如何理解和运用？<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://www.cnblogs.com/songjilong/p/11976329.html" target="_blank" rel="noopener noreferrer">Spring Cloud报错Error creating bean with name 'requestMappingHandlerMapping'<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/dolyw/Note/edit/master/doc/springboot/01-Feign-Hystrix.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/springboot/00-Version.html" class="prev">
+        SpringCloud版本
+      </a></span> <span class="next"><a href="/springboot/02-Hystrix-Sentinel.html">
+        Hystrix和Sentinel的对比使用
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><div class="diy-loader center" style="display:none;" data-v-e3547698><div class="center-box" data-v-e3547698><div class="loader_overlay" data-v-e3547698></div> <div class="loader_cogs" data-v-e3547698><div class="loader_cogs__top" data-v-e3547698><div class="top_part" data-v-e3547698></div> <div class="top_part" data-v-e3547698></div> <div class="top_part" data-v-e3547698></div> <div class="top_hole" data-v-e3547698></div></div> <div class="loader_cogs__left" data-v-e3547698><div class="left_part" data-v-e3547698></div> <div class="left_part" data-v-e3547698></div> <div class="left_part" data-v-e3547698></div> <div class="left_hole" data-v-e3547698></div></div> <div class="loader_cogs__bottom" data-v-e3547698><div class="bottom_part" data-v-e3547698></div> <div class="bottom_part" data-v-e3547698></div> <div class="bottom_part" data-v-e3547698></div> <div class="bottom_hole" data-v-e3547698></div></div></div> <p class="loading-text" data-v-e3547698>
+      页面加载中<span class="dot" data-v-e3547698>...</span></p></div></div><!----><div></div></div></div>
+    <script src="/assets/js/app.9ac2b138.js" defer></script><script src="/assets/js/2.0bc910df.js" defer></script><script src="/assets/js/126.e74a436b.js" defer></script>
+  </body>
+</html>

@@ -239,3 +239,11 @@ public static Set<String> findKeysForPage(RedisTemplate redisTemplate, String pa
 // 使用
 Set<String> keys = SysUserOnlineController.findKeysForPage(redisTemplate, "shiro_redis_session:*", 1, 5);
 ```
+
+## Map转成对象
+
+```java
+import org.apache.commons.beanutils.BeanUtils;
+
+BeanUtils.populate(object, map);
+```

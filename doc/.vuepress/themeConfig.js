@@ -197,7 +197,9 @@ module.exports = themeConfig = {
             ['', 'SpringBoot'],
             ['10-Okhttp3', '使用Okhttp3'],
             ['11-Async', '使用@Async异步注解'],
-            ['00-Version', 'SpringCloud版本']
+            ['00-Version', 'SpringCloud版本'],
+            ['01-Feign-Hystrix', 'Feign和Hystrix使用记录'],
+            ['02-Hystrix-Sentinel', 'Hystrix和Sentinel的对比使用']
         ],
         // 工具命令
         '/command/': [
