@@ -30,7 +30,7 @@
 * [JMeter的安装使用](https://note.dolyw.com/command/06-JMeter-Install.html)
 * [MySQL那些锁](http://note.dolyw.com/database/01-MySQL-Lock.html)
 * [Redis与数据库一致性](https://note.dolyw.com/cache/00-DataBaseConsistency.html)
-* [高并发下的限流分析](http://note.dolyw.com/seckill/02-Distributed-Limit.html)
+* [高并发下的限流分析](http://note.dolyw.com/distributed/02-Distributed-Limit.html)
 
 ## 参考
 

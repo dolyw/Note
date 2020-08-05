@@ -1,5 +1,6 @@
 const keyConfig = require("./config/keyConfig");
-const themeConfig = require("./themeConfig");
+const nav = require("./nav");
+const sidebar = require("./sidebar");
 
 module.exports = {
     title: '笔记',
@@ -58,7 +59,7 @@ module.exports = {
                 // options选项中的所有参数，会传给Valine的配置
                 options: {
                     el: '#valine-vuepress-comment',
-                    // keyConfig可以看QQ收藏截图
+                    // keyConfig在有道云上传了
                     appId: keyConfig.appId,
                     appKey: keyConfig.appKey,
                     placeholder: '评论',
@@ -92,5 +93,24 @@ module.exports = {
         // 代码块显示行号
         /* lineNumbers: true */
     },
-    themeConfig: themeConfig
+    themeConfig: {
+        // Github显示
+        repo: 'https://github.com/dolyw',
+        // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
+        docsRepo: 'dolyw/Note',
+        // 假如文档不是放在仓库的根目录下：
+        docsDir: 'doc',
+        // 假如文档放在一个特定的分支下：
+        docsBranch: 'master',
+        // 默认是 false, 设置为 true 来启用
+        editLinks: true,
+        // 默认为 "Edit this page"
+        editLinkText: '在 GitHub 上编辑此页',
+        // 将同时提取markdown中h1和h2标题，显示在侧边栏上
+        sidebarDepth: 2,
+        // 文档更新时间，每个文件git最后提交的时间
+        lastUpdated: '上次更新时间',
+        nav: nav,
+        sidebar: sidebar
+    }
 }

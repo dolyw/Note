@@ -375,7 +375,7 @@ public interface ISeckillService {
 
 ### 4.4. 使用分布式限流
 
-我们继续搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，这次我们引入**限流**，这里可以先查看一篇文章: [高并发下的限流分析](http://note.dolyw.com/seckill/02-Distributed-Limit.html)
+我们继续搭建一个后台服务接口(实现校验库存，扣库存，创建订单)，这次我们引入**限流**，这里可以先查看一篇文章: [高并发下的限流分析](http://note.dolyw.com/distributed/02-Distributed-Limit.html)
 
 使用**JMeter**，模拟**500**个并发线程测试购买**10**个库存的商品，地址: [4. 使用分布式限流](04-Distributed-Limit.html)
 

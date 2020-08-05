@@ -131,6 +131,42 @@
 * VSCode-Element-Helper(Element UI语法插件)
 * XML Tools
 
+```json
+{
+    "files.autoSave": "afterDelay",
+    "workbench.colorTheme": "One Dark Pro",
+    "editor.fontSize": 17,
+    "explorer.confirmDelete": false,
+    "emmet.syntaxProfiles": {
+        "vue-html": "html",
+        "vue": "html"
+    },
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": [
+        "javascript",{
+            "language": "vue",
+            "autoFix": true
+        },"html",
+        "vue"
+    ],
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "editor.multiCursorModifier": "alt",
+    "window.zoomLevel": 0,
+    "element-helper.version": "2.5",
+    "git.enableSmartCommit": true,
+    "breadcrumbs.enabled": true,
+    "workbench.editor.enablePreview": false,
+    "update.mode": "none",
+    "update.enableWindowsBackgroundUpdates": false,
+    "svn.enableProposedApi": "none",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    // 不跟随窗口选择文件
+    "explorer.autoReveal": false
+}
+```
+
 ### Beyond Compare 3
 
 代码对比工具，百度网盘

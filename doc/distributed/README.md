@@ -7,5 +7,7 @@
 本栏的主要内容如下
 
 * [CAP和BASE理论](00-CAP-BASE.html)
-* [浅析分布式事务](01-Distributed-Transaction.html)
+* [秒杀系统的设计思考](01-Design-Thinking.html)
+* [高并发下的限流分析](02-Distributed-Limit.html)
 * [浅析分布式Session](10-Distributed-Session.html)
+* [浅析分布式事务](11-Distributed-Transaction.html)

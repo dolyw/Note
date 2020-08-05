@@ -10,3 +10,4 @@ Cache的学习记录
 * [Redis与数据库一致性](00-DataBaseConsistency.html)
 * [Redis与数据库一致性补充](01-DataBaseConsistency.html)
 * [Redis集群方式实现](03-Redis-Cluster.html)
+* [Redis的Keys和Scan](10-Redis-Scan-Keys.html)
