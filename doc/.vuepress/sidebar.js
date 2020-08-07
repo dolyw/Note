@@ -76,7 +76,9 @@ module.exports = sidebar = {
         ['01-Design-Thinking', '秒杀系统的设计思考'],
         ['02-Distributed-Limit', '高并发下的限流分析'],
         ['10-Distributed-Session', '浅析分布式Session'],
-        ['11-Distributed-Transaction', '浅析分布式事务']
+        ['11-Distributed-Transaction', '浅析分布式事务'],
+        ['20-Distributed-Job', '浅析分布式任务调度'],
+        ['25-Delay-Task', '延迟任务场景技术选型']
     ],
     // 秒杀架构
     '/seckill/': [
@@ -116,11 +118,12 @@ module.exports = sidebar = {
     ],
     '/springboot/': [
         ['', 'SpringBoot'],
-        ['10-Okhttp3', '使用Okhttp3'],
-        ['11-Async', '使用@Async异步注解'],
         ['00-Version', 'SpringCloud版本'],
         ['01-Feign-Hystrix', 'Feign和Hystrix使用记录'],
-        ['02-Hystrix-Sentinel', 'Hystrix和Sentinel的对比使用']
+        ['02-Hystrix-Sentinel', 'Hystrix和Sentinel的对比使用'],
+        ['10-Okhttp3', '使用Okhttp3'],
+        ['11-Async', '使用@Async异步注解'],
+        ['12-DataSource-Switching', '多数据源动态切换']
     ],
     // 工具命令
     '/command/': [

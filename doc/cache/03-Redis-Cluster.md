@@ -41,5 +41,5 @@ slaveof 192.168.1.1 6379
 
 ## 3. Redis-Cluster集群
 
-待补充
+待补充: [https://blog.52itstyle.vip/archives/5434/](https://blog.52itstyle.vip/archives/5434/)
 

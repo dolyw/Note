@@ -6,7 +6,7 @@ module.exports = nav = [
             { text: '主页', link: '/' },
             { text: '关于', link: '/about.md' },
             { text: '导航', link: 'https://map.dolyw.com' },
-            { text: '生活', link: 'https://blog.dolyw.com' },
+            { text: '博客', link: 'https://blog.dolyw.com' },
             { text: '音乐', link: 'https://res.dolyw.com' },
             { text: '留言', link: 'https://msg.dolyw.com' },
             { text: '简历', link: 'https://cv.dolyw.com' }

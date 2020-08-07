@@ -106,6 +106,55 @@ server {
 
 详细查看: [Nginx配置中的log_format用法梳理（设置详细的日志格式）](https://www.cnblogs.com/kevingrace/p/5893499.html)
 
+其实分析 Nginx 日志，可以得到很多有用的数据，响应耗时的 url、请求时间，各个时间段的请求量，并发量。配合使用 ELK 日志系统可以很好的呈现系统使用情况
+
+一般来说，常见的懒人通用日志配置，多个项目公用一个 access.log 或者 error.log，导致运行一段时间后日志文件特别大，几G甚至几十G的都有
+
+```bash
+# 这个要配置在http中
+log_format  access  '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+```
+
+```bash
+# 查询
+limit_req_zone $binary_remote_addr $uri zone=api_read:20m rate=50r/s;
+# 报告
+server {
+        listen       80;
+        server_name  report.52itstyle.com;
+        index login.jsp;
+        access_log     /usr/local/nginx/logs/report.52itstyle.com.access.log access;
+        # 关闭静态文件的日志打印
+        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|css|js|ico)?$ {
+            expires      1d;
+            access_log off;
+            proxy_pass      http://report;
+        }
+        location / {
+              limit_req zone=api_read burst=5;#请求限流,设置队列
+              proxy_pass      http://report;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+}
+upstream report {
+         fair;
+         server  172.16.1.120:8882 weight=1  max_fails=2 fail_timeout=30s;
+         server  172.16.1.120:8881 weight=1  max_fails=2 fail_timeout=30s;
+}
+```
+
+以上配置，优化了几点
+
+* 单个项目配置属于自己的日志输出路径文件
+* 排除无用的静态文件访问日志
+
+当然还有更加优化的方案，比如 Nginx 日志按照日期格式输出，但是 Nginx 本身是不支持此功能的，只能通过 sheel 脚本自己进行切割
+
 ## 4. 负载
 
 ```bash

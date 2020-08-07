@@ -6,11 +6,12 @@
 
 本栏的主要内容如下
 
-* [SpringBoot使用Okhttp3](10-Okhttp3.html)
-* [SpringBoot使用@Async异步注解](11-Async.html)
 * [SpringBoot和SpringCloud版本区别](00-Version.html)
 * [Feign和Hystrix使用记录](01-Feign-Hystrix.html)
 * [Hystrix和Sentinel的对比使用](02-Hystrix-Sentinel.html)
+* [SpringBoot使用Okhttp3](10-Okhttp3.html)
+* [SpringBoot使用@Async异步注解](11-Async.html)
+* [SpringBoot多数据源动态切换](12-DataSource-Switching.html)
 
 **推荐阅读**
 
