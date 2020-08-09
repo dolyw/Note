@@ -1,6 +1,6 @@
 module.exports = nav = [
     // 外部链接
-    {
+    /* {
         text: '整站地图',
         items: [
             { text: '主页', link: '/' },
@@ -11,9 +11,10 @@ module.exports = nav = [
             { text: '留言', link: 'https://msg.dolyw.com' },
             { text: '简历', link: 'https://cv.dolyw.com' }
         ]
-    },
+    }, */
     // 内部链接，以doc为根目录
     /* { text: '主页', link: '/' }, { text: '关于', link: '/about.md' }, */
+    { text: '整站地图', link: '/map' },
     {
         text: '学习笔记',
         items: [
