@@ -205,9 +205,9 @@ public class SessionController {
 
 可以和 Spring 或者 SpringBoot 集成
 
-Source: [https://github.com/alexxiyang/shiro-redis](https://github.com/alexxiyang/shiro-redis)
-Doc: [http://alexxiyang.github.io/shiro-redis/](http://alexxiyang.github.io/shiro-redis/)
-参考: [https://www.jianshu.com/p/d318caaf3dc0](https://www.jianshu.com/p/d318caaf3dc0)
+* Source: [https://github.com/alexxiyang/shiro-redis](https://github.com/alexxiyang/shiro-redis)
+* Doc: [http://alexxiyang.github.io/shiro-redis/](http://alexxiyang.github.io/shiro-redis/)
+* 参考: [https://www.jianshu.com/p/d318caaf3dc0](https://www.jianshu.com/p/d318caaf3dc0)
 
 
 ```java

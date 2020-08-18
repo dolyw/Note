@@ -37,7 +37,16 @@ export default {
   data() {
     return {
       show: false,
-      footerShow: true
+      footerShow: true,
+      data: [
+        '不管多么痛苦，都不要逃往轻松的一边', 
+        '如果生活还没能改变你，那你已经失败了', 
+        '每天看着励志的语录却过着颓废的人生'
+      ],
+    randomIndex: 0,
+    i: 0,
+    timer: 0,
+    str: ""
     };
   },
   mounted() {
@@ -51,7 +60,7 @@ export default {
     // 路由切换前
     this.$router.beforeEach((to, from, next) => {
       // about页面不显示footer
-      if (to.path == "/about.html") {
+      if (to.path == "/about.html" || to.path == "/map.html") {
         this.footerShow = false;
       } else {
         this.footerShow = true;
@@ -71,6 +80,8 @@ export default {
         this.refreshFooter();
         // 关闭遮罩
         this.show = false;
+        // 一言刷新
+        this.start();
       });
     });
   },
@@ -82,6 +93,81 @@ export default {
         } else {
           document.getElementsByTagName("footer")[0].style.display = "none";
         }
+      }
+    },
+    randomText() {
+      if (!document.getElementById('hitokoto')) {
+        return;
+      }
+      this.i = 0;
+      this.str = this.data[randomIndex];
+      let index = Math.floor(this.data.length * Math.random());
+      while (this.randomIndex === this.index) {
+        this.index = Math.floor(this.data.length * Math.random())
+      }
+      this.randomIndex = this.index;
+    },
+    typing() {
+      if (!document.getElementById('hitokoto')) {
+        return;
+      }
+      if (this.i <= this.str.length) {
+        if (this.i === this.str.length) {
+          document.getElementById('title').innerHTML = this.str.slice(0, this.i++);
+        } else {
+          document.getElementById('title').innerHTML = this.str.slice(0, this.i++) + '_';
+        }
+        this.timer = setTimeout(() => {
+          this.typing()
+        }, 150)
+      } else {
+        clearTimeout(this.timer);
+        setTimeout(() => {
+          this.clearTitle()
+        }, 1500)
+      }
+    },
+    clearTitle() {
+      if (!document.getElementById('hitokoto')) {
+        return;
+      }
+      if (this.i >= 0) {
+        document.getElementById('title').innerHTML = this.str.slice(0, this.i--) + '_';
+        this.timer = setTimeout(() => {
+          this.clearTitle()
+        }, 50)
+      } else {
+        clearTimeout(this.timer);
+        this.start();
+      }
+    },
+    start() {
+      if (!document.getElementById('hitokoto')) {
+        return;
+      }
+      try {
+        var ajax = new XMLHttpRequest();
+        if (window.XMLHttpRequest) {
+          ajax = new XMLHttpRequest()
+        } else {
+          ajax = new ActiveXObject('Microsoft.XMLHTTP')
+        }
+        ajax.open('get', "https://v1.hitokoto.cn", true);
+        ajax.send();
+        ajax.onreadystatechange = () => {
+          if (ajax.readyState == 4 && ajax.status == 200) {
+            var text = JSON.parse(ajax.responseText);
+            this.i = 0;
+            this.str = text.hitokoto;
+            window.document.getElementById('author').innerHTML = text.from;
+            this.typing();
+          }
+        }
+      } catch(err) {
+        document.getElementById('author').innerHTML = '随心';
+        this.randomIndex = Math.floor(this.data.length * Math.random());
+        this.randomText();
+        this.typing()
       }
     }
   }

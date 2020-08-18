@@ -1,0 +1,48 @@
+{
+	"name": "笔记",
+	"short_name": "笔记",
+	"description": "技术笔记",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#ffffff",
+	"lang": "zh-cn",
+	"scope": "/",
+	"icons": [
+		/* {
+			"src": "https://cdn.jsdelivr.net/gh/Ice-Hazymoon/mikutools-website/icons/icon_64.ec0a61.png",
+			"sizes": "64x64",
+			"type": "image/png"
+		},
+		{
+			"src": "https://cdn.jsdelivr.net/gh/Ice-Hazymoon/mikutools-website/icons/icon_120.ec0a61.png",
+			"sizes": "120x120",
+			"type": "image/png"
+		},
+		{
+			"src": "https://cdn.jsdelivr.net/gh/Ice-Hazymoon/mikutools-website/icons/icon_144.ec0a61.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		},
+		{
+			"src": "https://cdn.jsdelivr.net/gh/Ice-Hazymoon/mikutools-website/icons/icon_152.ec0a61.png",
+			"sizes": "152x152",
+			"type": "image/png"
+		},
+		{
+			"src": "https://cdn.jsdelivr.net/gh/Ice-Hazymoon/mikutools-website/icons/icon_192.ec0a61.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "https://cdn.jsdelivr.net/gh/Ice-Hazymoon/mikutools-website/icons/icon_384.ec0a61.png",
+			"sizes": "384x384",
+			"type": "image/png"
+		}, */
+		{
+			"src": "https://cdn.jsdelivr.net/gh/wliduo/CDN@master/avatar/01_thn.png",
+			"sizes": "1024x1024",
+			"type": "image/png"
+		}
+	]
+}

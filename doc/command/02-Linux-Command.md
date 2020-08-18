@@ -48,6 +48,32 @@ kill -9 pid
 /usr/local/redis/bin/redis-cli 127.0.0.1 -p 6379 -a abredis123 shutdown
 ```
 
+### User
+
+```bash
+# 查看系统中有哪些用户
+cut -d : -f 1 /etc/passwd
+# 查看可以登录系统的用户
+cat /etc/passwd | grep -v /sbin/nologin | cut -d : -f 1
+# 查看用户组
+tail /etc/group
+# 查看某一用户
+w <user_name>
+# 查看登录用户
+who
+# 查看用户登录历史记录
+last
+# 修改root用户密码
+passwd
+# root用户修改其他用户密码
+passwd <user_name>
+
+# 修改sc_vas文件夹及下面所有文件所属用户为develop，所属用户组为sc_vass
+chown -R develop:sc_vass sc_vas
+```
+
+* [CentOS6.5下修改文件夹权限和用户名用户组](https://www.cnblogs.com/fefjay/p/6047820.html)
+
 ## Ubuntu
 
 ### 文件操作

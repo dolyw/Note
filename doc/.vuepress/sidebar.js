@@ -76,6 +76,7 @@ module.exports = sidebar = {
         ['01-Design-Thinking', '秒杀系统的设计思考'],
         ['02-Distributed-Limit', '高并发下的限流分析'],
         ['10-Distributed-Session', '浅析分布式Session'],
+        ['12-Distributed-Lock', '浅析分布式锁'],
         ['11-Distributed-Transaction', '浅析分布式事务'],
         ['20-Distributed-Job', '浅析分布式任务调度'],
         ['25-Delay-Task', '延迟任务场景技术选型']

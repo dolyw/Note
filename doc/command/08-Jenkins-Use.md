@@ -56,93 +56,118 @@ http://localhost:8888/exit
 * /var/lib/jenkins/config.xml
 
 ```xml
-<roleMap type="globalRoles">
-    <role name="admin" pattern=".*">
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors>
+    <string>jenkins.security.QueueItemAuthenticatorMonitor</string>
+  </disabledAdministrativeMonitors>
+  <version>2.222.3</version>
+  <installStateName>RUNNING</installStateName>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy">
+    <roleMap type="globalRoles">
+      <role name="admin" pattern=".*">
         <permissions>
-            <permission>hudson.model.View.Delete</permission>
-            <permission>hudson.model.Computer.Connect</permission>
-            <permission>hudson.model.Run.Delete</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains</permission>
-            <permission>hudson.model.Computer.Create</permission>
-            <permission>hudson.model.View.Configure</permission>
-            <permission>hudson.model.Computer.Build</permission>
-            <permission>hudson.model.Item.Configure</permission>
-            <permission>hudson.model.Hudson.Administer</permission>
-            <permission>hudson.model.Item.Cancel</permission>
-            <permission>hudson.model.Item.Read</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View</permission>
-            <permission>hudson.model.Computer.Delete</permission>
-            <permission>hudson.model.Item.Build</permission>
-            <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Unlock</permission>
-            <permission>hudson.scm.SCM.Tag</permission>
-            <permission>hudson.model.Item.Move</permission>
-            <permission>hudson.model.Item.Discover</permission>
-            <permission>hudson.model.Hudson.Read</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update</permission>
-            <permission>hudson.model.Item.Create</permission>
-            <permission>hudson.model.Item.Workspace</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete</permission>
-            <permission>hudson.model.Computer.Provision</permission>
-            <permission>hudson.model.Run.Replay</permission>
-            <permission>hudson.model.View.Read</permission>
-            <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.View</permission>
-            <permission>hudson.model.View.Create</permission>
-            <permission>hudson.model.Item.Delete</permission>
-            <permission>hudson.model.Computer.Configure</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create</permission>
-            <permission>hudson.model.Computer.Disconnect</permission>
-            <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Reserve</permission>
-            <permission>hudson.model.Run.Update</permission>
+          <permission>hudson.model.View.Delete</permission>
+          <permission>hudson.model.Computer.Connect</permission>
+          <permission>hudson.model.Run.Delete</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains</permission>
+          <permission>hudson.model.Computer.Create</permission>
+          <permission>hudson.model.View.Configure</permission>
+          <permission>hudson.model.Computer.Build</permission>
+          <permission>hudson.model.Item.Configure</permission>
+          <permission>hudson.model.Hudson.Administer</permission>
+          <permission>hudson.model.Item.Cancel</permission>
+          <permission>hudson.model.Item.Read</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View</permission>
+          <permission>hudson.model.Computer.Delete</permission>
+          <permission>hudson.model.Item.Build</permission>
+          <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Unlock</permission>
+          <permission>hudson.scm.SCM.Tag</permission>
+          <permission>hudson.model.Item.Move</permission>
+          <permission>hudson.model.Item.Discover</permission>
+          <permission>hudson.model.Hudson.Read</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update</permission>
+          <permission>hudson.model.Item.Create</permission>
+          <permission>hudson.model.Item.Workspace</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete</permission>
+          <permission>hudson.model.Computer.Provision</permission>
+          <permission>hudson.model.Run.Replay</permission>
+          <permission>hudson.model.View.Read</permission>
+          <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.View</permission>
+          <permission>hudson.model.View.Create</permission>
+          <permission>hudson.model.Item.Delete</permission>
+          <permission>hudson.model.Computer.Configure</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create</permission>
+          <permission>hudson.model.Computer.Disconnect</permission>
+          <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Reserve</permission>
+          <permission>hudson.model.Run.Update</permission>
         </permissions>
         <assignedSIDs>
-            <sid>admin</sid>
+          <sid>admin</sid>
         </assignedSIDs>
-    </role>
-    <role name="sc_vas" pattern=".*">
+      </role>
+      <role name="sc_vas" pattern=".*">
         <permissions>
-            <permission>hudson.model.View.Delete</permission>
-            <permission>hudson.model.Computer.Connect</permission>
-            <permission>hudson.model.Run.Delete</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains</permission>
-            <permission>hudson.model.Computer.Create</permission>
-            <permission>hudson.model.View.Configure</permission>
-            <permission>hudson.model.Computer.Build</permission>
-            <permission>hudson.model.Item.Configure</permission>
-            <permission>hudson.model.Hudson.Administer</permission>
-            <permission>hudson.model.Item.Cancel</permission>
-            <permission>hudson.model.Item.Read</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View</permission>
-            <permission>hudson.model.Computer.Delete</permission>
-            <permission>hudson.model.Item.Build</permission>
-            <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Unlock</permission>
-            <permission>hudson.scm.SCM.Tag</permission>
-            <permission>hudson.model.Item.Move</permission>
-            <permission>hudson.model.Item.Discover</permission>
-            <permission>hudson.model.Hudson.Read</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update</permission>
-            <permission>hudson.model.Item.Create</permission>
-            <permission>hudson.model.Item.Workspace</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete</permission>
-            <permission>hudson.model.Computer.Provision</permission>
-            <permission>hudson.model.Run.Replay</permission>
-            <permission>hudson.model.View.Read</permission>
-            <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.View</permission>
-            <permission>hudson.model.View.Create</permission>
-            <permission>hudson.model.Item.Delete</permission>
-            <permission>hudson.model.Computer.Configure</permission>
-            <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create</permission>
-            <permission>hudson.model.Computer.Disconnect</permission>
-            <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Reserve</permission>
-            <permission>hudson.model.Run.Update</permission>
+          <permission>hudson.model.Hudson.Read</permission>
+          <permission>hudson.model.Item.Cancel</permission>
+          <permission>hudson.model.Item.Read</permission>
+          <permission>hudson.model.Item.Build</permission>
+          <permission>hudson.model.View.Read</permission>
         </permissions>
         <assignedSIDs>
           <sid>developer</sid>
         </assignedSIDs>
-    </role>
-</roleMap>
+      </role>
+    </roleMap>
+    <roleMap type="slaveRoles"/>
+    <roleMap type="projectRoles"/>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULL_NAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
+  <jdks>
+    <jdk>
+      <name>jdk1.8</name>
+      <home>/app/jdk1.8.0_131</home>
+      <properties/>
+    </jdk>
+  </jdks>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>-1</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties/>
+</hudson>
 ```
 
 **参考**
 
 * [搭建Jenkins2.222.3](https://blog.csdn.net/mayancheng7/article/details/106319287)
 * [Jenkins用户权限](https://blog.csdn.net/w13511069150/article/details/93377590)
+* [教你如何用Jenkins自动化部署项目(教程，从零到搭建完成)](https://blog.csdn.net/qq_37372007/article/details/81586751)

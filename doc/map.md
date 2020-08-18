@@ -2,6 +2,15 @@
 
 <!-- https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json -->
 
+<!-- <div id="aplayer-2020-07-03"></div>
+
+<style>#aplayer-2020-07-03{max-width:666px;}</style>
+<script>$(function(){$.ajax({url:"https://api.i-meto.com/meting/api?server=netease&type=song&id=150361",success:function(e){var a=new APlayer({element:document.getElementById("aplayer-2020-07-03"),showlrc:3,theme:"#4d4d4d",music:e[0]});window.aplayers||(window.aplayers=[]),window.aplayers.push(a)}})})</script> -->
+
+<b id="hitokoto"><span id="title">总会有那么一两个句子能穿透你的心</span>&nbsp;&nbsp;-「<span id="author">随心</span>」</b>
+
+<!-- <script>var data=['不管多么痛苦，都不要逃往轻松的一边','如果生活还没能改变你，那你已经失败了','每天看着励志的语录却过着颓废的人生'];var randomIndex=0;var i=0;var timer=0;var str="";function randomText(){i=0;str=data[randomIndex];let index=Math.floor(data.length*Math.random());while(randomIndex===index){index=Math.floor(data.length*Math.random())}randomIndex=index}function typing(){if(i<=str.length){if(i===str.length){document.getElementById('title').innerHTML=str.slice(0,i++)}else{document.getElementById('title').innerHTML=str.slice(0,i++)+'_'}timer=setTimeout(function(){typing()},150)}else{clearTimeout(timer);setTimeout(function(){clearTitle()},1500)}}function clearTitle(){if(i>=0){document.getElementById('title').innerHTML=str.slice(0,i--)+'_';timer=setTimeout(function(){clearTitle()},50)}else{clearTimeout(timer);start()}}function start(){try{var ajax=new XMLHttpRequest();if(window.XMLHttpRequest){ajax=new XMLHttpRequest()}else{ajax=new ActiveXObject('Microsoft.XMLHTTP')}ajax.open('get',"https://v1.hitokoto.cn",true);ajax.send();ajax.onreadystatechange=function(){if(ajax.readyState==4&&ajax.status==200){var text=JSON.parse(ajax.responseText);i=0;str=text.hitokoto;document.getElementById('author').innerHTML=text.from;typing()}}}catch(err){document.getElementById('author').innerHTML='随心';randomIndex=Math.floor(data.length*Math.random());randomText();typing()}}start();</script> -->
+
 :eyes:
 
 <ul>

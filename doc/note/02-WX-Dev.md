@@ -24,10 +24,18 @@ response.sendRedirect(URLEncoder.encode(redirectUrl, "UTF-8"));
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/08/20200805003.png)
 
+**微信网页授权 access_token 和普通 access_token**
+
+* 网页授权 access_token 无需用户授权，无需用户关注，在网页授权回调域名下可获取到 code，通过 code 换取网页授权 access_token，调用次数无限制
+* 普通 access_token 需要用户关注并授权且每天调用上限为 2000 次(需要缓存，配合校验 access_token 是否有效接口使用)
+
 ## 2. 微信小程序
 
 待补充
 
 **参考**
 
-* []()
+* [微信公众平台测试号](https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index)
+* [微信公众平台开发——微信授权登录（OAuth2.0）](https://www.cnblogs.com/0201zcr/p/5131602.html)
+* [微信公众号开发（一）微信分享开发](https://blog.csdn.net/lwpoor123/article/details/78678304)
+* [微信，网页授权access_token和普通access_token](https://www.cnblogs.com/wmzll/p/13335347.html)

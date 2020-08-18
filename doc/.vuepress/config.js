@@ -7,6 +7,9 @@ module.exports = {
     description: '世界上最大的谎言就是你不行',
     head: [
         ['link', { rel: 'icon', href: 'https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/favicon.ico' }],
+        /* ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css' }], */
+        /* ['script', { type: 'text/javascript', src: 'https://cdn.staticfile.org/jquery/2.2.3/jquery.min.js' }], */
+        /* ['script', { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js' }], */
         /* ['script', { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/gh/wliduo/Mark@master/' + 'assets/lib/love.js' }], */
         ['script', { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/count.js' }]
     ],
@@ -88,6 +91,9 @@ module.exports = {
                 }
             } */
         ]
+        // 添加PWA
+        // https://vuepress.vuejs.org/zh/plugin/official/plugin-pwa.html
+        // https://segmentfault.com/a/1190000014746656#item-6
     ],
     markdown: {
         // 代码块显示行号
