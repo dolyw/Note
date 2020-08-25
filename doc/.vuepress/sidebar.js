@@ -1,13 +1,32 @@
 module.exports = sidebar = {
     '/design/': [
-        ['', '设计模式(Design Pattern)'],
-        ['01-Singleton-Pattern.md', '单例模式(Singleton Pattern)'],
-        ['02-Strategy-Pattern.md', '策略模式(Strategy Pattern)'],
-        ['03-Factory-Method.md', '工厂方法(Factory Method)'],
-        ['04-Abstract-Factory.md', '抽象工厂(Abstract Factory)'],
-        ['05-Facade-Pattern.md', '外观模式(Facade Pattern)'],
-        ['06-Mediator-Pattern.md', '中介者模式(Mediator Pattern)'],
-        ['07-Adapter-Pattern.md', '适配器模式(Adapter Pattern)']
+        ['', '模式目录'],
+        ['00-Design-Pattern', '设计模式'],
+        ['01-Singleton-Pattern', '单例模式'],
+        ['02-Strategy-Pattern', '策略模式'],
+        ['03-Factory-Method', '工厂方法'],
+        ['04-Abstract-Factory', '抽象工厂'],
+        ['05-Facade-Pattern', '外观模式'],
+        ['06-Mediator-Pattern', '中介者模式'],
+        ['07-Decorator-Pattern', '装饰器模式'],
+        ['08-Chain-of-Responsibility-Pattern', '责任链模式'],
+        ['09-Observer-Pattern', '观察者模式'],
+        ['10-Composite-Pattern', '组合模式'],
+        ['11-Flyweight-Pattern', '享元模式'],
+        ['12-Proxy-Pattern', '代理模式'],
+        ['13-Iterator-Pattern', '迭代器模式'],
+        ['14-Visitor-Pattern', '访问者模式'],
+        ['15-Builder-Pattern', '建造者模式'],
+        ['16-Adapter-Pattern', '适配器模式'],
+        ['17-Bridge-Pattern', '桥接模式'],
+        ['18-Command-Pattern', '命令模式'],
+        ['19-Prototype-Pattern', '原型模式'],
+        ['20-Memento-Pattern', '备忘录模式'],
+        ['21-Template-Pattern', '模板模式'],
+        ['22-State-Pattern', '状态模式'],
+        ['23-Interpreter-Pattern', '解释器模式'],
+        ['24-Null-Object-Pattern', '空对象模式'],
+        ['25-Criteria-Pattern', '标准模式']
     ],
     // 计算机网络
     '/network/': [
@@ -51,7 +70,8 @@ module.exports = sidebar = {
         ['02-Cache-Invalidation', '缓存失效的场景'],
         ['00-DataBaseConsistency.md', 'Redis与数据库一致性'],
         ['01-DataBaseConsistency.md', 'Redis与数据库一致性补充'],
-        ['03-Redis-Cluster', 'Redis集群方式实现'],
+        ['03-Redis-Cluster', 'Redis主从哨兵集群'],
+        ['04-Redis-Persistence-Expire', 'Redis持久化与过期策略'],
         ['10-Redis-Scan-Keys', 'Redis的Keys和Scan']
     ],
     '/database/': [
@@ -67,7 +87,8 @@ module.exports = sidebar = {
     '/front/': [
         ['', '前端记录'],
         ['00-Notes', '组件UI库记录'],
-        ['01-Knowledge-System.md', '前端知识体系']
+        ['01-Knowledge-System.md', '前端知识体系'],
+        ['02-Replace-Image', '更换淘宝镜像源']
     ],
     // 分布式
     '/distributed/': [

@@ -64,6 +64,116 @@ InputStream inputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteA
 minioTemplate.putFile(filename, inputStream, (long) byteArrayOutputStream.size());
 ```
 
+## 上传多个文件加属性
+
+```java
+// 原版
+@RequestMapping(value = "/file", method = RequestMethod.POST)
+public R<?> file(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+    // MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+    // MultipartHttpServletRequest multipartHttpServletRequest = resolver.resolveMultipart(request);
+    List<MultipartFile> files = multipartHttpServletRequest.getFiles("files");
+    String serviceName = request.getParameter("serviceName");
+    String methodName = request.getParameter("methodName");
+    String data = request.getParameter("data");
+    log.debug("base/client - serviceName:{}, methodName:{}, data:{}", serviceName, methodName, data);
+    SysApiLogDto sysApiLogDto = new SysApiLogDto();
+    sysApiLogDto.setApiName(serviceName + "/" + methodName);
+    sysApiLogDto.setRequestTime(new Date());
+    sysApiLogDto.setReqData(data);
+    sysApiLogDto.setAppId(CommonConstants.LOG_APP_ID);
+    sysApiLogDto.setStatus(CommonConstants.LOG_STATUS_SUCCESS);
+    sysApiLogDto.setReqIp(request.getRemoteAddr());
+    sysApiLogDto.setBizNo(request.getHeader("userId") + "/" + request.getHeader("token"));
+    sysApiLogDto.setReqUrl(request.getRequestURI());
+    final StopWatch stopWatch = new StopWatch();
+    R<?> result = null;
+    try {
+        stopWatch.start();
+        BaseContextHandler.setIp(request.getRemoteAddr());
+        BaseContextHandler.setUserId(request.getHeader("userId"));
+        BaseContextHandler.setToken(request.getHeader("token"));
+        JSONObject jsonData;
+        if (StringUtils.isEmpty(data)) {
+            jsonData = new JSONObject();
+        } else {
+            jsonData = JSON.parseObject(data);
+        }
+        Map<String, Object> paramMap = jsonData;
+        paramMap.put("files", files);
+        Parameter parameter = new Parameter(serviceName, methodName, paramMap);
+        result = (R<?>) handler.execute(parameter).getResult();
+    } catch (Exception e) {
+        log.error("服务异常", e);
+        sysApiLogDto.setStatus(CommonConstants.LOG_STATUS_FAIL);
+        sysApiLogDto.setExceptionStack(ExceptionUtil.getExceptionMessage(e));
+        result = R.restResult(ResultCode.FAIL.getCode(), "服务异常，请稍后再试");
+    } finally {
+        BaseContextHandler.remove();
+        stopWatch.stop();
+    }
+    sysApiLogDto.setErrorMsg("耗时：" + stopWatch.getTime() + "ms");
+    sysApiLogDto.setRespData(result.toString());
+    // 发送异步日志事件
+    publisher.publishEvent(new BaseLogEvent(sysApiLogDto));
+    return result;
+}
+```
+```java
+// 优化
+@RequestMapping(value = "/file", method = RequestMethod.POST)
+public R<?> file(HttpServletRequest request, HttpServletResponse response,
+                @RequestParam(value = "files", required = false) List<MultipartFile> files,
+                @RequestParam(value = "serviceName") String serviceName,
+                @RequestParam(value = "methodName") String methodName,
+                @RequestParam(value = "data", required = false) String data,
+                @RequestHeader(value = "userId", required = false) String userId,
+                @RequestHeader(value = "token", required = false) String token) throws Exception {
+    log.debug("base/file - serviceName:{}, methodName:{}, data:{}", serviceName, methodName, data);
+    SysApiLogDto sysApiLogDto = new SysApiLogDto();
+    sysApiLogDto.setApiName(serviceName + "/" + methodName);
+    sysApiLogDto.setRequestTime(new Date());
+    sysApiLogDto.setReqData(data);
+    sysApiLogDto.setAppId(CommonConstants.LOG_APP_ID);
+    sysApiLogDto.setStatus(CommonConstants.LOG_STATUS_SUCCESS);
+    sysApiLogDto.setReqIp(request.getRemoteAddr());
+    sysApiLogDto.setBizNo(userId + "/" + token);
+    sysApiLogDto.setReqUrl(request.getRequestURI());
+    final StopWatch stopWatch = new StopWatch();
+    R<?> result = null;
+    try {
+        stopWatch.start();
+        BaseContextHandler.setIp(request.getRemoteAddr());
+        BaseContextHandler.setUserId(userId);
+        BaseContextHandler.setToken(token);
+        JSONObject jsonData;
+        if (StringUtils.isEmpty(data)) {
+            jsonData = new JSONObject();
+        } else {
+            jsonData = JSON.parseObject(data);
+        }
+        Map<String, Object> paramMap = jsonData;
+        paramMap.put("files", files);
+        Parameter parameter = new Parameter(serviceName, methodName, paramMap);
+        result = (R<?>) handler.execute(parameter).getResult();
+    } catch (Exception e) {
+        log.error("服务异常", e);
+        sysApiLogDto.setStatus(CommonConstants.LOG_STATUS_FAIL);
+        sysApiLogDto.setExceptionStack(ExceptionUtil.getExceptionMessage(e));
+        result = R.restResult(ResultCode.FAIL.getCode(), "服务异常，请稍后再试");
+    } finally {
+        BaseContextHandler.remove();
+        stopWatch.stop();
+    }
+    sysApiLogDto.setErrorMsg("耗时：" + stopWatch.getTime() + "ms");
+    sysApiLogDto.setRespData(result.toString());
+    // 发送异步日志事件
+    publisher.publishEvent(new BaseLogEvent(sysApiLogDto));
+    return result;
+}
+```
+
 ## Map转成对象
 
 ```java

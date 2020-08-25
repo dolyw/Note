@@ -1,4 +1,4 @@
-# 设计模式
+# 模式目录
 
 ::: danger 代码地址
 * Github：[https://github.com/dolyw/ProjectStudy/tree/master/DesignPattern](https://github.com/dolyw/ProjectStudy/tree/master/DesignPattern)
@@ -7,13 +7,13 @@
 
 本栏的主要内容如下
 
-* [单例模式(Singleton Pattern)](01-Singleton-Pattern.html)
-* [策略模式(Strategy Pattern)](02-Strategy-Pattern.html)
-* [工厂方法(Factory Method)](03-Factory-Method.html)
-* [抽象工厂(Abstract Factory)](04-Abstract-Factory.html)
-* [外观模式(Facade Pattern)](05-Facade-Pattern.html)
-* [中介者模式(Mediator Pattern)](06-Mediator-Pattern.html)
-* [适配器模式(Adapter Pattern)](07-Adapter-Pattern.html)
+* [设计模式](00-Design-Pattern.html)
+* [单例模式](01-Singleton-Pattern.html)
+* [策略模式](02-Strategy-Pattern.html)
+* [工厂方法](03-Factory-Method.html)
+* [抽象工厂](04-Abstract-Factory.html)
+* [外观模式](05-Facade-Pattern.html)
+* [中介者模式](06-Mediator-Pattern.html)
 
 **推荐阅读**
 

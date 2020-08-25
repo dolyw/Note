@@ -294,3 +294,5 @@ public enum EnumSingleton {
     public void whateverMethod() { }
 }
 ```
+
+* [Java设计模式](https://mrbird.cc/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html)
