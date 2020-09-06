@@ -41,6 +41,9 @@ module.exports = sidebar = {
         /* ['01-Java-Basics', 'Java拾遗-基础'], */
         ['03-Java-Concurrent', 'Java拾遗-并发'],
         ['02-Java-Collection', 'Java拾遗-集合'],
+        ['02-Java-Collection-1-List', 'Java拾遗-List源码'],
+        ['02-Java-Collection-2-Set', 'Java拾遗-Set源码'],
+        ['02-Java-Collection-3-Map', 'Java拾遗-Map源码'],
         /* ['04-Java-JVM-1', 'Java拾遗-JVM认识'], */
         ['04-Java-JVM-2', 'Java拾遗-JVM垃圾'],
         /* ['04-Java-JVM-3', 'Java拾遗-JVM调优'], */
@@ -98,6 +101,7 @@ module.exports = sidebar = {
         ['02-Distributed-Limit', '高并发下的限流分析'],
         ['10-Distributed-Session', '浅析分布式Session'],
         ['12-Distributed-Lock', '浅析分布式锁'],
+        ['13-Distributed-ID', '浅析分布式ID'],
         ['11-Distributed-Transaction', '浅析分布式事务'],
         ['20-Distributed-Job', '浅析分布式任务调度'],
         ['25-Delay-Task', '延迟任务场景技术选型']

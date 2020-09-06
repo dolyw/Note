@@ -108,6 +108,7 @@ ACID是指在可靠数据库管理系统(DBMS)中，**事务(Transaction)**所�
 
 **好多数据库依赖锁来实现ACID能力**。锁意味着事物在其需要访问的数据上打个标记，这样一来数据库管理系统就会知道这些数据在该事物完成(事物成功或失败)之前不允许其他事物修改这些被打了标记的数据。锁在数据被处理之前必须获取到，也包括处理那些只会被读取但不会被修改的数据之前也要获取锁。非平常事物通常需要大量锁，导致了不小的性能开销同时也阻塞了其他事物。例如，**用户A正在执行一个事物，需要读取某一行数据而这时另外一个用户B正在修改这一行数据。用户B必须等到用户A的事物彻底完成**。通常可以通过两个阶段锁来保证全隔离性
 
+* 美团-Innodb中的事务隔离级别和锁的关系: [https://tech.meituan.com/2014/08/20/innodb-lock.html](https://tech.meituan.com/2014/08/20/innodb-lock.html)
 * 感谢敦格的谈谈数据库的ACID: [https://blog.csdn.net/shuaihj/article/details/14163713](https://blog.csdn.net/shuaihj/article/details/14163713)
 * 感谢一中晴哥威武的数据库的ACID属性: [https://www.cnblogs.com/liuqing576598117/p/9564916.html](https://www.cnblogs.com/liuqing576598117/p/9564916.html)
 * 感谢lhrbest的事务的4种隔离级别(Isolation Level)分别是什么: [http://blog.itpub.net/26736162/viewspace-2638951](http://blog.itpub.net/26736162/viewspace-2638951)

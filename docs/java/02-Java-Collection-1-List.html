@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Java拾遗-集合-List | 笔记</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/favicon.ico">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/count.js"></script>
+    <meta name="description" content="世界上最大的谎言就是你不行">
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/css/0.styles.a11df0af.css" as="style"><link rel="preload" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/app.c4222690.js" as="script"><link rel="preload" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/2.1bfc5750.js" as="script"><link rel="preload" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/106.d9dd6298.js" as="script"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/10.a813d701.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/100.2d1a07e2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/101.788aec03.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/102.f4d4fb6c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/103.02dcd010.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/104.00616689.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/105.6f7e4ffb.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/107.299b55b1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/108.b6369707.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/109.15ce05f0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/11.89d4b96f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/110.ea680800.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/111.9336365e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/112.d83ff341.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/113.f0dcd498.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/114.c83b157f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/115.d00145e0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/116.da4fba0a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/117.eb7b1ae4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/118.654cf2f5.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/119.f73d3b5d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/12.f296efc7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/120.9315b8e8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/121.182b8d8f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/122.82f62bfd.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/123.4f50f599.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/124.462f2887.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/125.be31a9a0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/126.5f41c4e9.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/127.f68ce764.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/128.913c2de4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/129.ebbecbd8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/13.fe15ed31.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/130.f9e81ca7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/131.e0f7f73a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/132.a430c859.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/133.622432da.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/134.7088754d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/135.5661c49d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/136.bbb63442.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/137.da3557fa.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/138.ca71bb88.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/139.6d485ff5.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/14.705d9a77.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/140.21017428.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/141.0ec923aa.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/142.ed892a5e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/143.7fabdbe6.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/144.7d286e85.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/145.0bf1ac3b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/146.fa5d7502.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/147.46167755.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/148.5877c384.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/149.82b14fc9.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/15.fe0f9c19.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/150.b4111abe.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/151.d4b218cf.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/152.67cf752c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/153.eb410bb0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/154.95783f04.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/155.b6f792a6.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/156.b801a44e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/157.abadceaf.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/158.0bf620c7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/159.8cab96f4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/16.1aade821.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/160.e1ce0c5f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/161.33d7bbf9.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/162.be02f3c7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/163.4fb3979c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/164.380a5400.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/165.3b16b7f5.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/166.bce8c85b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/167.175401d3.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/17.5db7e867.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/18.b5c0d2dd.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/19.28219b86.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/20.7bfa99c2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/21.cf55de52.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/22.3a52da7f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/23.2ea8fe72.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/24.cae8ba48.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/25.ed26e053.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/26.2bed3f2b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/27.21c45389.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/28.b4bcaa28.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/29.38e194b4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/3.3a5fd3e2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/30.737c4bd2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/31.88a5891a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/32.8d566bb1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/33.60c91b3b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/34.824cec20.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/35.c184fa50.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/36.c5bf2675.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/37.20bf2a68.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/38.357bd9df.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/39.1da56cb0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/4.f94549a8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/40.6390f22f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/41.8f231cf1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/42.409d0ec4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/43.9b97b51c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/44.f14f9ed9.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/45.21cd06c5.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/46.1e4e2ab5.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/47.3b08200e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/48.799cb6b6.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/49.dfa55f56.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/5.48f5d526.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/50.b6447090.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/51.68a9208c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/52.0f6ab1c7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/53.66161229.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/54.58882574.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/55.7c9767fa.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/56.a5b7da51.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/57.5a9986b8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/58.b5241094.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/59.7b44ef69.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/6.1174b16d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/60.031229ee.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/61.708f25df.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/62.a85db69a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/63.aeb6f30e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/64.fb7ca28f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/65.11fe4c53.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/66.3733263b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/67.4d19ee66.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/68.4c746705.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/69.61657cf7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/7.217516fb.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/70.f5f8f0bc.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/71.1e4cd091.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/72.ea25af75.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/73.60565399.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/74.fcba0862.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/75.e72e0a1b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/76.d4505040.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/77.243ea358.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/78.992b5954.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/79.ae9f67d1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/8.4220cd10.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/80.d47f60ba.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/81.42eeacd1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/82.b845cd02.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/83.95852571.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/84.c4bb1e82.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/85.8db830c3.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/86.dc530a80.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/87.b5cff297.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/88.18d8b484.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/89.11decee5.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/9.b342d0cc.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/90.55b2e979.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/91.bac90d0d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/92.d90259cd.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/93.d4d320d4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/94.369f3937.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/95.2cf0b758.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/96.a2a17a43.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/97.f9997466.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/98.78c21af7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/99.b52e8dc4.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/css/0.styles.a11df0af.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/map.html" class="nav-link">
+  整站地图
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习笔记" class="dropdown-title"><span class="title">学习笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/design/" class="nav-link">
+  Design
+</a></li><li class="dropdown-item"><!----> <a href="/network/" class="nav-link">
+  Network
+</a></li><li class="dropdown-item"><!----> <a href="/java/" class="nav-link router-link-active">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/database/" class="nav-link">
+  Database
+</a></li><li class="dropdown-item"><!----> <a href="/cache/" class="nav-link">
+  Cache
+</a></li><li class="dropdown-item"><!----> <a href="/elasticsearch/" class="nav-link">
+  Elasticsearch
+</a></li><li class="dropdown-item"><!----> <a href="/command/" class="nav-link">
+  工具命令
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="架构笔记" class="dropdown-title"><span class="title">架构笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/springboot/" class="nav-link">
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/dubbo/" class="nav-link">
+  Dubbo
+</a></li><li class="dropdown-item"><!----> <a href="/docker/" class="nav-link">
+  Docker
+</a></li><li class="dropdown-item"><!----> <a href="/mq/" class="nav-link">
+  消息队列
+</a></li><li class="dropdown-item"><!----> <a href="/fs/" class="nav-link">
+  文件系统
+</a></li><li class="dropdown-item"><!----> <a href="/distributed/" class="nav-link">
+  分布式相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="零星笔记" class="dropdown-title"><span class="title">零星笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note/" class="nav-link">
+  编程笔记
+</a></li><li class="dropdown-item"><!----> <a href="/front/" class="nav-link">
+  前端记录
+</a></li><li class="dropdown-item"><!----> <a href="/book/" class="nav-link">
+  书籍面试
+</a></li><li class="dropdown-item"><!----> <a href="/other/" class="nav-link">
+  其他笔记
+</a></li><li class="dropdown-item"><!----> <a href="/gossip/" class="nav-link">
+  编程闲话
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开源项目" class="dropdown-title"><span class="title">开源项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/p/" class="nav-link">
+  项目列表
+</a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/ProjectStudy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  ProjectStudy
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="/shirojwt/" class="nav-link">
+  ShiroJwt
+</a></li><li class="dropdown-item"><!----> <a href="/seckill-evolution/" class="nav-link">
+  SeckillEvolution
+</a></li><li class="dropdown-item"><!----> <a href="/netty/" class="nav-link">
+  NettyStudy
+</a></li><li class="dropdown-item"><!----> <a href="/viewgenerator/" class="nav-link">
+  ViewGenerator
+</a></li></ul></div></div> <a href="https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/map.html" class="nav-link">
+  整站地图
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习笔记" class="dropdown-title"><span class="title">学习笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/design/" class="nav-link">
+  Design
+</a></li><li class="dropdown-item"><!----> <a href="/network/" class="nav-link">
+  Network
+</a></li><li class="dropdown-item"><!----> <a href="/java/" class="nav-link router-link-active">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/database/" class="nav-link">
+  Database
+</a></li><li class="dropdown-item"><!----> <a href="/cache/" class="nav-link">
+  Cache
+</a></li><li class="dropdown-item"><!----> <a href="/elasticsearch/" class="nav-link">
+  Elasticsearch
+</a></li><li class="dropdown-item"><!----> <a href="/command/" class="nav-link">
+  工具命令
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="架构笔记" class="dropdown-title"><span class="title">架构笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/springboot/" class="nav-link">
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/dubbo/" class="nav-link">
+  Dubbo
+</a></li><li class="dropdown-item"><!----> <a href="/docker/" class="nav-link">
+  Docker
+</a></li><li class="dropdown-item"><!----> <a href="/mq/" class="nav-link">
+  消息队列
+</a></li><li class="dropdown-item"><!----> <a href="/fs/" class="nav-link">
+  文件系统
+</a></li><li class="dropdown-item"><!----> <a href="/distributed/" class="nav-link">
+  分布式相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="零星笔记" class="dropdown-title"><span class="title">零星笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note/" class="nav-link">
+  编程笔记
+</a></li><li class="dropdown-item"><!----> <a href="/front/" class="nav-link">
+  前端记录
+</a></li><li class="dropdown-item"><!----> <a href="/book/" class="nav-link">
+  书籍面试
+</a></li><li class="dropdown-item"><!----> <a href="/other/" class="nav-link">
+  其他笔记
+</a></li><li class="dropdown-item"><!----> <a href="/gossip/" class="nav-link">
+  编程闲话
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开源项目" class="dropdown-title"><span class="title">开源项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/p/" class="nav-link">
+  项目列表
+</a></li><li class="dropdown-item"><!----> <a href="https://github.com/dolyw/ProjectStudy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  ProjectStudy
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="/shirojwt/" class="nav-link">
+  ShiroJwt
+</a></li><li class="dropdown-item"><!----> <a href="/seckill-evolution/" class="nav-link">
+  SeckillEvolution
+</a></li><li class="dropdown-item"><!----> <a href="/netty/" class="nav-link">
+  NettyStudy
+</a></li><li class="dropdown-item"><!----> <a href="/viewgenerator/" class="nav-link">
+  ViewGenerator
+</a></li></ul></div></div> <a href="https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><a href="/java/" class="sidebar-link">Java</a></li><li><a href="/java/03-Java-Concurrent.html" class="sidebar-link">Java拾遗-并发</a></li><li><a href="/java/02-Java-Collection.html" class="sidebar-link">Java拾遗-集合</a></li><li><a href="/java/02-Java-Collection-1-List.html" class="active sidebar-link">Java拾遗-List源码</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/java/02-Java-Collection-1-List.html#_1-vector" class="sidebar-link">1. Vector</a></li><li class="sidebar-sub-header"><a href="/java/02-Java-Collection-1-List.html#_2-arraylist" class="sidebar-link">2. ArrayList</a></li><li class="sidebar-sub-header"><a href="/java/02-Java-Collection-1-List.html#_3-linkedlist" class="sidebar-link">3. LinkedList</a></li><li class="sidebar-sub-header"><a href="/java/02-Java-Collection-1-List.html#_4-copyonwritearraylist" class="sidebar-link">4. CopyOnWriteArrayList</a></li></ul></li><li><a href="/java/02-Java-Collection-2-Set.html" class="sidebar-link">Java拾遗-Set源码</a></li><li><a href="/java/02-Java-Collection-3-Map.html" class="sidebar-link">Java拾遗-Map源码</a></li><li><a href="/java/04-Java-JVM-2.html" class="sidebar-link">Java拾遗-JVM垃圾</a></li><li><a href="/java/06-Java-Lambda-Stream.html" class="sidebar-link">Java8的Lambda和Stream流</a></li><li><a href="/java/10-Java-Source.html" class="sidebar-link">其他-Java源码阅读</a></li><li><a href="/java/11-Thread-Safe.html" class="sidebar-link">以前-Java中的线程安全</a></li><li><a href="/java/12-Thread-Pool.html" class="sidebar-link">以前-Java中的线程池的创建及使用</a></li><li><a href="/java/14-50-Details.html" class="sidebar-link">以前-Java性能优化的50个细节</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="java拾遗-集合-list"><a href="#java拾遗-集合-list" class="header-anchor">#</a> Java拾遗-集合-List</h1> <blockquote><p><strong>JDK 版本为 1.8</strong></p></blockquote> <h2 id="_1-vector"><a href="#_1-vector" class="header-anchor">#</a> 1. Vector</h2> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Vector源码解析
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/8/26 15:21
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">T01_Vector</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 存储数据的数组，大小构造方法可以赋值，initialCapacity数组初始化大小默认为10
+     */</span>
+    <span class="token keyword">protected</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> elementData<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 当前数组中的有效数据大小(就是size方法返回值)，比如数组是10的空间，但是只有8个有效数据，后面的数据都为null
+     */</span>
+    <span class="token keyword">protected</span> <span class="token keyword">int</span> elementCount<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 数组增量因子，如果大于0就是当前的数量，小于等于0默认为原来的两倍，构造方法可以赋值
+     */</span>
+    <span class="token keyword">protected</span> <span class="token keyword">int</span> capacityIncrement<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 最大数组容量
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> MAX_ARRAY_SIZE <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE <span class="token operator">-</span> <span class="token number">8</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 默认构造方法，可以设置数组初始化大小和增量因子
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">T01_Vector</span><span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">,</span> <span class="token keyword">int</span> capacityIncrement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>initialCapacity <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">&quot;Illegal Capacity: &quot;</span><span class="token operator">+</span>
+                    initialCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span>initialCapacity<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>capacityIncrement <span class="token operator">=</span> capacityIncrement<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 默认构造方法，默认数组大小10，设置增量因子为0，默认两倍扩容
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">T01_Vector</span><span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span>initialCapacity<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 默认构造方法，默认数组大小10，设置增量因子为0，默认两倍扩容
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">T01_Vector</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 构造方法传集合，拿到传入的集合，转成数组，进行深拷贝，长度和传入集合长度一致
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">T01_Vector</span><span class="token punctuation">(</span><span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        elementData <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        elementCount <span class="token operator">=</span> elementData<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token comment">// c.toArray might (incorrectly) not return Object[] (see 6260652)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>elementData<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+            elementData <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> elementCount<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment">/**
+     * 扩容前的判断
+     *
+     * @param minCapacity
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">ensureCapacityHelper</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 判断当前最小有效数据大于数组长度，则需要扩容数组</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">-</span> elementData<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token function">grow</span><span class="token punctuation">(</span>minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 数组核心扩容方法
+     *
+     * @param minCapacity
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">grow</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 拿到当前数组大小</span>
+        <span class="token keyword">int</span> oldCapacity <span class="token operator">=</span> elementData<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token comment">// 判断数组增量因子是否大于0，大于0，扩容量为增量因子的值，不大于0默认为原来两倍</span>
+        <span class="token keyword">int</span> newCapacity <span class="token operator">=</span> oldCapacity <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>capacityIncrement <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span>
+                capacityIncrement <span class="token operator">:</span> oldCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 扩容后的大小比当前最小数据量还小的话，直接用最小数据量</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>newCapacity <span class="token operator">-</span> minCapacity <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            newCapacity <span class="token operator">=</span> minCapacity<span class="token punctuation">;</span>
+        <span class="token comment">// 扩容后的大小比最大数组容量还大的话，就使用返回一个更大的数Integer.MAX_VALUE</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>newCapacity <span class="token operator">-</span> MAX_ARRAY_SIZE <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            newCapacity <span class="token operator">=</span> <span class="token function">hugeCapacity</span><span class="token punctuation">(</span>minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 拿到最后数据扩容大小，创建新数组，再把原来数据复制到新数组中</span>
+        elementData <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> newCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">hugeCapacity</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">// overflow</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">OutOfMemoryError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">&gt;</span> MAX_ARRAY_SIZE<span class="token punctuation">)</span> <span class="token operator">?</span>
+                <span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE <span class="token operator">:</span>
+                MAX_ARRAY_SIZE<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 添加方法，返回的永远的true
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*modCount++;*/</span>
+        <span class="token comment">// 先进行扩容判断</span>
+        <span class="token function">ensureCapacityHelper</span><span class="token punctuation">(</span>elementCount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 然后将新加的数据放入有效数据的下一位</span>
+        elementData<span class="token punctuation">[</span>elementCount<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 指定位置添加(插入)，没有返回值
+     *
+     * @param index
+     * @param element
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token class-name">E</span> element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">insertElementAt</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">insertElementAt</span><span class="token punctuation">(</span><span class="token class-name">E</span> obj<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*modCount++;*/</span>
+        <span class="token comment">// 必须是有效数据内的插入才行，不然会出现越界异常</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">&gt;</span> elementCount<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArrayIndexOutOfBoundsException</span><span class="token punctuation">(</span>index
+                    <span class="token operator">+</span> <span class="token string">&quot; &gt; &quot;</span> <span class="token operator">+</span> elementCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 进行扩容判断</span>
+        <span class="token function">ensureCapacityHelper</span><span class="token punctuation">(</span>elementCount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 从index开始的数据全部后移，底层是native方法</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> index<span class="token punctuation">,</span> elementData<span class="token punctuation">,</span> index <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> elementCount <span class="token operator">-</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 当前坐标赋值</span>
+        elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> obj<span class="token punctuation">;</span>
+        <span class="token comment">// elementCount++</span>
+        elementCount<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 获取指定下标的值
+     *
+     * @param index
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token class-name">E</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 必须是有效数据内的才行，不然会出现越界异常</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">&gt;=</span> elementCount<span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArrayIndexOutOfBoundsException</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 获取</span>
+        <span class="token comment">/*return elementData(index);*/</span>
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 更新指定坐标的值，返回值为旧值
+     *
+     * @param index
+     * @param element
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token class-name">Object</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token class-name">E</span> element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 必须是有效数据内的才行，不然会出现越界异常</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">&gt;=</span> elementCount<span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArrayIndexOutOfBoundsException</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 拿到旧值</span>
+        <span class="token comment">/*E oldValue = elementData(index);*/</span>
+        <span class="token class-name">E</span> oldValue <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token comment">// 更新新值</span>
+        elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> element<span class="token punctuation">;</span>
+        <span class="token comment">// 返回值为旧值</span>
+        <span class="token keyword">return</span> oldValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 移除指定下标，返回被删除的元素
+     *
+     * @param index
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token class-name">E</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*modCount++;*/</span>
+        <span class="token comment">// 必须是有效数据内的才行，不然会出现越界异常</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">&gt;=</span> elementCount<span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArrayIndexOutOfBoundsException</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 拿到移除的值</span>
+        <span class="token comment">/*E oldValue = elementData(index);*/</span>
+        <span class="token class-name">E</span> oldValue <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token comment">// 计算集合需要移动元素个数</span>
+        <span class="token keyword">int</span> numMoved <span class="token operator">=</span> elementCount <span class="token operator">-</span> index <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token comment">// 如果需要移动元素个数大于0</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>numMoved <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token comment">// 删除的坐标后的数据全部往前移动一位，使用arrayCopy底层native方法进行拷贝</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> elementData<span class="token punctuation">,</span> index<span class="token punctuation">,</span>
+                    numMoved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 将源集合后一个元素置为null，尽早让垃圾回收机制对其进行回收</span>
+        elementData<span class="token punctuation">[</span><span class="token operator">--</span>elementCount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">// Let gc do its work</span>
+        <span class="token comment">// 返回被删除的元素</span>
+        <span class="token keyword">return</span> oldValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 移除当前元素，返回成功失败
+     *
+     * @param o
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">removeElement</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">boolean</span> <span class="token function">removeElement</span><span class="token punctuation">(</span><span class="token class-name">Object</span> obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*modCount++;*/</span>
+        <span class="token comment">// 查找当前元素存在的左边</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">indexOf</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 存在去移除，返回true，不存在返回false</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">removeElementAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 从0开始找</span>
+        <span class="token keyword">return</span> <span class="token function">indexOf</span><span class="token punctuation">(</span>o<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">int</span> <span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 找到返回坐标，没找到为-1</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> index <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> elementCount <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+                <span class="token comment">// 元素等于null</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>elementData<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+                    <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> index <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> elementCount <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+                <span class="token comment">// 元素不等于null，用equals判断是否一样</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>o<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>elementData<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">removeElementAt</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*modCount++;*/</span>
+        <span class="token comment">// 必须是有效数据内的才行，不然会出现越界异常</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">&gt;=</span> elementCount<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArrayIndexOutOfBoundsException</span><span class="token punctuation">(</span>index <span class="token operator">+</span> <span class="token string">&quot; &gt;= &quot;</span> <span class="token operator">+</span>
+                    elementCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArrayIndexOutOfBoundsException</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 计算集合需要移动元素个数</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> elementCount <span class="token operator">-</span> index <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token comment">// 如果需要移动元素个数大于0</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 删除的坐标后的数据全部往前移动一位，使用arrayCopy底层native方法进行拷贝</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> index <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> elementData<span class="token punctuation">,</span> index<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 将源集合后一个元素置为null，尽早让垃圾回收机制对其进行回收</span>
+        elementCount<span class="token operator">--</span><span class="token punctuation">;</span>
+        elementData<span class="token punctuation">[</span>elementCount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">/* to let gc do its work */</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="_2-arraylist"><a href="#_2-arraylist" class="header-anchor">#</a> 2. ArrayList</h2> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * ArrayList源码解析
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/8/26 15:21
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">T02_ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 默认数组大小
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> DEFAULT_CAPACITY <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 空数组，Shared empty array instance used for empty instances.
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> EMPTY_ELEMENTDATA <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 空数组，Shared empty array instance used for default sized empty instances. We
+     * distinguish this from EMPTY_ELEMENTDATA to know how much to inflate when
+     * first element is added.
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 存储数据的数组，elementData.length为数组实际大小
+     * 当新增元素size &gt; elementData.length后就需要扩容数组，每次1.5倍
+     */</span>
+    <span class="token keyword">transient</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> elementData<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 当前数组大小
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> size<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 最大数组容量
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> MAX_ARRAY_SIZE <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE <span class="token operator">-</span> <span class="token number">8</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 默认构造方法，可以设置数组初始化大小
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">T02_ArrayList</span><span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>initialCapacity <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span>initialCapacity<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>initialCapacity <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> EMPTY_ELEMENTDATA<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">&quot;Illegal Capacity: &quot;</span><span class="token operator">+</span>
+                    initialCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 默认空构造方法，数组初始化空
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">T02_ArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 构造方法传集合，拿到传入的集合，转成数组，进行深拷贝，长度和传入集合长度一致
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">T02_ArrayList</span><span class="token punctuation">(</span><span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        elementData <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 传入的集合为空，也初始化空数组</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>size <span class="token operator">=</span> elementData<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// c.toArray might (incorrectly) not return Object[] (see 6260652)</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>elementData<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                elementData <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment">// replace with empty array.</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> EMPTY_ELEMENTDATA<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 扩容前的判断
+     * @param minCapacity
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">ensureExplicitCapacity</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 实际修改集合次数++ (在扩容的过程中没用，主要是用于迭代器中)</span>
+        <span class="token comment">/*modCount++;*/</span>
+
+        <span class="token comment">// 判断当前数组大小大于数组实际大小，则需要扩容数组</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">-</span> elementData<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token function">grow</span><span class="token punctuation">(</span>minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 数组核心扩容方法
+     *
+     * @param minCapacity
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">grow</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 拿到当前数组实际大小</span>
+        <span class="token keyword">int</span> oldCapacity <span class="token operator">=</span> elementData<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token comment">// 默认为原来1.5倍 &gt;&gt; 右移 oldCapacity/2</span>
+        <span class="token keyword">int</span> newCapacity <span class="token operator">=</span> oldCapacity <span class="token operator">+</span> <span class="token punctuation">(</span>oldCapacity <span class="token operator">&gt;&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 判断新容量 - 小容量是否小于 0, 如果是第一次调用add方法必然小于</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>newCapacity <span class="token operator">-</span> minCapacity <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token comment">// 还是将小容量赋值给新容量</span>
+            newCapacity <span class="token operator">=</span> minCapacity<span class="token punctuation">;</span>
+        <span class="token comment">// 判断新容量-大数组大小 是否&gt;0，如果条件满足就计算出一个超大容量</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>newCapacity <span class="token operator">-</span> MAX_ARRAY_SIZE <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            newCapacity <span class="token operator">=</span> <span class="token function">hugeCapacity</span><span class="token punctuation">(</span>minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 调用数组工具类方法，创建一个新数组，将新数组的地址赋值给elementData</span>
+        <span class="token comment">// minCapacity is usually close to size, so this is a win:</span>
+        elementData <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> newCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">hugeCapacity</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">// overflow</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">OutOfMemoryError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">&gt;</span> MAX_ARRAY_SIZE<span class="token punctuation">)</span> <span class="token operator">?</span>
+                <span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE <span class="token operator">:</span>
+                MAX_ARRAY_SIZE<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 添加方法，返回的永远的true
+     *
+     * @param e
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 扩容操作</span>
+        <span class="token function">ensureCapacityInternal</span><span class="token punctuation">(</span>size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Increments modCount!!</span>
+        <span class="token comment">// 赋值后size++</span>
+        elementData<span class="token punctuation">[</span>size<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">ensureCapacityInternal</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 判断集合存数据的数组是否等于空容量的数组</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>elementData <span class="token operator">==</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 通过小容量和默认容量求出较大值 (用于第一次扩容)</span>
+            minCapacity <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>DEFAULT_CAPACITY<span class="token punctuation">,</span> minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 将if中计算出来的容量传递给下一个方法，继续校验</span>
+        <span class="token function">ensureExplicitCapacity</span><span class="token punctuation">(</span>minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token class-name">E</span> element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 数组越界判断</span>
+        <span class="token function">rangeCheckForAdd</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 扩容判断</span>
+        <span class="token function">ensureCapacityInternal</span><span class="token punctuation">(</span>size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Increments modCount!!</span>
+        <span class="token comment">// 从index开始的数据全部后移，底层是native方法</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> index<span class="token punctuation">,</span> elementData<span class="token punctuation">,</span> index <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                size <span class="token operator">-</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 当前坐标赋值</span>
+        elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> element<span class="token punctuation">;</span>
+        <span class="token comment">// size++</span>
+        size<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">rangeCheckForAdd</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 数组越界判断</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">&gt;</span> size <span class="token operator">||</span> index <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IndexOutOfBoundsException</span><span class="token punctuation">(</span><span class="token function">outOfBoundsMsg</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> <span class="token function">outOfBoundsMsg</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;Index: &quot;</span><span class="token operator">+</span>index<span class="token operator">+</span><span class="token string">&quot;, Size: &quot;</span><span class="token operator">+</span>size<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 获取指定下标的值
+     *
+     * @param index
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 数组越界判断</span>
+        <span class="token function">rangeCheck</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 获取</span>
+        <span class="token comment">/*return elementData(index);*/</span>
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">rangeCheck</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 数组越界判断</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">&gt;=</span> size<span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IndexOutOfBoundsException</span><span class="token punctuation">(</span><span class="token function">outOfBoundsMsg</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 更新指定坐标的值，返回值为旧值
+     *
+     * @param index
+     * @param element
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token class-name">E</span> element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 数组越界判断</span>
+        <span class="token function">rangeCheck</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 拿到旧值</span>
+        <span class="token comment">/*E oldValue = elementData(index);*/</span>
+        <span class="token class-name">E</span> oldValue <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token comment">// 更新新值</span>
+        elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> element<span class="token punctuation">;</span>
+        <span class="token comment">// 返回值为旧值</span>
+        <span class="token keyword">return</span> oldValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 移除指定下标，返回被删除的元素
+     *
+     * @param index
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 数组越界判断</span>
+        <span class="token function">rangeCheck</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">/*modCount++;*/</span>
+        <span class="token comment">// 拿到移除的值</span>
+        <span class="token comment">/*E oldValue = elementData(index);*/</span>
+        <span class="token class-name">E</span> oldValue <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token comment">// 计算集合需要移动元素个数</span>
+        <span class="token keyword">int</span> numMoved <span class="token operator">=</span> size <span class="token operator">-</span> index <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token comment">// 如果需要移动元素个数大于0</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>numMoved <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token comment">// 删除的坐标后的数据全部往前移动一位，使用arrayCopy底层native方法进行拷贝</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> elementData<span class="token punctuation">,</span> index<span class="token punctuation">,</span>
+                    numMoved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 将源集合后一个元素置为null，尽早让垃圾回收机制对其进行回收</span>
+        elementData<span class="token punctuation">[</span><span class="token operator">--</span>size<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">// clear to let GC do its work</span>
+        <span class="token comment">// 返回被删除的元素</span>
+        <span class="token keyword">return</span> oldValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 移除当前元素，返回成功失败
+     *
+     * @param o
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> index <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> index<span class="token operator">++</span><span class="token punctuation">)</span>
+                <span class="token comment">// 元素等于null</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment">// 如果相等，调用fastRemove方法快速删除</span>
+                    <span class="token function">fastRemove</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> index <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> index<span class="token operator">++</span><span class="token punctuation">)</span>
+                <span class="token comment">// 元素不等于null，用equals判断是否一样</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>o<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment">// 如果相等，调用fastRemove方法快速删除</span>
+                    <span class="token function">fastRemove</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">fastRemove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*modCount++;*/</span>
+        <span class="token comment">// 计算集合需要移动元素的个数</span>
+        <span class="token keyword">int</span> numMoved <span class="token operator">=</span> size <span class="token operator">-</span> index <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>numMoved <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token comment">// 删除的坐标后的数据全部往前移动一位，使用arrayCopy底层native方法进行拷贝</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> elementData<span class="token punctuation">,</span> index<span class="token punctuation">,</span>
+                    numMoved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 将源集合后一个元素置为null，尽早让垃圾回收机制对其进行回收</span>
+        elementData<span class="token punctuation">[</span><span class="token operator">--</span>size<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">// clear to let GC do its work</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="_3-linkedlist"><a href="#_3-linkedlist" class="header-anchor">#</a> 3. LinkedList</h2> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * LinkedList源码解析
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2020/8/26 15:21
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">T03_LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * Node节点内部类，存放当前节点，前驱节点，后继节点
+     *
+     * @param &lt;E&gt;
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+        <span class="token class-name">E</span> item<span class="token punctuation">;</span>
+        <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> next<span class="token punctuation">;</span>
+        <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> prev<span class="token punctuation">;</span>
+
+        <span class="token class-name">Node</span><span class="token punctuation">(</span><span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> prev<span class="token punctuation">,</span> <span class="token class-name">E</span> element<span class="token punctuation">,</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> next<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>item <span class="token operator">=</span> element<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>next <span class="token operator">=</span> next<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>prev <span class="token operator">=</span> prev<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 当前集合的大小
+     */</span>
+    <span class="token keyword">transient</span> <span class="token keyword">int</span> size <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 当前集合第一个节点
+     */</span>
+    <span class="token keyword">transient</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> first<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 当前集合最后一个节点
+     */</span>
+    <span class="token keyword">transient</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> last<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 构造为空
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">T03_LinkedList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 待补充</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="_4-copyonwritearraylist"><a href="#_4-copyonwritearraylist" class="header-anchor">#</a> 4. CopyOnWriteArrayList</h2> <blockquote><p>另外还有一个 CopyOnWriteArraySet 集合，它的内部就是使用 CopyOnWriteArrayList 集合实现的</p></blockquote> <p>CopyOnWriteArrayList 集合是一种 CopyOnWrite 的一种实现，根据 CopyOnWrite 方式介绍。所以我们知道 CopyOnWriteArrayList 集合中所有读取的方法都是不加锁的，而修改的方法是加锁的</p> <p>CopyOnWriteArrayList集合可以解决多线程操作集合的并发问题，而且它的读取操作非常快，而修改操作将对较慢，因为使用的 Lock 锁，同一时间只有一个线程，能够进行修改操作，其他线程必须等待</p> <p>它唯一的缺点就是，一个线程对 CopyOnWriteArrayList 集合进行修改，另一线程并不能立即读取到。当然对同一线程来说，就没有这个问题的</p> <ul><li><a href="https://www.jianshu.com/p/8244c2405133" target="_blank" rel="noopener noreferrer">Java并发集合_CopyOnWriteArrayList原理分析<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/dolyw/Note/edit/master/doc/java/02-Java-Collection-1-List.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/java/02-Java-Collection.html" class="prev">
+        Java拾遗-集合
+      </a></span> <span class="next"><a href="/java/02-Java-Collection-2-Set.html">
+        Java拾遗-Set源码
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><div class="diy-loader center" style="display:none;" data-v-f32aa24e><div class="center-box" data-v-f32aa24e><div class="loader_overlay" data-v-f32aa24e></div> <div class="loader_cogs" data-v-f32aa24e><div class="loader_cogs__top" data-v-f32aa24e><div class="top_part" data-v-f32aa24e></div> <div class="top_part" data-v-f32aa24e></div> <div class="top_part" data-v-f32aa24e></div> <div class="top_hole" data-v-f32aa24e></div></div> <div class="loader_cogs__left" data-v-f32aa24e><div class="left_part" data-v-f32aa24e></div> <div class="left_part" data-v-f32aa24e></div> <div class="left_part" data-v-f32aa24e></div> <div class="left_hole" data-v-f32aa24e></div></div> <div class="loader_cogs__bottom" data-v-f32aa24e><div class="bottom_part" data-v-f32aa24e></div> <div class="bottom_part" data-v-f32aa24e></div> <div class="bottom_part" data-v-f32aa24e></div> <div class="bottom_hole" data-v-f32aa24e></div></div></div> <p class="loading-text" data-v-f32aa24e>
+      页面加载中<span class="dot" data-v-f32aa24e>...</span></p></div></div><!----><div></div></div></div>
+    <script src="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/app.c4222690.js" defer></script><script src="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/2.1bfc5750.js" defer></script><script src="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/106.d9dd6298.js" defer></script>
+  </body>
+</html>

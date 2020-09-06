@@ -280,6 +280,7 @@ MVCC(Multi-Version Concurrency Control)，多版本并发控制。在 InnoDB 中
 
 **参考**
 
+* [美团-Innodb中的事务隔离级别和锁的关系](https://tech.meituan.com/2014/08/20/innodb-lock.html)
 * [数据库中的乐观锁，悲观锁](https://blog.csdn.net/qq_42765168/article/details/81514481)
 * [MySQL数据库的锁详解](https://www.cnblogs.com/paul8339/p/9936005.html)
 * [MySQL锁总结](https://www.cnblogs.com/zero-gg/p/8576039.html)
