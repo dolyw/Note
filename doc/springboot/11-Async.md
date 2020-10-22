@@ -384,6 +384,136 @@ public class SmsUtil {
 }
 ```
 
+## 3. 示例
+
+```java
+@Test
+public R<?> getPolicyList() throws Exception {
+    List<GetPolicyListResp> policyRespList = new ArrayList<>();
+    // 查询用户下保单
+    FindPropPlyListReq findPropPlyListReq = new FindPropPlyListReq();
+    findPropPlyListReq.setPlyStat(Constants.PLY_STAT);
+    List<FindPropPlyListReq.Cus> cusList = new ArrayList<>();
+    FindPropPlyListReq.Cus cus = new FindPropPlyListReq.Cus();
+    cus.setIdentifyType(Constants.CARD_TYPE_NO);
+    cus.setIdentifyNo("XXXXXXXXXXXXXXXXX");
+    cus.setPartyName("XXX");
+    cusList.add(cus);
+    findPropPlyListReq.setCusList(cusList);
+    FindPropPlyListResp findPropPlyListResp = policyUtil.findPropPlyList(findPropPlyListReq);
+    // 查询用户下所有保单详情
+    if (findPropPlyListResp != null && findPropPlyListResp.getData() != null
+            && findPropPlyListResp.getData().getContList() != null
+            && findPropPlyListResp.getData().getContList().size() > 0) {
+        List<FindPropPlyListResp.Cont> contList =  findPropPlyListResp.getData().getContList();
+        FindPropWebPlyReq findPropWebPlyReq = null;
+        // 并行异步线程执行
+        List<Future<FindPropWebPlyResp>> futureList = new ArrayList<>();
+        for (FindPropPlyListResp.Cont cont : contList) {
+            findPropWebPlyReq = new FindPropWebPlyReq();
+            findPropWebPlyReq.setPlyNO(cont.getCONT_NO());
+            findPropWebPlyReq.setCompanyType(cont.getCompanyType());
+            findPropWebPlyReq.setQueryDate(new SimpleDateFormat("yyyyMMdd").format(new DateTime()
+                    .addYear(-1).addDay(-10)));
+            Future<FindPropWebPlyResp> future = policyUtil.findPropWebPly(findPropWebPlyReq);
+            futureList.add(future);
+        }
+        List<FindPropWebPlyResp> findPropWebPlyRespList = new ArrayList<>();
+        // 等待执行完成
+        for (Future<FindPropWebPlyResp> future : futureList) {
+            while (true) {
+                // CPU高速轮询，每个future都并发轮循，判断完成状态然后获取结果
+                // 即有10个future在高速轮询，完成一个future的获取结果，就关闭一个轮询
+                if (future.isDone() && !future.isCancelled()) {
+                    // 获取future成功完成状态，如果想要限制每个任务的超时时间
+                    // 取消本行的状态判断 + future.get(1000 * 2, TimeUnit.MILLISECONDS) + catch超时异常使用即可
+                    FindPropWebPlyResp findPropWebPlyResp = future.get();
+                    findPropWebPlyRespList.add(findPropWebPlyResp);
+                    // 当前future获取结果完毕，跳出while
+                    break;
+                } else {
+                    // 每次轮询休息1毫秒（CPU纳秒级），避免CPU高速轮循耗空CPU
+                    Thread.sleep(1);
+                }
+            }
+        }
+        // 结果赋值
+        GetPolicyListResp getPolicyListResp = null;
+        for (FindPropWebPlyResp findPropWebPlyResp : findPropWebPlyRespList) {
+            if (findPropWebPlyResp != null && findPropWebPlyResp.getData() != null) {
+                getPolicyListResp = new GetPolicyListResp();
+                // 赋值...
+                policyRespList.add(getPolicyListResp);
+            }
+        }
+    }
+    return R.success(policyRespList);
+}
+```
+
+```java
+public FindPropPlyListResp findPropPlyList(FindPropPlyListReq findPropPlyListReq) {
+    // 开始发起请求
+    OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+    // 请求地址，请求头和参数
+    String param = JSON.toJSONStringWithDateFormat(findPropPlyListReq, JSON.DEFFAULT_DATE_FORMAT, SerializerFeature.WriteDateUseDateFormat);
+    RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), param);
+    Request request = new Request.Builder().url(baseUrl + findPropPlyListUrl)
+            .addHeader("serviceCode", serviceCode)
+            .addHeader("systemFrom", systemFrom)
+            .addHeader("userCode", userCode)
+            .addHeader("userPwd", userPwd)
+            .post(requestBody).build();
+    log.info("请求地址:{}，请求参数:{}", baseUrl + findPropPlyListUrl, param);
+    // 返回结果
+    String result = "";
+    // 发起请求
+    try (Response response = okHttpClient.newCall(request).execute()) {
+        // 获取结果
+        result = response.body().string();
+        log.info("请求结果:{}，请求地址:{}，请求参数:{}", result, baseUrl + findPropPlyListUrl, param);
+        return JSON.parseObject(result, FindPropPlyListResp.class);
+    } catch (SocketTimeoutException e) {
+        log.error("请求超时异常，请求地址:{}，请求参数:{}", baseUrl + findPropPlyListUrl, param);
+        return null;
+    } catch (Exception e) {
+        log.error("请求出现异常，请求结果:{}，错误信息: {}", result, ExceptionUtil.getExceptionMessage(e));
+        return null;
+    }
+}
+
+@Async("threadPoolTaskExecutor")
+public Future<FindPropWebPlyResp> findPropWebPly(FindPropWebPlyReq findPropWebPlyReq) {
+    // 开始发起请求
+    OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+    // 请求地址，请求头和参数
+    String param = JSON.toJSONStringWithDateFormat(findPropWebPlyReq, JSON.DEFFAULT_DATE_FORMAT, SerializerFeature.WriteDateUseDateFormat);
+    RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), param);
+    Request request = new Request.Builder().url(baseUrl + findPropWebPlyUrl)
+            .addHeader("serviceCode", serviceCode)
+            .addHeader("systemFrom", systemFrom)
+            .addHeader("userCode", userCode)
+            .addHeader("userPwd", userPwd)
+            .post(requestBody).build();
+    log.info("请求地址:{}，请求参数:{}", baseUrl + findPropWebPlyUrl, param);
+    // 返回结果
+    String result = "";
+    // 发起请求
+    try (Response response = okHttpClient.newCall(request).execute()) {
+        // 获取结果
+        result = response.body().string();
+        log.info("请求结果:{}，请求地址:{}，请求参数:{}", result, baseUrl + findPropWebPlyUrl, param);
+        return new AsyncResult<FindPropWebPlyResp>(JSON.parseObject(result, FindPropWebPlyResp.class));
+    } catch (SocketTimeoutException e) {
+        log.error("请求超时异常，请求地址:{}，请求参数:{}", baseUrl + findPropWebPlyUrl, param);
+        return new AsyncResult<FindPropWebPlyResp>(null);
+    } catch (Exception e) {
+        log.error("请求出现异常，请求结果:{}，错误信息: {}", result, ExceptionUtil.getExceptionMessage(e));
+        return new AsyncResult<FindPropWebPlyResp>(null);
+    }
+}
+```
+
 **参考**
 
 * [Spring Boot 异步任务 -- @EnableAsync 详解](https://www.jianshu.com/p/c76269c68cb0)
