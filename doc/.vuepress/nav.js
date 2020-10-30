@@ -59,5 +59,6 @@ module.exports = nav = [
             { text: 'NettyStudy', link: '/netty/' },
             { text: 'ViewGenerator', link: '/viewgenerator/' }
         ]
-    }
+    },
+    { text: '疑问提交', link: '/issues' }
 ]

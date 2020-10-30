@@ -11,6 +11,7 @@ module.exports = {
         /* ['script', { type: 'text/javascript', src: 'https://cdn.staticfile.org/jquery/2.2.3/jquery.min.js' }], */
         /* ['script', { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js' }], */
         /* ['script', { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/gh/wliduo/Mark@master/' + 'assets/lib/love.js' }], */
+        ['script', { type: 'text/javascript', src: 'https://unpkg.com/valine@1.4.14/dist/Valine.min.js' }],
         ['script', { type: 'text/javascript', src: 'https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/count.js' }]
     ],
     // 打包文件夹
@@ -56,7 +57,7 @@ module.exports = {
             }
         ],
         [
-            'vuepress-plugin-comment',
+            /* 'vuepress-plugin-comment',
             {
                 choosen: 'valine',
                 // options选项中的所有参数，会传给Valine的配置
@@ -68,7 +69,7 @@ module.exports = {
                     placeholder: '评论',
                     path: '<%- frontmatter.to.path %>'
                 }
-            }
+            } */
             /* {
                 choosen: 'gitalk',
                 options: {

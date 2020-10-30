@@ -60,7 +60,7 @@ export default {
     // 路由切换前
     this.$router.beforeEach((to, from, next) => {
       // about页面不显示footer
-      if (to.path == "/about.html" || to.path == "/map.html") {
+      if (to.path == "/about.html" || to.path == "/map.html" || to.path == "/issues.html") {
         this.footerShow = false;
       } else {
         this.footerShow = true;
