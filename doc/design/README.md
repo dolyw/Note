@@ -18,6 +18,8 @@
 **推荐阅读**
 
 * [菜鸟教程](https://www.runoob.com/design-pattern/)
+* [维基百科](https://zh.wikipedia.org/wiki/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_(%E8%AE%A1%E7%AE%97%E6%9C%BA))
 * [C语言中文网](http://c.biancheng.net/view/1317.html)
 * [DesignPatterns](https://github.com/bjmashibing/DesignPatterns)
+* [mrbird](https://mrbird.cc/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html)
 

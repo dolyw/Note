@@ -233,3 +233,29 @@ public void xxx() {
     // throw new RuntimeException();
 }
 ```
+
+## JReport
+
+[https://blog.csdn.net/gongdaxuesheng/article/details/78470021](https://blog.csdn.net/gongdaxuesheng/article/details/78470021)
+
+直接打开压缩包，把第二级文件夹名改下就行
+
+另外设置默认字体，在 jrxml 上面中增加 style 的 Base 配置即可，不必每一个控件都设置
+
+```xml
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="chinaHKDebitNote" pageWidth="842" pageHeight="594" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="782" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+
+	<style name="Base" isDefault="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+	
+    <parameter name="IMAGE_DIR_ONE" class="java.lang.String" isForPrompting="false"/>
+    <!-- ..... -->
+</jasperReport>
+```
