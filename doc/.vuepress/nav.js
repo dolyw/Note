@@ -15,7 +15,7 @@ module.exports = nav = [
     // 内部链接，以doc为根目录
     /* { text: '主页', link: '/' }, { text: '关于', link: '/about.md' }, */
     { text: '整站地图', link: '/map' },
-    {
+    /* {
         text: '学习笔记',
         items: [
             { text: 'Design', link: '/design/' },
@@ -26,8 +26,8 @@ module.exports = nav = [
             { text: 'Elasticsearch', link: '/elasticsearch/' },
             { text: '工具命令', link: '/command/' }
         ]
-    },
-    {
+    }, */
+    /* {
         text: '架构笔记',
         items: [
             { text: 'SpringBoot', link: '/springboot/' },
@@ -37,9 +37,9 @@ module.exports = nav = [
             { text: '文件系统', link: '/fs/' },
             { text: '分布式相关', link: '/distributed/' }
         ]
-    },
+    }, */
     // 下拉列表
-    {
+    /* {
         text: '零星笔记',
         items: [
             { text: '编程笔记', link: '/note/' },
@@ -48,17 +48,19 @@ module.exports = nav = [
             { text: '其他笔记', link: '/other/' },
             { text: '编程闲话', link: '/gossip/' }
         ]
-    },
-    {
+    }, */
+    /* {
         text: '开源项目',
         items: [
-            { text: '项目列表', link: '/p/' },
+            { text: '项目列表', link: '/project/' },
             { text: 'ProjectStudy', link: 'https://github.com/dolyw/ProjectStudy' },
             { text: 'ShiroJwt', link: '/shirojwt/' },
             { text: 'SeckillEvolution', link: '/seckill-evolution/' },
             { text: 'NettyStudy', link: '/netty/' },
             { text: 'ViewGenerator', link: '/viewgenerator/' }
         ]
-    },
+    }, */
+    { text: '学习目录', link: '/study' },
+    { text: '开源项目', link: '/project' },
     { text: '疑问提交', link: '/issues' }
 ]

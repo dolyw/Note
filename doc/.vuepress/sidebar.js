@@ -163,9 +163,9 @@ module.exports = sidebar = {
         ['07-IDEA-SonarQube', 'IDEA使用SonarQube检测代码'],
         ['08-Jenkins-Use', 'Jenkins的安装使用']
     ],
-    '/p/': [
+    /* '/p/': [
         ['', '开源项目'],
-    ],
+    ], */
     // 开源项目
     '/shirojwt/': [
         ['', 'ShiroJwt'],
@@ -190,10 +190,10 @@ module.exports = sidebar = {
     // 编程笔记
     '/note/': [
         ['', 'Note'],
-        ['00-Note', '编程笔记'],
-        ['01-GPS-Conversion', '地图相关开发'],
-        ['02-WX-Dev', '微信相关开发'],
-        ['03-Encryption-Decryption', '加密解密相关']
+        ['00-Note', '零星笔记'],
+        ['01-GPS-Conversion', '地图相关'],
+        ['02-WX-Dev', '微信相关'],
+        ['03-Encryption-Decryption', '加密解密']
     ],
     // 书籍面试
     '/book/': [
