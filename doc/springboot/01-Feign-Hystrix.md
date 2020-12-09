@@ -157,7 +157,7 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 
 最后发现原因是 `@FeignClient` 使用 fallback 和 `@RequestMapping` 一起使用报错，这个还是以前写 Demo 就遇到的错误
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/07/20200724001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/07/20200724001.png)
 
 代码举例如下，这样 `@FeignClient` 使用 fallback 和 `@RequestMapping` 一起使用报错
 

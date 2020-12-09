@@ -32,17 +32,17 @@ PS D:\>
 
 查看官网: [https://www.rabbitmq.com/download.html](https://www.rabbitmq.com/download.html)，直接有启动的命令
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117005.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117005.png)
 
 执行命令 `docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management` 启动
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117006.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117006.png)
 
 启动成功，然后访问: [http://localhost:15672](http://localhost:15672)，用guest/guest登录就可以打开管理的 Web 界面
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117003.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117003.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117007.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117007.png)
 
 ## 3. 集群
 

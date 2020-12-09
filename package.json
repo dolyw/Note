@@ -3,8 +3,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "doc:dev": "vuepress dev doc",
-    "doc:build": "vuepress build doc"
+    "dev": "vuepress dev doc",
+    "build": "vuepress build doc"
   },
   "devDependencies": {
     "@vuepress/plugin-active-header-links": "^1.2.0",

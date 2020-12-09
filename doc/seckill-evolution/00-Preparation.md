@@ -84,7 +84,7 @@ CREATE TABLE `t_seckill_stock_order` (
 
 这个自行创建即可，我创建的是一个**SpringBoot2**项目，<!-- 后续可能改为**SpringCloud**或**Dubbo**， -->然后使用**代码生成工具**: [ViewGenerator](https://github.com/dolyw/ViewGenerator)，根据表结构生成一下对应的文件，记得移除表前缀参数`t_seckill_`
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191120002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191120002.png)
 
 使用**通用Mapper**要在**Application**处加个注解`@tk.mybatis.spring.annotation.MapperScan`
 
@@ -351,7 +351,7 @@ public interface ISeckillService {
 
 不过现在每次读取库存都去查数据库，我们可以看下**Druid**的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123005.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123005.png)
 
 可以看到，查询库存执行了**500**次，遵从**最后落地到数据库的请求数要尽量少**的原则，其实我们可以把这个数据放缓存，提升性能
 
@@ -369,7 +369,7 @@ public interface ISeckillService {
 
 使用了缓存，可以看到库存查询**SQL**，**只执行了一次，就是缓存预热那执行了一次**，不像之前每次库存都去查数据库
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123010.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123010.png)
 
 不过**乐观锁更新**操作还是执行了**157**次**SQL**，遵从**最后落地到数据库的请求数要尽量少**的原则，有没有办法优化这里呢，可以的，**实际上很多都是无效请求**，这里我们可以使用**限流**，把大部分无效请求拦截了，尽可能保证最终到达数据库的都是有效请求
 
@@ -381,11 +381,11 @@ public interface ISeckillService {
 
 我们可以看下 Druid 的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191127004.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191127004.png)
 
 **使用了限流，可以看到乐观锁更新不像之前那样执行 157 次了，只执行了 36 次，很多请求直接被限流了**，我们看下后台日志，可以看到很多请求直接被限流限制了，这样就达到了我们的目的
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191127005.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191127005.png)
 
 ### 4.5. 使用队列异步下单
 

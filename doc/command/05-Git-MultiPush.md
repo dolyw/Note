@@ -15,7 +15,7 @@ git remote set-url --add origin git@git.coding.net:user/project.git
 git push origin
 ```
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191106005.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191106005.png)
 
 ## 配置修改
 
@@ -30,4 +30,4 @@ git push origin
 	url = git@coding:wang64/Note.git
 ```
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191106006.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191106006.png)

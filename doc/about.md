@@ -3,7 +3,7 @@
 :::
 
 <center class="half">
-    <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/feed/pay.png" height="180"></img>
+    <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/feed/pay.png" height="180"></img>
 </center>
 
 ::: warning 投食
@@ -11,8 +11,8 @@
 :::
 
 <!-- <center class="half">
-    <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/feed/alipay.png" alt="支付宝" height="150" width="150"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/feed/wechatpay.png" alt="微信" height="150" width="150"></img>
+    <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/feed/alipay.png" alt="支付宝" height="150" width="150"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/feed/wechatpay.png" alt="微信" height="150" width="150"></img>
 </center>
 <br/>
 <center class="half"><b>支付宝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微信</b></center> -->

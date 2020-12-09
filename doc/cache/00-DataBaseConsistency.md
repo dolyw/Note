@@ -85,7 +85,7 @@ Redis与数据库一致性的总结，参考了很多博客和文章，如有不
 
 先说一下，老外提出了一个缓存更新套路，名为[Cache-Aside Pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cache-aside)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191105002.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191105002.jpg)
 
 * 更新操作就是先更新数据库，再删除缓存
 * 读取操作先从缓存取数据，没有，则从数据库中取数据，成功后，放到缓存中
@@ -145,7 +145,7 @@ Redis与数据库一致性的总结，参考了很多博客和文章，如有不
 > 4. 自己消费消息，获得需要删除的key
 > 5. 继续重试删除操作，直到成功
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191105003.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191105003.png)
 
 然而，该方案有一个缺点，对业务线代码造成大量的侵入，于是有了方案二，启动一个订阅程序去订阅数据库的Binlog，获得需要操作的数据。在应用程序中，另起一段程序，获得这个订阅程序传来的信息，进行删除缓存操作
 
@@ -159,7 +159,7 @@ Redis与数据库一致性的总结，参考了很多博客和文章，如有不
 > 6. 将这些信息发送至消息队列
 > 7. 重新从消息队列中获得该数据，重试操作
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191105004.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191105004.png)
 
 上述的订阅Binlog程序在MySql中有现成的中间件叫Canal，可以完成订阅Binlog日志的功能，另外，重试机制，这里采用的是消息队列的方式。如果对一致性要求不是很高，直接在程序中另起一个线程，每隔一段时间去重试即可，这些大家可以灵活自由发挥，只是提供一个思路
 

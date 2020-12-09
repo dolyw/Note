@@ -76,7 +76,7 @@
 
 基于以上因素，**选择CDN的二级缓存比较合适**，因为二级缓存数量偏少，容量也更大，访问量相对集中，这样就可以较好解决缓存的失效问题以及命中率问题，是当前比较理想的一种**CDN**化方案。部署方式如下图所示：
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191121001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191121001.png)
 
 #### 1.3 数据整合
 
@@ -329,7 +329,7 @@ UPDATE item SET inventory = CASE WHEN inventory >= xxx THEN inventory
 
 高可用建设，其实是一个系统工程，贯穿在系统建设的整个生命周期。
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191121002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191121002.png)
 
 具体来说，系统的高可用建设涉及架构阶段、编码阶段、测试阶段、发布阶段、运行阶段，以及故障发生时，逐一进行分析：
 
@@ -369,7 +369,7 @@ UPDATE item SET inventory = CASE WHEN inventory >= xxx THEN inventory
 
 同时也在这里抽象、提炼一下，主要是个人对于秒杀设计的提纲式整理，方便各位同学进行参考!
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191121003.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191121003.jpg)
 
 > 作者：阿哲
 > 

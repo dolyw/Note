@@ -1,6 +1,6 @@
 # 推荐阅读
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191120003.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191120003.jpg)
 
 我不能保证写的都是对的，但至少保证每句话、每行代码都经过了认真仔细的思考
 

@@ -443,29 +443,29 @@ public ResponseBean createOptimisticLockOrderWithRedis(@PathVariable("id") Integ
 
 我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**10**个库存，而且清空订单表
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122001.png)
 
 接着使用**PostMan**调用缓存预热方法，提前加载好缓存
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122013.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122013.png)
 
 这时候可以看到我们的数据，库存为**10**，卖出为**0**，订单表为空
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123001.png)
 
 缓存数据也是这样
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123006.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123006.png)
 
 打开**JMeter**，添加测试计划(`测试计划文件在项目的src\main\resources\jmx下`)，模拟**500**个并发线程测试秒杀**10**个库存的商品，填写请求地址，点击启动图标开始
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123007.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123007.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122016.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122016.png)
 
 可以看到**500**个并发线程执行完，最后发现**库存出现负数**
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123008.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123008.png)
 
 ### 3.2. 结果总结
 
@@ -673,29 +673,29 @@ public ResponseBean createOptimisticLockOrderWithRedis(@PathVariable("id") Integ
 
 我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**10**个库存，而且清空订单表
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122001.png)
 
 接着使用**PostMan**调用缓存预热方法，提前加载好缓存
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122013.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122013.png)
 
 这时候可以看到我们的数据，库存为**10**，卖出为**0**，订单表为空
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123001.png)
 
 缓存数据也是这样
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123006.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123006.png)
 
 打开**JMeter**，添加测试计划(`测试计划文件在项目的src\main\resources\jmx下`)，模拟**500**个并发线程测试秒杀**10**个库存的商品，填写请求地址，点击启动图标开始
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123007.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123007.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122016.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122016.png)
 
 可以看到**500**个并发线程执行完，可以看到这次是正确的了
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123009.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123009.png)
 
 日志也没问题了
 
@@ -719,6 +719,6 @@ logger.info("版本号:{} {} {}", stockDto.getCount(), stockDto.getSale(), stock
 
 使用了缓存，可以看到库存查询**SQL**，**只执行了一次，就是缓存预热那执行了一次**，不像之前每次库存都去查数据库
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123010.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123010.png)
 
 不过**乐观锁更新**操作还是执行了**157**次**SQL**，遵从**最后落地到数据库的请求数要尽量少**的原则，有没有办法优化这里呢，可以的，**实际上很多都是无效请求**，这里我们可以使用**限流**，把大部分无效请求拦截了，尽可能保证最终到达数据库的都是有效请求

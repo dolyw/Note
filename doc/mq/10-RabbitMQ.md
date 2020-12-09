@@ -29,43 +29,43 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 这里介绍的是 Windows 10 下的安装，首先我们需要知道 RabbitMQ 对应的 Erlang/OTP 版本: [https://www.rabbitmq.com/which-erlang.html](https://www.rabbitmq.com/which-erlang.html)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116008.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116008.png)
 
 ### 2.1. 下载
 
 这里我们直接下载 RabbitMQ 最新版的 3.8.2: [https://www.rabbitmq.com/download.html](https://www.rabbitmq.com/download.html)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116009.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116009.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116010.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116010.png)
 
 随便点击一个就行，第二个是备选下载链接
 
 然后是Erlang/OTP 22: [https://www.erlang.org/downloads](https://www.erlang.org/downloads)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116011.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116011.png)
 
 选择 Windows 64 位的，发现下载速度贼慢
 
 去这里下载(RabbitMQ官网提供的Erlang下载地址): [https://www.erlang-solutions.com/resources/download.html](https://www.erlang-solutions.com/resources/download.html)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116012.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116012.png)
 
 ### 2.2. 安装
 
 下载完成，两个都以管理员运行，先安装 Erlang/OTP，再安装 RabbitMQ，安装一路默认下去即可，不用多余选择，我只把安装位置改了下 D:\Tools
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116013.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116013.png)
 
 装完了，可以看到 RabbitMQ Server 安装完成之后，会自动的注册为服务，并以默认配置启动起来
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116014.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116014.png)
 
 ### 2.3. 配置
 
 配置下 erlang 的系统变量 `ERLANG_HOME=D:\Tools\erl10.5`
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116015.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116015.png)
 
 验证 RabbitMQ 是否安装成功，进入：D:\Tools\RabbitMQ Server\rabbitmq_server-3.8.2\sbin，执行：`rabbitmqctl.bat status`
 
@@ -73,11 +73,11 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 输入: `rabbitmq-plugins.bat  enable  rabbitmq_management`
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116016.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116016.png)
 
 `D:\Tools\RabbitMQ Server` 路径不能有空格，只能卸载重装 RabbitMQ 了
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200116017.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116017.png)
 
 重装后去掉空格就好了
 
@@ -85,17 +85,17 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 启动 RabbitMQ，输入命令 `rabbitmq-server`
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117002.png)
 
 发现服务无法启动，最后发现好像是我 Windows 10 用户名为中文的原因，修改用户名为英文，参考: [https://www.cnblogs.com/WhiteTears/p/8947337.html](https://www.cnblogs.com/WhiteTears/p/8947337.html)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117001.png)
 
 再启动就行了，然后访问: [http://localhost:15672](http://localhost:15672)，用guest/guest登录就可以打开管理的 Web 界面
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117003.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117003.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200117004.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117004.png)
 
 ## 4. Docker
 

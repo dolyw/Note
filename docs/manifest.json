@@ -40,7 +40,7 @@
 			"type": "image/png"
 		}, */
 		{
-			"src": "https://cdn.jsdelivr.net/gh/wliduo/CDN@master/avatar/01_thn.png",
+			"src": "https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/avatar/01_thn.png",
 			"sizes": "1024x1024",
 			"type": "image/png"
 		}

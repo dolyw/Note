@@ -6,7 +6,7 @@ Docker下MinIO的使用
 
 我们可以去 [Docker Hub](https://registry.hub.docker.com/r/minio/minio/tags) 查询版本号，官网: [https://docs.min.io/cn/minio-quickstart-guide.html](https://docs.min.io/cn/minio-quickstart-guide.html)，文档也很全，可以看到 Docker 的命令，这里我们下稳定版
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200121009.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200121009.png)
 
 然后直接启动 Docker，执行命令 `docker pull minio/minio` 下载稳定版本镜像，使用命令 `docker images` 查看下载的镜像
 
@@ -37,7 +37,7 @@ PS D:\>
 
 查看官网: [https://docs.min.io/cn/minio-docker-quickstart-guide.html](https://docs.min.io/cn/minio-docker-quickstart-guide.html)，直接有启动的命令
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200121010.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200121010.png)
 
 执行命令启动单点模式
 
@@ -45,13 +45,13 @@ PS D:\>
 docker run -p 9000:9000 --name minio minio/minio server /data
 ```
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200121011.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200121011.png)
 
 启动成功，可以访问后台界面: [http://127.0.0.1:9000](http://127.0.0.1:9000)，Access Key 和 Secret Key 在命令行那有显示，都是 minioadmin
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200121004.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200121004.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/01/20200121005.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200121005.png)
 
 单点模式的话所有的数据都会在容器退出时丢失，所以可以指定磁盘对应起来，**注意文件夹需要自行提前建立好**
 

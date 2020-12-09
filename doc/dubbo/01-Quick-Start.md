@@ -25,7 +25,7 @@ groupId 我们填写我们的包名 com.demo，artifactId 填写我们的项目�
 
 创建完成，打开，可以把除 pom.xml 的其他文件都删除了，再新建一个 .gitignore 的 Git 忽略文件，IDEA 生成的文件删除了还是会生成，所以就不用删了
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191213001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191213001.png)
 
 修改 pom.xml 的版本属性，写一个统一的版本号，子工程统一使用
 
@@ -103,7 +103,7 @@ public interface IDemoService {
 
 这个是提供服务的工程，我们在父工程下点击 File-New-Module，这里选择 Spring Initializr(SpringBoot)，默认点击下一步 Next，填写模块名 artifactId 为 provider-service
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191220002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191220002.png)
 
 点击下一步 Next，修改名称为 provider-service，点击完成 Finish 即可，然后修改当前模块的 pom 文件如下
 
@@ -256,7 +256,7 @@ public class DemoServiceImpl implements IDemoService {
 
 这个是消费服务的工程，我们在父工程下点击 File-New-Module，这里选择 Spring Initializr(SpringBoot)，默认点击下一步 Next，填写模块名 artifactId 为 consumer-service
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191220003.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191220003.png)
 
 点击下一步 Next，修改名称为 consumer-service，点击完成 Finish 即可，然后修改当前模块的 pom 文件如下
 
@@ -457,15 +457,15 @@ public class DemoController {
 
 先启动 Zookeeper，然后启动 provider-service 提供服务，再启动 consumer-service 调用服务，两个都是 SpringBoot 工程，可以直接启动，启动成功后可以直接调用 consumer-service 的两个 Controller 方法
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191220004.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191220004.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191220005.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191220005.png)
 
 后台打印
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191220006.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191220006.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191220007.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191220007.png)
 
 这样就调用成功了，Dubbo 简单的生产服务和消费服务就是这样
 

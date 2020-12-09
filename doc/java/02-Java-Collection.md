@@ -1,6 +1,6 @@
 # Java拾遗-集合
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/04/20200429001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/04/20200429001.png)
 
 > **JDK 版本为 1.8**
 

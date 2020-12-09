@@ -45,9 +45,9 @@
 
 * **如果你在这个小破站学到了点什么，就请我吃根辣条吧，感谢:yum:**
 
-<img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/feed/pay.png" height="180"></img>
+<img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/feed/pay.png" height="180"></img>
 <!-- <center class="half">
-    <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/feed/pay.png" height="180"></img>
+    <img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/feed/pay.png" height="180"></img>
 </center> -->
 
 ## 关于

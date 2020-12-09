@@ -1,6 +1,6 @@
 # MySQL的那些锁
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191202001.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191202001.jpg)
 
 ## 1. 为什么要引入锁
 
@@ -136,7 +136,7 @@ SELECT * FROM table_name WHERE ... FOR UPDATE
 
 在 MySQL 5.1.2 版本之后，有了很多优化，可以根据不同的模式来调整自增加锁的方式，我这里的版本是 5.7.16，输入 `show variables like 'innodb_autoinc_lock_mode'` 即可查看当前模式
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191202002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191202002.png)
 
 ```bash
 mysql> show variables like 'innodb_autoinc_lock_mode';
@@ -154,7 +154,7 @@ mysql> show variables like 'innodb_autoinc_lock_mode';
 * 连续模式(1): 对于插入的时候可以确定行数的使用互斥量，对于不能确定行数的使用表锁的模式
 * 交错模式(2): 所有的都使用互斥量，为什么叫交错模式呢，有可能在批量插入时自增值不是连续的，当然一般来说如果不看重自增值连续一般选择这个模式，性能是最好的
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191202003.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191202003.jpg)
 
 InnoDB 存储引擎中自增长的实现和 MyISAM 不同。MyISAM 存储引擎是表锁设计，自增长不用考虑并发插入的问题。在 InnoDB 存储引擎中，自增长值的列必须是索引，同时必须是索引的第一个列，如果不是第一个列，则 MySQL 会抛出异常。MyISAM 存储引擎没有这个问题
 

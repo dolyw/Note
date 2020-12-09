@@ -1,20 +1,20 @@
 # 图谱记录
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191204005.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191204005.jpg)
 
 ## 1. 学习图谱
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191204002.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191204002.jpg)
 
 ## 2. 技术图谱
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191204004.svg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191204004.svg)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191204003.svg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191204003.svg)
 
 ## 3. 职位图谱
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/12/20191204001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/12/20191204001.png)
 
 **参考**
 

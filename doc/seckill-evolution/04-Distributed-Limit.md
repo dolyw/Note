@@ -563,39 +563,39 @@ public ResponseBean createOptimisticLockOrderWithRedisLimit(@PathVariable("id") 
 
 我们调用一下商品库存初始化的方法，我使用的是 PostMan，初始化库存表商品 10 个库存，而且清空订单表
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122001.png)
 
 接着使用 PostMan 调用缓存预热方法，提前加载好缓存
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122013.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122013.png)
 
 这时候可以看到我们的数据，库存为 10，卖出为 0 ，订单表为空
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123001.png)
 
 缓存数据也是这样
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123006.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123006.png)
 
 打开 JMeter，添加测试计划(`测试计划文件在项目的src\main\resources\jmx下`)，模拟 500 个并发线程测试秒杀 10 个库存的商品
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191127001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191127001.png)
 
 PS: **这次我们填写 Ramp-Up 时间为 5 秒，意思为执行 5 秒，每秒执行 100 个并发，因为如果都在 1S 内执行完，会被限流**，然后填写请求地址，点击启动图标开始
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191127002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191127002.png)
 
 可以看到 500 个并发线程执行完，数据是正确的
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191127003.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191127003.png)
 
 我们可以看下 Druid 的监控，地址: [http://localhost:8080/druid/sql.html](http://localhost:8080/druid/sql.html)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191127004.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191127004.png)
 
 **使用了限流，可以看到乐观锁更新不像之前那样执行 157 次了，只执行了 36 次，很多请求直接被限流了**，我们看下后台日志，可以看到很多请求直接被限流限制了，这样就达到了我们的目的
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191127005.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191127005.png)
 
 ## 5. 最后总结
 

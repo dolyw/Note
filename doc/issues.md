@@ -6,7 +6,7 @@
 * **如果你在这个小破站学到了点什么，就请我吃根辣条吧，感谢:yum:**
 * **总结自己的学习过程，记录下来，好记性不如烂笔头，以后还可以翻阅:grinning:**
 
-<img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/feed/pay.png" height="180"></img>
+<img src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/feed/pay.png" height="180"></img>
 :::
 
 ::: warning 疑问列表

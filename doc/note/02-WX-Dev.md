@@ -16,13 +16,13 @@ response.sendRedirect(URLEncoder.encode(redirectUrl, "UTF-8"));
 
 ### 1.1. redirect_uri参数错误
 
-<img style="width:100%;max-width:333px" src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/08/20200805001.png" data-action="zoom" title="">
+<img style="width:100%;max-width:333px" src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/08/20200805001.png" data-action="zoom" title="">
 
 * 配置公众测试号回调地址
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/08/20200805002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/08/20200805002.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/08/20200805003.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/08/20200805003.png)
 
 **微信网页授权 access_token 和普通 access_token**
 

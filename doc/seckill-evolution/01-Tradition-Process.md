@@ -142,21 +142,21 @@ public class SeckillTraditionServiceImpl implements ISeckillService {
 
 我们调用一下商品库存初始化的方法，我使用的是**PostMan**，初始化库存表商品**10**个库存，而且清空订单表
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122001.png)
 
 这时候可以看到我们的数据，库存为**10**，卖出为**0**，订单表为空
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123001.png)
 
 打开**JMeter**，添加测试计划(`测试计划文件在项目的src\main\resources\jmx下`)，模拟**500**个并发线程测试秒杀**10**个库存的商品，填写请求地址，点击启动图标开始
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122003.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122003.png)
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191122004.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191122004.png)
 
 可以看到**500**个并发线程，抢购到了**24**个订单，而我们的商品实际显示为卖出**10**，库存还有**0**
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2019/11/20191123002.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191123002.png)
 
 这就是卖超问题了，这是因为同一时间大量线程同时请求校验库存，扣库存，创建订单，这三个操作不在同一个原子，比如，很多线程同时读到库存为**10**，这样都穿过了校验库存的判断，所以出现卖超问题
 

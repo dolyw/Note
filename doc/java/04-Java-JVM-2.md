@@ -23,7 +23,7 @@
 
 (**根可达**)算法的基本思想就是通过一系列的称为 **GC Roots** 的对象作为起点，从这些节点开始向下搜索，节点所走过的路径称为引用链，当一个对象到 **GC Roots** 没有任何引用链相连的话，则证明此对象是不可用的
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200507001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200507001.png)
 
 上图中，**objX，objY，objZ** 就是垃圾(没有任何引用链相连)，可作为 GC Roots 的对象包括下面几种
 
@@ -69,9 +69,9 @@
 
 标记清除算法将垃圾回收分为两个阶段--标记阶段和清除阶段，在标记阶段首先通过根节点(GC Roots)，标记所有从根节点开始的对象，未被标记的对象就是未被引用的垃圾对象。然后，在清除阶段，清除所有未被标记的对象
 
-<!-- ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200507002.jpg) -->
-<!-- <img width="450" src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200507002.jpg"> -->
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200508004.jpg)
+<!-- ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200507002.jpg) -->
+<!-- <img width="450" src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200507002.jpg"> -->
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200508004.jpg)
 
 就像上图一样，清理掉的垃圾就变成未使用的内存区域，等待被再次使用。但它存在一个很大的问题，那就是内存碎片，例如上图中等方块的假设是 2M，小一些的是 1M，大一些的是 4M。等我们回收完，内存就会切成了很多段。我们知道开辟内存空间时，需要的是连续的内存区域，这时候我们需要一个 2M 的内存区域，其中有 2 个 1M 是没法用的。这样就导致，其实我们本身还有这么多的内存的，但却用不了
 
@@ -81,9 +81,9 @@
 
 复制算法的提出是为了克服句柄的开销和解决内存碎片的问题。它将可用内存按照容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上，然后再把已使用过的内存空间一次清理掉。这样使得每次都是对整个半区进行内存回收，内存分配时也就不用考虑内存碎片等复杂情况，只要移动堆顶的指针，按顺序分配内存即可，实现简单，运行高效
 
-<!-- ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200507003.jpg) -->
-<!-- <img width="450" src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200507003.jpg"> -->
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200508005.jpg)
+<!-- ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200507003.jpg) -->
+<!-- <img width="450" src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200507003.jpg"> -->
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200508005.jpg)
 
 **复制算法解决了标记清除算法中存在的效率问题，也没有碎片，只是这种算法的代价是将内存缩小为原来的一半，浪费空间**
 
@@ -91,15 +91,15 @@
 
 标记整理算法采用标记清除算法一样的方式进行对象的标记，但在清除时不同，在回收不存活的对象占用的空间后，会将所有的存活对象往左端空闲空间移动，并更新对应的指针。标记整理算法是在标记清除算法的基础上，又进行了对象的移动，因此成本更高，但是却解决了内存碎片的问题
 
-<!-- ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200507004.jpg) -->
-<!-- <img width="460" src="https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200507004.jpg"> -->
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200508006.jpg)
+<!-- ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200507004.jpg) -->
+<!-- <img width="460" src="https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200507004.jpg"> -->
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200508006.jpg)
 
 **标记整理算法优点是没有内存碎片，但是效率最低(扫描了整个空间两次，而且指针还需要调整)**
 
 ## 3. 内存分代模型
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200507005.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200507005.jpg)
 
 **分代垃圾回收算法**是目前大部分JVM的垃圾回收器采用的算法，它的核心思想是根据对象存活的生命周期将内存划分为若干个不同的区域。一般情况下将堆区划分为**新生代**(**Young Generation**)和**老年代**(**Tenured Generation** or **Old Generation**)，在堆区之外还有一个代就是**永久代**(**Permanet Generation**)(**JDK1.7 后永久代移除，添加元空间**)。老年代的特点是每次垃圾收集时只有少量对象需要被回收，而新生代的特点是每次垃圾回收时都有大量的对象需要被回收，那么就可以根据不同代的特点采取最适合的收集算法
 
@@ -143,7 +143,7 @@ Full GC(FGC)
 
 > **ZGC这里不考虑**
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200508001.png)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200508001.png)
 
 * **新生代回收器：Serial、ParNew、Parallel Scavenge**
 * **老年代回收器：CMS、Serial Old、Parallel Old**
@@ -155,7 +155,7 @@ Full GC(FGC)
 
 新生代单线程回收器，采用复制算法，优点是简单高效，缺点是 STW(Stop The World) 时间长，Serial(串行)是最基本、发展历史最悠久的垃圾回收器
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200508002.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200508002.jpg)
 
 ::: warning STW(Stop The World)
 单线程一方面意味着它只会使用一个 CPU 或一条线程去完成垃圾收集工作，另一方面也意味着在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束为止，这个过程也称为 STW(Stop The World)，后者意味着，在用户不可见的情况下要把用户正常工作的线程全部停掉，这显然对很多应用是难以接受的
@@ -169,7 +169,7 @@ Full GC(FGC)
 
 新生代多线程回收器，ParNew 回收器其实就是 Serial 回收器的多线程版本，除了使用多线程进行垃圾收集外，其余和 Serial 回收器完全一样，**一般老年代选择 CMS 回收器的话，新生代都是使用 ParNew 回收器**，**GC 时也需要暂停所有用户线程，直到 GC 结束**，好处是 STW(Stop The World) 处理是多线程处理，如果是多 CPU 环境下，速度更快，单 CPU 的话直接选择 Serial 回收器，不过现在也很少单 CPU 了
 
-![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@master/2020/05/20200508003.jpg)
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/05/20200508003.jpg)
 
 ### 4.4. Parallel Scavenge
 
