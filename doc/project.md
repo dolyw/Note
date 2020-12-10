@@ -7,6 +7,7 @@
 - [**SeckillEvolution**](/seckill-evolution/)
 - [**NettyStudy**](/netty/)
 - [**ViewGenerator**](/viewgenerator/)
+- [**VueStudy**](https://github.com/dolyw/VueStudy)
 
 ### ProjectStudy
 
@@ -18,10 +19,10 @@
 
 **地址**
 
-* Elasticsearch: [https://note.dolyw.com/elasticsearch](https://note.dolyw.com/elasticsearch)
-* Netty: [https://note.dolyw.com/netty](https://note.dolyw.com/netty)
-* Dubbo: [https://note.dolyw.com/dubbo](https://note.dolyw.com/dubbo)
-* SpringCloud: [https://note.dolyw.com/springcloud](https://note.dolyw.com/springcloud)
+* Elasticsearch: [https://note.dolyw.com/elasticsearch](/elasticsearch/)
+* Netty: [https://note.dolyw.com/netty](/netty/)
+* Dubbo: [https://note.dolyw.com/dubbo](/dubbo/)
+* SpringCloud: [https://note.dolyw.com/springcloud](/springboot/)
 
 **代码**
 
@@ -39,7 +40,7 @@
 
 **地址**
 
-* 文章: [https://note.dolyw.com/shirojwt](https://note.dolyw.com/shirojwt)
+* 文章: [https://note.dolyw.com/shirojwt](/shirojwt/)
 * Github：[https://github.com/wang926454/ShiroJwt](https://github.com/wang926454/ShiroJwt)
 * Gitee(码云)：[https://gitee.com/dolyw/ShiroJwt](https://gitee.com/dolyw/ShiroJwt)
 :::
@@ -54,7 +55,7 @@
 
 **地址**
 
-* 文章: [https://note.dolyw.com/seckill-evolution](https://note.dolyw.com/seckill-evolution)
+* 文章: [https://note.dolyw.com/seckill-evolution](/seckill-evolution/)
 * Github：[https://github.com/dolyw/SeckillEvolution](https://github.com/dolyw/SeckillEvolution)
 * Gitee(码云)：[https://gitee.com/dolyw/SeckillEvolution](https://gitee.com/dolyw/SeckillEvolution)
 :::
@@ -69,7 +70,7 @@
 
 **地址**
 
-* 文章: [https://note.dolyw.com/viewgenerator](https://note.dolyw.com/viewgenerator)
+* 文章: [https://note.dolyw.com/viewgenerator](/viewgenerator/)
 * Github：[https://github.com/dolyw/ViewGenerator](https://github.com/dolyw/ViewGenerator)
 * Gitee(码云)：[https://gitee.com/dolyw/ViewGenerator](https://gitee.com/dolyw/ViewGenerator)
 :::

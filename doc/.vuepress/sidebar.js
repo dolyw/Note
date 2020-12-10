@@ -86,6 +86,12 @@ module.exports = sidebar = {
         ['10-MySQL-SQL', 'MySQL的SQL优化'],
         ['11-MySQL-Index', 'MySQL字符不同索引失效']
     ],
+    '/tuning/': [
+        ['', 'Tuning'],
+        ['00-JVM-Find', 'JVM调优手册'],
+        ['01-JVM-Thread', 'JVM调优之查找线程'],
+        ['10-MySQL-SQL', 'MySQL的SQL优化']
+    ],
     // 前端记录
     '/front/': [
         ['', '前端记录'],

@@ -234,9 +234,29 @@ public void xxx() {
 }
 ```
 
-## JReport
+## JBoss
 
-[https://blog.csdn.net/gongdaxuesheng/article/details/78470021](https://blog.csdn.net/gongdaxuesheng/article/details/78470021)
+* [Idea 2018 集成jboss 7.1.1 as final,部署web项目](https://www.pianshen.com/article/4939103198/)
+* [IntelliJ IDEA 与 JBOSS集成](https://my.oschina.net/dendy/blog/385549)
+
+JBoss 部署要求目录必须以 .war 结尾，所以，必须手动修改该目录，添加 .war 作为目录后缀
+
+## IReport
+
+> Indigo、明宇报表、帆软报表
+ 
+* [官网限速全版本](https://sourceforge.net/projects/ireport/files/iReport/iReport-5.6.0/)
+* [不限速全版本](https://zh.osdn.net/projects/sfnet_ireport/releases/)
+
+5.6 版本有保存在百度网盘，我的资源
+
+### IReport打不开
+
+原因是环境变量 JAVA_HOME 配置的是 Java8，改成 Java7 or Java6就可以运行了
+
+### 中文乱码解决
+
+* [解决jasperreport pdf导出错误Could not load the following font问题](https://blog.csdn.net/gongdaxuesheng/article/details/78470021)
 
 直接打开压缩包，把第二级文件夹名改下就行
 
