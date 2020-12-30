@@ -254,6 +254,10 @@ JBoss 部署要求目录必须以 .war 结尾，所以，必须手动修改该�
 
 原因是环境变量 JAVA_HOME 配置的是 Java8，改成 Java7 or Java6就可以运行了
 
+### 打印出来空白
+
+修改报表的属性，在 more 那的 When No Data 选项，默认的系统选择是 No Pages，这个时候只要数据库没数据的时候就显示为空白页面了，只要你选择了 All Sections,No Details 这样即使你的数据库没数据，你也能把正常的标题，表头等信息都显示出来
+
 ### 中文乱码解决
 
 * [解决jasperreport pdf导出错误Could not load the following font问题](https://blog.csdn.net/gongdaxuesheng/article/details/78470021)
@@ -278,4 +282,37 @@ JBoss 部署要求目录必须以 .war 结尾，所以，必须手动修改该�
     <parameter name="IMAGE_DIR_ONE" class="java.lang.String" isForPrompting="false"/>
     <!-- ..... -->
 </jasperReport>
+```
+
+### Table绑定数据
+
+找到 Table，右击编辑数据源 Edit table datasource
+
+```java
+new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{table1})
+```
+
+## Get传递数组
+
+```javascript
+var inputArgs = new Array();
+inputArgs[0] = taskId;
+inputArgs[1] = documentNo;
+inputArgs[2] = print;
+inputArgs[3] = endorSeqNoPrint;
+inputArgs[4] = serialNo;
+inputArgs[5] = "";
+inputArgs[6] = companyCode;
+inputArgs[7] = "";
+inputArgs[8] = rationTypeCode;
+var reportName = "print" + inputArgs[1];
+var url = "http://xxx"
+url = url + "?reportName=" + reportName + "&inputArgs[]=" + inputArgs[0] +
+    "&inputArgs[]=" + inputArgs[1] + "&inputArgs[]=" + inputArgs[2] + "&inputArgs[]=" + inputArgs[3] +
+    "&inputArgs[]=" + inputArgs[4] + "&inputArgs[]=" + inputArgs[5] + "&inputArgs[]=" + inputArgs[6] +
+    "&inputArgs[]=" + inputArgs[7] + "&inputArgs[]=" + inputArgs[8];
+```
+
+```java
+String[] inputArgs = request.getParameterValues("inputArgs[]");
 ```

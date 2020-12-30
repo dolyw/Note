@@ -72,6 +72,25 @@ passwd <user_name>
 chown -R develop:sc_vass sc_vas
 ```
 
+### System
+
+```bash
+## 磁盘剩余大小
+df -h
+## 所有磁盘剩余大小
+df -ah
+## 当前操作系统版本信息
+cat /proc/version
+lsb_release -a
+## 当前操作系统发行版信息
+cat /etc/issue
+cat /etc/redhat-release
+## 查看CPU相关信息
+cat /proc/cpuinfo
+## 32还是64
+getconf LONG_BIT
+```
+
 * [CentOS6.5下修改文件夹权限和用户名用户组](https://www.cnblogs.com/fefjay/p/6047820.html)
 
 ## Ubuntu

@@ -30,6 +30,12 @@ JVM 参数
 
 ### GC选择参数
 
+* Linux 中没找到默认 GC 的查看方法，而 Windows 中会打印 UseParallelGC
+  * ./java -XX:+PrintCommandLineFlags -version
+  * 通过 GC 的日志来分辨
+* Linux 下 1.8 版本默认的垃圾回收器到底是什么？
+  * 1.8.0_181 默认（看不出来）Copy MarkCompact
+  * 1.8.0_222 默认 PS + PO
 * -XX:+UseSerialGC = Serial New (DefNew) + Serial Old
   * 小型程序。默认情况下不会是这种选项，HotSpot 会根据计算及配置和 JDK 版本自动选择收集器
 * -XX:+UseParNewGC = ParNew + SerialOld
@@ -39,12 +45,6 @@ JVM 参数
 * -XX:+UseParallelGC = Parallel Scavenge + Parallel Old (1.8默认) 【PS + SerialOld】
 * -XX:+UseParallelOldGC = Parallel Scavenge + Parallel Old
 * -XX:+UseG1GC = G1
-* Linux 中没找到默认 GC 的查看方法，而 Windows 中会打印 UseParallelGC 
-  * java -XX:+PrintCommandLineFlags -version
-  * 通过 GC 的日志来分辨
-* Linux 下 1.8 版本默认的垃圾回收器到底是什么？
-  * 1.8.0_181 默认（看不出来）Copy MarkCompact
-  * 1.8.0_222 默认 PS + PO
 
 ### GC常用参数
 
@@ -150,6 +150,14 @@ JVM 参数
 1. jmap -heap pid
 2. jmap -histo pid
 3. jmap -clstats pid
+
+## 5. 记录
+
+* [Spring Framework和Java版本之间的关系](https://www.cnblogs.com/unclewei/p/12611633.html)
+* [-XX:ParallelGCThreads参数](http://www.blogjava.net/paulwong/archive/2014/06/16/414812.html)
+
+* Spring 和 Java 版本不兼容
+* 一台机器同时跑两个 JVM，得把 -XX:ParallelGCThreads 调小
 
 **参考**
 
