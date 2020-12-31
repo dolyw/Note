@@ -55,6 +55,10 @@ module.exports = sidebar = {
         /* ['13-List-De-Duplication.md', '以前-List集合去重方式及效率对比'], */
         ['14-50-Details.md', '以前-Java性能优化的50个细节']
     ],
+    '/python/': [
+        ['', 'Python'],
+        ['00-Python3-Install', 'Python3的安装使用']
+    ],
     '/netty/': [
         ['', 'Netty'],
         ['00-Netty-SocketIO.md', 'Netty-SocketIO实现聊天室']

@@ -7,6 +7,7 @@
 - [**Design - 设计模式专题**](/design/)
 - [**Network - 计算机网络相关记录**](/network/)
 - [**Java - Java基础底层学习记录**](/java/)
+- [**Python - Python的一些记录**](/python/)
 - [**前端专题 - 前端的一些记录**](/front/)
 
 <!-- :cloud: -->
