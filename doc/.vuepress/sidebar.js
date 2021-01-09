@@ -199,8 +199,9 @@ module.exports = sidebar = {
     ],
     // 编程笔记
     '/note/': [
-        ['', 'Note'],
-        ['00-Note', '零星笔记'],
+        ['', '零星笔记'],
+        ['00-Note', '项目相关'],
+        ['04-Tools', '工具相关'],
         ['01-GPS-Conversion', '地图相关'],
         ['02-WX-Dev', '微信相关'],
         ['03-Encryption-Decryption', '加密解密']
