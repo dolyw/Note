@@ -8,7 +8,9 @@
 
 * [JVM调优手册](00-JVM-Find.html)
 * [JVM调优之查找线程](01-JVM-Thread.html)
+* [JVM调优之内存大小设置](02-JVM-Memory.html)
 * [MySQL的SQL优化](10-MySQL-SQL.html)
+* [MySQL字符不同索引失效](11-MySQL-Index)
 
 **推荐阅读**
 

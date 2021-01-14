@@ -20,4 +20,9 @@ Redis持久化与过期策略
 
 待补充
 
+## 3. 内存淘汰策略
+
+待补充
+
 * [Redis键过期键略](https://blog.csdn.net/yutian_1999/article/details/103643452)
+* [Redis的过期策略和内存淘汰策略](https://www.jianshu.com/p/8aa619933ebb)

@@ -73,6 +73,8 @@
 
 ## 5. 其他
 
+* [微信团队分享：微信支付代码重构带来的移动端软件架构上的思考](https://www.cnblogs.com/imstudy/p/12567241.html)
+
 ### 5.1. Java
 
 * [Java异常的优雅的设计](https://mp.weixin.qq.com/s/6uqLVWGeK1adaPu45qCjUg)

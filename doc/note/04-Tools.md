@@ -16,12 +16,32 @@
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN2@master/2021/01/20210109005.png)
 
+## IDEA编译乱码
+
+IDEA 内点击项目名称右键，选择 Remove BOM 即可将项目中 UTF-8 BOM 的文件去为 NO BOM，非法字符就好了
+
+* [IDEA提示非法字符，你不懂的UTF-8](https://www.cnblogs.com/julytail/p/10291709.html)
+
 ## JBoss部署
+
+下载 JBoss 后，然后配置 JDBC
 
 * [Idea 2018 集成jboss 7.1.1 as final,部署web项目](https://www.pianshen.com/article/4939103198/)
 * [IntelliJ IDEA 与 JBOSS集成](https://my.oschina.net/dendy/blog/385549)
 
 JBoss 部署要求目录必须以 .war 结尾，所以，必须手动修改该目录，添加 .war 作为目录后缀
+
+### 部署项目进入Jboss控制台
+
+因为项目没加上下文，所以默认进去地址和 Jboss 控制台地址都是一样的，有时候会进入 Jboss 控制台，不进入项目，这个时候只需要在地址后面加上 login 的后缀就行
+
+## WebLogic部署
+
+下载安装好 WebLogic 后，创建域，然后配置 JDBC，域端口加 console 进去控制台 `http://localhost:7001/console`
+
+* [weblogic如何创建域](https://blog.csdn.net/tl2871761577/article/details/81083359)
+* [idea如何部署项目到weblogic](https://blog.csdn.net/tl2871761577/article/details/81078064)
+* [图解WebLogic新建Oracle数据库的JNDI数据源](https://jingyan.baidu.com/article/7f41ecec0ba13e593d095cbf.html)
 
 ## IReport使用
 
@@ -31,6 +51,8 @@ JBoss 部署要求目录必须以 .war 结尾，所以，必须手动修改该�
 * [不限速全版本](https://zh.osdn.net/projects/sfnet_ireport/releases/)
 
 5.6 版本有保存在百度网盘，我的资源
+
+* [IE实现PDF在线预览功能](https://blog.csdn.net/lishuoboy/article/details/88666929)
 
 ### IReport打不开
 
@@ -73,3 +95,15 @@ JBoss 部署要求目录必须以 .war 结尾，所以，必须手动修改该�
 ```java
 new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{table1})
 ```
+
+### 服务器字体异常
+
+本地没问题，服务器报错
+
+```java
+net.sf.jasperreports.engine.JRRuntimeException: Font '华文中宋' is not available to the JVM. See the Javadoc for more details.
+```
+
+在 WEB-INF/classes 目录下加上 jasperreports.properties 和 字体文件(STZHONGS.TTF)，字体去 `C:\Windows\Fonts` 找
+
+* [解决Centos 7 下 tomcat字体异常 Font '宋体' is not available to the JVM](https://www.cnblogs.com/wxylog/p/6288574.html)

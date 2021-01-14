@@ -154,3 +154,4 @@ Response Times Over Time: [https://jmeter-plugins.org/wiki/ResponseTimesOverTime
 线程数量和循环次数将会影响最终的测试报告，请大家多多测试
 
 1. 感谢晓晨Master的使用 JMeter 进行压力测试: [https://www.cnblogs.com/stulzq/p/8971531.html](https://www.cnblogs.com/stulzq/p/8971531.html)
+2. [meter-02 JMeter 生成HTML性能报告](https://www.cnblogs.com/guanfuchang/p/7844981.html)

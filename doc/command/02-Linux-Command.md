@@ -1,5 +1,13 @@
 # Linux命令记录
 
+常用三种发行版
+
+* CentOS
+* Red Hat
+* Ubuntu
+
+- [查看linux发行版本名称和版本号](https://blog.csdn.net/ymeng9527/article/details/90483687)
+
 ## CentOS
 
 ### Jar

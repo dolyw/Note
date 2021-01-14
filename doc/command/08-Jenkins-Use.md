@@ -171,3 +171,4 @@ http://localhost:8888/exit
 * [搭建Jenkins2.222.3](https://blog.csdn.net/mayancheng7/article/details/106319287)
 * [Jenkins用户权限](https://blog.csdn.net/w13511069150/article/details/93377590)
 * [教你如何用Jenkins自动化部署项目(教程，从零到搭建完成)](https://blog.csdn.net/qq_37372007/article/details/81586751)
+* [另一种持续集成工具Bamboo](https://blog.csdn.net/carolzhang8406/article/details/44080957)

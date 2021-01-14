@@ -17,6 +17,7 @@
 
 **参考**
 
+* [sql优化之慢sql优化实践 -- 点滴](https://blog.csdn.net/qq_20057315/article/details/80737659)
 * [mysql 优化 explain 和show warnings 用法](https://blog.csdn.net/chuangli1101/article/details/100814828)
 * [Mysql调优之Explain extend](https://blog.csdn.net/jobschen/article/details/50878854)
 * [SHOW WARNINGS语句](https://www.lanmper.cn/mysql/t7966.html)

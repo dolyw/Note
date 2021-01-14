@@ -106,6 +106,10 @@ server {
 }
 ```
 
+* [Minio分布式集群搭建](https://www.centoscn.vip/1480.html)
+* [minio 集群搭建](https://www.cnblogs.com/rongfengliang/p/9197315.html)
+* [MINIO分布式集群搭建](https://www.freesion.com/article/452333166/)
+
 ## 6. 代码
 
 * pom.xml

@@ -66,3 +66,5 @@ slaveof 192.168.1.1 6379
 ### 3.2. 原理浅析
 
 * [Redis集群](https://blog.csdn.net/yutian_1999/article/details/103836008)
+* [Redis-哨兵模式和高可用集群解析](https://www.cnblogs.com/mzhaox/p/11218096.html)
+* [为什么redis cluster至少需要三个主节点？](https://www.zhihu.com/question/354518943)

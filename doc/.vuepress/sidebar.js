@@ -84,17 +84,19 @@ module.exports = sidebar = {
     '/database/': [
         ['', 'Database'],
         ['00-Isolation', 'ACID以及事务隔离级别'],
+        ['02-DB-Install', 'Database安装使用'],
         ['01-MySQL-Lock', 'MySQL那些锁'],
         /* ['02-DB-NF', 'Database中的范式理论'], */
         ['03-MySQL-Index-B+', 'MySQL索引以及B+树'],
-        ['10-MySQL-SQL', 'MySQL的SQL优化'],
-        ['11-MySQL-Index', 'MySQL字符不同索引失效']
+        ['10-MySQL-SQL', 'MySQL的SQL优化']
     ],
     '/tuning/': [
         ['', 'Tuning'],
         ['00-JVM-Find', 'JVM调优手册'],
         ['01-JVM-Thread', 'JVM调优之查找线程'],
-        ['10-MySQL-SQL', 'MySQL的SQL优化']
+        ['02-JVM-Memory', 'JVM调优之内存大小设置'],
+        ['10-MySQL-SQL', 'MySQL的SQL优化'],
+        ['11-MySQL-Index', 'MySQL字符不同索引失效']
     ],
     // 前端记录
     '/front/': [
