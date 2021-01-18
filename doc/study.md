@@ -13,7 +13,7 @@
 <!-- :cloud: -->
 :wrench:
 
-- [**分布式 - 相关学习**](/distributed/)
+- [**分布式系列 - 相关学习**](/distributed/)
 - [**Spring系列 - Spring的一些记录**](/springboot/)
 - [**Dubbo系列 - Dubbo的入门**](/dubbo/)
 - [**Docker系列 - Docker的一些使用**](/docker/)

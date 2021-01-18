@@ -1,3 +1,9 @@
+## Maven私服仓库分区
+
+在同一个 `settings.xml` 打开一个新私服项目，发现 jar 包下载不下来，最后发现是 jar 包冲突了
+
+不同私服配置不同下载仓库区，保留多个 `settings.xml` 文件，使用哪个项目切换对应的 `settings.xml` 文件，仓库文件夹命名 repository-project1，repository-project2 等
+
 ## IDEA自动导入包变成.*
 
 这样变动容易引发代码冲突，设置默认为 5 个以上同一个包下引入就会变为 .*， 调整数量为 999，这样就不会变了
