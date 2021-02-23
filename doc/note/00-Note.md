@@ -1,3 +1,171 @@
+## DH中台前后端流程部署
+
+前端是多个 React 项目聚合页面，统一入口，认证是使用的 Cookies 保存 Token 顶级域名的共享机制来获取 Token 认证的，然后需要做一下本地域名的绑定，需要修改 host 文件及启动 Nginx 反向代理
+
+### host配置
+
+```yml
+# dh，顶级域名使用的 sit-k8s.edhic.com
+127.0.0.1 dh-midlle-collectpage-web.sit-k8s.edhic.com
+127.0.0.1 dh-new-product.sit-k8s.edhic.com
+127.0.0.1 dh-channelhub-web.sit-k8s.edhic.com
+127.0.0.1 dh-sgraphene-base-common-web.sit-k8s.edhic.com
+```
+
+访问记得加上前端项目端口，因为 host 只能映射到 IP
+
+* https://dh-midlle-collectpage-web.sit-k8s.edhic.com:8001
+* https://dh-channelhub-web.sit-k8s.edhic.com:8000
+
+### Nginx本地域名做反向代理
+
+```conf
+server_names_hash_bucket_size 64;
+
+server {
+    listen       80;
+    # 聚合页面，统一入口
+    server_name dh-midlle-collectpage-web.sit-k8s.edhic.com;
+    
+    root         /root/app/dist; 
+    client_max_body_size 20m;
+    
+    location / {
+        proxy_buffering off;
+        proxy_set_header Host dh-midlle-collectpage-web.sit-k8s.edhic.com;
+        # client_header_timeout 300s; 默认为60秒
+        client_body_timeout 300s;
+        proxy_connect_timeout 300s; # 连接超时 默认为60秒
+        proxy_read_timeout 300s; # 读取超时 默认为60秒
+        proxy_send_timeout 300s; # 发送超时 默认为60秒
+        # proxy_pass http://localhost:5000;
+        proxy_pass http://localhost:8001;
+    }
+
+}
+
+server {
+    listen       80;
+    # 产品中心
+    server_name dh-new-product.sit-k8s.edhic.com;
+    
+    root         /root/app/dist; 
+    client_max_body_size 20m;
+    
+    location / {
+        proxy_buffering off;
+        proxy_set_header Host dh-new-product.sit-k8s.edhic.com;
+        # client_header_timeout 300s; 默认为60秒
+        client_body_timeout 300s;
+        proxy_connect_timeout 300s; #连接超时 默认为60秒
+        proxy_read_timeout 300s; #读取超时 默认为60秒
+        proxy_send_timeout 300s; #发送超时 默认为60秒
+        proxy_pass http://localhost:8081;
+    }
+}
+
+server {
+    listen       80;
+    server_name dh-channelhub-web.sit-k8s.edhic.com;
+    
+    root         /root/app/dist; 
+    client_max_body_size 20m;
+    
+    location / {
+        proxy_buffering off;
+        # proxy_set_header Host 
+        # client_header_timeout 300s; 默认为60秒
+        client_body_timeout 300s;
+        proxy_connect_timeout 300s; #连接超时 默认为60秒
+        proxy_read_timeout 300s; #读取超时 默认为60秒
+        proxy_send_timeout 300s; #发送超时 默认为60秒
+        proxy_pass http://localhost:8000;
+    }
+
+}
+
+server {
+    listen 80;
+    server_name dh-sgraphene-base-common-web.sit-k8s.edhic.com;
+
+    root         /root/app/dist; 
+    # client_max_body_size 20m;
+    
+    location / {
+        proxy_buffering off;
+        proxy_set_header Host dh-sgraphene-base-common-web.sit-k8s.edhic.com;
+        # client_header_timeout 300s; 默认为60秒
+        client_body_timeout 300s;
+        proxy_connect_timeout 300s; #连接超时 默认为60秒
+        proxy_read_timeout 300s; #读取超时 默认为60秒
+        proxy_send_timeout 300s; #发送超时 默认为60秒
+        proxy_pass http://localhost:8080;
+    }
+}
+
+# another virtual host using mix of IP-, name-, and port-based configuration
+#
+server {
+    listen 9898;
+
+    location / {
+        root   html;
+        index  index.html index.htm;
+    }
+}
+```
+
+聚合页面项目 `dh-midlle-collectpage-web` 本地开发可以建立 `env/local.js` 文件
+
+```js
+module.exports = {
+  'channel-hub': {
+    target: 'http://dh-channelhub-web.sit-k8s.edhic.com:8000/',
+    spa: true,
+  },
+  'product-center': {
+    target: 'http://42-midplatform-zt-dh-new-product.sit-k8s.edhic.com/',
+    spa: true,
+  },
+  'template': {
+    target: 'http://43-midplatform-zt-dh-channelhub-web.sit-k8s.edhic.com/',
+    targetPath: '/template',
+    spa: true,
+  },
+  'sgraphene': {
+    target: 'http://48-midplatform-zt-dh-sgraphene-base-common-web.sit-k8s.edhic.com/',
+    spa: true,
+  },
+  'person-center': {
+    target: 'http://48-midplatform-zt-dh-sgraphene-base-common-web.sit-k8s.edhic.com/',
+    targetPath: '/person-set',
+    spa: true,
+  },
+  'common-search': {
+    target: 'http://45-midplatform-zt-dh-common-search.sit-k8s.edhic.com/',
+    spa: true,
+  },
+  'gateway': {
+    target: 'http://102-midplatform-zt-dh-dplatform-gateway.sit-k8s.edhic.com/',
+    spa: true,
+  },
+  'zatech-uw':{
+    target: 'http://52-midplatform-zt-dh-uwe-web.sit-k8s.edhic.com/',
+    spa: true,
+  }
+}
+```
+
+后端启动，改下 nacos 的配置地址，端口，
+
+## DH订单保单分库分表查询
+
+订单保单都分了 2 个库，一个库 16 个表，总共 32 个表，开发测试如何快速判断数据在哪个表，查询两个库表最后更新时间 UPDATE_TIME 来判断数据落到那个表中，不必每次执行分库分表算法来查找
+
+```sql
+SELECT TABLE_NAME, UPDATE_TIME FROM information_schema.TABLES WHERE TABLE_SCHEMA IN ('dh_order_00', 'dh_order_01') ORDER BY TABLE_NAME;
+```
+
 ## 转换时间存在'T'
 
 对接 `.NET` 接口时，对方请求 `Json` 报文时间存在一个 `'T'`
