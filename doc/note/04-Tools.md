@@ -26,11 +26,24 @@
 
 把所有微服务代码放在一个文件夹下，IDEA 打开这个文件夹，然后点击 File - New - Module from Existing sources，导入对应的微服务模块即可
 
+## IDEA启动配置参数
+
+```java
+-DDEPLOY_ENV=dev -DSERVER_ADDR=10.248.104.42:8848 -DNAMESPACE=30c31600-7150-4c48-84a9-8f8d54fe39b9
+```
+
+IDEA 配置在 `VM options` 即可
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN2@master/2021/04/20210427005.png)
+
+![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN2@master/2021/04/20210427010.png)
+
 ## IDEA编译乱码
 
 IDEA 内点击项目名称右键，选择 Remove BOM 即可将项目中 UTF-8 BOM 的文件去为 NO BOM，非法字符就好了
 
 * [IDEA提示非法字符，你不懂的UTF-8](https://www.cnblogs.com/julytail/p/10291709.html)
+* [关于IntelliJ IDEA解决文件带BOM的问题](https://www.pianshen.com/article/8197992925)
 
 ## JBoss部署
 

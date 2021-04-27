@@ -426,3 +426,9 @@ url = url + "?reportName=" + reportName + "&inputArgs[]=" + inputArgs[0] +
 ```java
 String[] inputArgs = request.getParameterValues("inputArgs[]");
 ```
+
+## @FeignClient注解接口无法注入
+
+启动类上没有使用 `@EnableFeignClients` 扫描指定包
+
+[解决通过@FeignClient自动注入service失败的问题](https://blog.csdn.net/pk694046220/article/details/105060307)
