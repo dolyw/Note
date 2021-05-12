@@ -212,21 +212,29 @@ git config user.name "name"
 git config user.email "email"
 ```
 
-## 6. 工具使用注意
+## 6. Gitlab使用注意
 
-### 6.1. IDEA
+生成密钥看文档先，注意 `-b 4096`
+
+``` bash
+ssh-keygen -t rsa -C "your.email@example.com" -b 4096
+```
+
+## 7. 工具使用注意
+
+### 7.1. IDEA
 
 **IDEA记得设置SSH认证为Native**
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191105018.png)
 
-### 6.2. TortoiseGit
+### 7.2. TortoiseGit
 
 **TortoiseGit记得设置SSH认证为Git默认的**
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2019/11/20191105019.png)
 
-## 7. 修改Https为SSH
+## 8. 修改Https为SSH
 
 > 也可以直接修改.git下的config文件
 
