@@ -10,15 +10,6 @@
 - [**Python - Python的一些记录**](/python/)
 - [**前端专题 - 前端的一些记录**](/front/)
 
-<!-- :cloud: -->
-:wrench:
-
-- [**分布式系列 - 相关学习**](/distributed/)
-- [**Spring系列 - Spring的一些记录**](/springboot/)
-- [**Dubbo系列 - Dubbo的入门**](/dubbo/)
-- [**Docker系列 - Docker的一些使用**](/docker/)
-- [**调优系列 - SQL、JVM、容器调优记录**](/tuning/)
-
 :floppy_disk:
 
 - [**Database - 数据库系列**](/database/)
@@ -26,6 +17,15 @@
 - [**Cache - 缓存系列**](/cache/)
 - [**MQ - 消息队列**](/mq/)
 - [**FileSystem - 文件系统**](/fs/)
+
+<!-- :cloud: -->
+:wrench:
+
+- [**分布式系列 - ID、锁、Session、事务等等**](/distributed/)
+- [**Spring系列 - Spring的一些记录**](/springboot/)
+- [**Dubbo系列 - Dubbo的入门**](/dubbo/)
+- [**Docker系列 - Docker的一些使用**](/docker/)
+- [**调优系列 - SQL、JVM、容器调优记录**](/tuning/)
 
 :art:
 

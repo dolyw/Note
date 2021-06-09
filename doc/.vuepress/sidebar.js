@@ -84,10 +84,11 @@ module.exports = sidebar = {
     '/database/': [
         ['', 'Database'],
         ['00-Isolation', 'ACID以及事务隔离级别'],
-        ['02-DB-Install', 'Database安装使用'],
-        ['01-MySQL-Lock', 'MySQL那些锁'],
+        /* ['02-DB-Install', 'Database安装使用'], */
+        ['01-MySQL-Lock', 'MySQL的那些锁'],
+        ['02-MySQL-Storage-Engine', 'MySQL存储引擎'],
         /* ['02-DB-NF', 'Database中的范式理论'], */
-        ['03-MySQL-Index-B+', 'MySQL索引以及B+树'],
+        ['03-MySQL-Index', 'MySQL索引及结构'],
         ['10-MySQL-SQL', 'MySQL的SQL优化']
     ],
     '/tuning/': [

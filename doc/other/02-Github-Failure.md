@@ -10,7 +10,7 @@
 
 1. 在本地 host 文件中添加映射，步骤如下
 2. 用文本编辑器打开 hosts 文件，Windows 系统位于 `C:\Windows\System32\drivers\etc` 目录下，Linux `/etc/hosts` (其他系统请自行查阅)
-3. 打开[http://tool.chinaz.com/dns](http://tool.chinaz.com/dns) 或者 [https://www.ipaddress.com](https://www.ipaddress.com)，这是两个查询域名映射关系的工具
+3. 打开[http://tool.chinaz.com/dns](http://tool.chinaz.com/dns) 或者 [https://www.ipaddress.com](https://www.ipaddress.com)，这是两个查询域名映射关系的工具，我一般用后者
 4. 查询 `github.global.ssl.fastly.net` 和 `assets-cdn.github.com` 两个地址，以及 F12 请求失败的地址，获取 IP  
 5. 反复多查几次，选择一个比较稳定，延迟较低的 TTL 按如下方式添加到 Host 文件
 6. 刷新命令
