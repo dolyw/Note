@@ -4,9 +4,9 @@
 
 ![图片](https://img10.360buyimg.com/img/jfs/t28009/85/679233078/344896/8bef206a/5bfaa166N310607a5.jpg)
 
-* **一般有 filter 操作时，不用并行流 parallelStream，如果用的话可能会导致线程安全问题**
-* **distinct() 只能对于简单的如 List<String>，List<int> 等起作用，而对于 List<T> 不起作用**
-* **判断对象要重写 hash**
+* **一般有 `filter` 操作时，不用并行流 `parallelStream`，如果用的话可能会导致线程安全问题**
+* **`distinct()` 只能对于简单的如 `List<String>，List<int>` 等起作用，而对于 `List<T>` 不起作用**
+* **判断对象要重写 `hash`**
 
 ## 去重
 

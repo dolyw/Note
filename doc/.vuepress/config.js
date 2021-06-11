@@ -23,7 +23,8 @@ module.exports = {
         // 页面加载条
         require('./plugins/diy-loader'),
         // 图片点击查看 https://github.com/dongyuanxin/blog/blob/master/.vuepress/config.js
-        // require('vuepress-plugin-viewer'),
+        // yarn add -D vuepress-plugin-viewer
+        /* require('vuepress-plugin-viewer'), */
         [
             '@vuepress/medium-zoom',
             {
@@ -33,14 +34,30 @@ module.exports = {
                 options: {
                     margin: 24,
                     // background: '#BADA55',
+                    'background': '#202124de',
                     // container: '#zoom-container',
                     // template: '#zoom-template'
                     scrollOffset: 0
                 }
             }
         ],
-        // 点击链接平滑滚动
+        // 点击链接平滑滚动 yarn add -D vuepress-plugin-smooth-scroll
         ['vuepress-plugin-smooth-scroll'],
+        // 代码块添加复制按钮 yarn add -D vuepress-plugin-nuggets-style-copy
+        // https://www.npmjs.com/package/vuepress-plugin-nuggets-style-copy
+        [
+            "vuepress-plugin-nuggets-style-copy", 
+            {
+                copyText: "复制代码",
+                visibleTip: false
+                /* tip: {
+                    title: "提示",
+                    content: "复制成功"
+                } */
+            }
+        ],
+        // yarn add -D vuepress-plugin-boxx
+        /* ['vuepress-plugin-boxx'], */
         ['@vuepress/back-to-top'],
         ['@vuepress/active-header-links'],
         [

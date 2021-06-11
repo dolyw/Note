@@ -92,7 +92,7 @@ MySQL 中锁定粒度最小的一种锁，只针对当前操作的行进行加�
 * Record lock：记录锁，单个行记录上的锁
 * Gap lock：间隙锁，锁定一个范围，不包括记录本身
 * Next-key lock：record+gap临键锁，锁定一个范围，包含记录本身
-* **详细查看：[MySQL的那些锁-InnoDB锁算法](01-MySQL-Lock.html#_4-2-间隙锁-gap-lock)**
+* **详细查看：[MySQL的那些锁-InnoDB锁算法](01-MySQL-Lock.html#_4-1-记录锁-record-lock)**
 :::
 
 **MVCC**
