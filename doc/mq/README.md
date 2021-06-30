@@ -6,8 +6,9 @@
 
 本栏的主要内容如下
 
-* [MQ了解及对比选型](00-MQ-Select.html)
-* [RabbitMQ安装使用](10-RabbitMQ.html)
+* [MQ了解对比选型](00-MQ-Select.html)
+* [RabbitMQ的安装](10-RabbitMQ.html)
+* [RabbitMQ的使用](11-RabbitMQ-Use.html)
 
 **推荐阅读**
 

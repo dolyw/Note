@@ -126,8 +126,9 @@ module.exports = sidebar = {
     // 消息队列
     '/mq/': [
         ['', '消息队列'],
-        ['00-MQ-Select', '消息队列了解及对比选型'],
-        ['10-RabbitMQ', 'RabbitMQ的安装使用']
+        ['00-MQ-Select', 'MQ了解对比选型'],
+        ['10-RabbitMQ', 'RabbitMQ的安装'],
+        ['11-RabbitMQ-Use', 'RabbitMQ的使用']
     ],
     // 文件系统
     '/fs/': [

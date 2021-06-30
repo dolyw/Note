@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>RabbitMQ的使用 | 笔记</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/favicon.ico">
+    <script type="text/javascript" src="https://unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/wliduo/Index@master/static/count.js"></script>
+    <meta name="description" content="世界上最大的谎言就是你不行">
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/css/0.styles.61f57d37.css" as="style"><link rel="preload" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/app.470f711f.js" as="script"><link rel="preload" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/2.a354e7c3.js" as="script"><link rel="preload" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/130.c72492ca.js" as="script"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/10.0c4ce86c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/100.635ed39f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/101.a55ab162.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/102.a1523c94.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/103.26da76ec.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/104.90cdb7e6.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/105.4d36c00c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/106.a44b4bc0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/107.4b9abb94.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/108.29a4859b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/109.5735c006.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/11.40398116.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/110.958f9eaa.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/111.65e7a151.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/112.291240e6.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/113.88ec96a3.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/114.4c4da26c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/115.b6f7e24f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/116.5a614edf.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/117.72918457.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/118.e4a4120a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/119.86990d02.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/12.32982717.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/120.9e190faa.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/121.5e633ae7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/122.bb417703.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/123.4dc60142.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/124.4efb68b9.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/125.93f762f8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/126.2f58d0f2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/127.0bcdb7da.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/128.3ee5a25a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/129.cc6681b5.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/13.728a664e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/131.421c2346.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/132.d1bf115c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/133.1bab2379.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/134.69061ee3.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/135.5a6e3e2c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/136.da5bc49b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/137.8d48384e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/138.bf50ea3d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/139.86607e15.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/14.f8393e67.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/140.297b7bea.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/141.5f32ec80.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/142.e65be8a0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/143.82095171.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/144.efd47278.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/145.a28ae5e5.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/146.1bdb0cc9.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/147.229ace97.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/148.6b633a4f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/149.6acd82d2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/15.4dc09b4e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/150.a9404d2f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/151.d57a20a4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/152.25f73b6c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/153.7a0c46e3.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/154.01bf343c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/155.3642de1d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/156.f4e2627d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/157.b674823d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/158.a97a26e1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/159.5ed387b9.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/16.91753253.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/160.acf3d80e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/161.2d89a034.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/162.352125c8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/163.cebf1dd2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/164.7ec42fd8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/165.0fe951a0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/166.bfe7531e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/167.250b759c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/168.7217795f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/169.47a10036.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/17.a0c935e4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/170.597bae7e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/171.a612f897.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/172.2238d589.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/173.9e9cc952.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/174.3404dbb2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/175.d408fb18.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/176.9e8f4744.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/177.60eaf666.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/178.37151504.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/179.718871e6.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/18.f01a8fa4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/180.398b71d6.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/19.215320be.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/20.00a8acc6.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/21.768fa495.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/22.56709e9a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/23.786beb46.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/24.7a866742.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/25.7d2af3d8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/26.c665e265.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/27.2e28a0f8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/28.f6b8c6b1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/29.7099c116.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/3.cf8b60e0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/30.89059316.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/31.13941c6f.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/32.a2486d23.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/33.6abe4eb4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/34.5c8d5ed3.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/35.4340b076.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/36.5818d6e8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/37.93d68693.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/38.0380819d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/39.4e60aaa9.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/4.2aca6af0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/40.2f8e19f8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/41.71bd81ef.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/42.cc176f90.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/43.4ad2481c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/44.8032df96.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/45.1a91f60c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/46.51d75f2c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/47.a1a62239.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/48.701296d1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/49.3aacab9b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/5.eaaa8088.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/50.eeb1acf1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/51.c55743c0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/52.8ec17525.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/53.942ce724.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/54.df89308c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/55.2e905c54.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/56.5031335d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/57.062bcd3a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/58.ac7c52d2.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/59.3ebd1f66.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/6.66e3994a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/60.e0c4b982.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/61.5261b76b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/62.05896bba.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/63.a6bb2487.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/64.5e0e4e6c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/65.4fb93dc0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/66.c5f7f003.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/67.a8ae243e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/68.2d091a6b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/69.27f96fd8.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/7.0425f5b4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/70.ecf1ce7e.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/71.1183d8a4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/72.b1bf3244.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/73.7401e112.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/74.73b49192.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/75.e0418b1d.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/76.518ef996.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/77.8c0ee4a0.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/78.a3a3bb18.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/79.d08dd0d3.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/8.2d5ba24b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/80.33894693.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/81.18adbaf4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/82.345213f1.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/83.048a44f4.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/84.556e59c7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/85.a57abf7c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/86.d0faa9e7.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/87.7d794910.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/88.ee191c95.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/89.7a89e381.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/9.86ea5d8c.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/90.da396e97.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/91.bdce0e43.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/92.ce9fce83.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/93.d7bbcb6a.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/94.7cec2e6b.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/95.696dd7ca.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/96.fd03c741.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/97.67417a02.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/98.080dd153.js"><link rel="prefetch" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/99.3520d8cc.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/css/0.styles.61f57d37.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/map.html" class="nav-link">
+  整站地图
+</a></div><div class="nav-item"><a href="/study.html" class="nav-link">
+  学习目录
+</a></div><div class="nav-item"><a href="/project.html" class="nav-link">
+  开源项目
+</a></div><div class="nav-item"><a href="/issues.html" class="nav-link">
+  疑问提交
+</a></div> <a href="https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/map.html" class="nav-link">
+  整站地图
+</a></div><div class="nav-item"><a href="/study.html" class="nav-link">
+  学习目录
+</a></div><div class="nav-item"><a href="/project.html" class="nav-link">
+  开源项目
+</a></div><div class="nav-item"><a href="/issues.html" class="nav-link">
+  疑问提交
+</a></div> <a href="https://github.com/dolyw" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/mq/" aria-current="page" class="sidebar-link">消息队列</a></li><li><a href="/mq/00-MQ-Select.html" class="sidebar-link">MQ了解对比选型</a></li><li><a href="/mq/10-RabbitMQ.html" class="sidebar-link">RabbitMQ的安装</a></li><li><a href="/mq/11-RabbitMQ-Use.html" aria-current="page" class="active sidebar-link">RabbitMQ的使用</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_1-简单介绍" class="sidebar-link">1. 简单介绍</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_1-1-queue" class="sidebar-link">1.1. Queue</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_1-2-exchange" class="sidebar-link">1.2. Exchange</a></li></ul></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_2-工作模式" class="sidebar-link">2. 工作模式</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_2-1-simplequeue" class="sidebar-link">2.1. SimpleQueue</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_2-2-workqueues" class="sidebar-link">2.2. WorkQueues</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_2-3-publish-subscribe" class="sidebar-link">2.3. Publish/Subscribe</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_2-4-routing" class="sidebar-link">2.4. Routing</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_2-5-topics" class="sidebar-link">2.5. Topics</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_2-6-rpc" class="sidebar-link">2.6. RPC</a></li></ul></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_3-死信队列" class="sidebar-link">3. 死信队列</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_4-消息可靠" class="sidebar-link">4. 消息可靠</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_4-1-confirmreturns" class="sidebar-link">4.1. ConfirmReturns</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_4-2-手动ack" class="sidebar-link">4.2. 手动ACK</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_4-3-消息重试" class="sidebar-link">4.3. 消息重试</a></li></ul></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_5-消息过期" class="sidebar-link">5. 消息过期</a></li><li class="sidebar-sub-header"><a href="/mq/11-RabbitMQ-Use.html#_6-消息持久化" class="sidebar-link">6. 消息持久化</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="rabbitmq的使用"><a href="#rabbitmq的使用" class="header-anchor">#</a> RabbitMQ的使用</h1> <p>RabbitMQ 是以 AMQP 协议实现的一种中间件产品，它可以支持多种操作系统，多种编程语言，几乎可以覆盖所有主流的企业级技术平台</p> <h2 id="_1-简单介绍"><a href="#_1-简单介绍" class="header-anchor">#</a> 1. 简单介绍</h2> <h3 id="_1-1-queue"><a href="#_1-1-queue" class="header-anchor">#</a> 1.1. Queue</h3> <p>Queue（队列）是 RabbitMQ 的内部对象，用于存储消息</p> <h3 id="_1-2-exchange"><a href="#_1-2-exchange" class="header-anchor">#</a> 1.2. Exchange</h3> <p>首先明确一点就是生产者产生的消息并不是直接发送给消息队列 Queue 的，而是要经过 Exchange（交换器），由 Exchange 再将消息路由到一个或多个 Queue，当然这里还会对不符合路由规则的消息进行丢弃掉，这里指的是后续要谈到的 Exchange Type</p> <p><strong>Exchange Type</strong></p> <ul><li>直连交换机：Direct exchange：匹配 RoutingKey 路由键</li> <li>扇形交换机：Fanout exchange：忽略 RoutingKey 路由键</li> <li>主体交换机：Topic exchange：模糊匹配 RoutingKey 路由键</li> <li>头部交换机：Headers exchange：忽略 RoutingKey 路由键，通过 Headers 信息匹配</li></ul> <h2 id="_2-工作模式"><a href="#_2-工作模式" class="header-anchor">#</a> 2. 工作模式</h2> <blockquote><p>SpringBoot下的配置使用</p></blockquote> <h3 id="_2-1-simplequeue"><a href="#_2-1-simplequeue" class="header-anchor">#</a> 2.1. SimpleQueue</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># RabbitMQ交换机及队列名称配置</span>
+<span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+  <span class="token key atrule">simpleQueue</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> simpleQueue
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Queue</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Value</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Bean</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Configuration</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 1. SimpleQueue模式配置
+ *
+ * 一对一，一个生产者，一个消费者
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 14:22
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleQueueConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * SimpleQueue队列名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.simpleQueue.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> simpleQueueName<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 声明一个SimpleQueue队列
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">simpleQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>simpleQueueName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>service</span><span class="token punctuation">.</span><span class="token class-name">BusinessService</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>rabbit<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">RabbitListener</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype</span><span class="token punctuation">.</span><span class="token class-name">Component</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 1. SimpleQueue模式配置
+ *
+ * 一对一，一个生产者，一个消费者
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 15:13
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleQueueReceiver</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">BusinessService</span> businessService<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 消费
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.simpleQueue.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [SimpleQueue] Received '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * SimpleQueue队列名称
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.simpleQueue.name}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> simpleQueueName<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">RabbitTemplate</span> rabbitTemplate<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * SimpleQueue发送MQ消息
+ *
+ * @param text
+ * @return java.lang.String
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 17:00
+ */</span>
+<span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">&quot;SimpleQueue发送MQ消息&quot;</span><span class="token punctuation">,</span> notes<span class="token operator">=</span><span class="token string">&quot;SimpleQueue发送MQ消息&quot;</span><span class="token punctuation">,</span> produces<span class="token operator">=</span><span class="token string">&quot;application/json&quot;</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/sendSimpleQueue&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sendSimpleQueue</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">String</span> text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 队列名，消息内容</span>
+    rabbitTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>simpleQueueName<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> text<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2-2-workqueues"><a href="#_2-2-workqueues" class="header-anchor">#</a> 2.2. WorkQueues</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># RabbitMQ交换机及队列名称配置</span>
+<span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+  <span class="token key atrule">workQueue</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> workQueue
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Queue</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Value</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Bean</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Configuration</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 2. WorkQueues模式配置
+ *
+ * 一对多，一个生产者，多个消费者竞争消费消息
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 14:22
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WorkQueuesConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * WorkQueues队列名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.workQueue.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> workQueueName<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 声明一个WorkQueues队列
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">workQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>workQueueName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>service</span><span class="token punctuation">.</span><span class="token class-name">BusinessService</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>rabbit<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">RabbitListener</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype</span><span class="token punctuation">.</span><span class="token class-name">Component</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 2. WorkQueues模式配置
+ *
+ * 一对多，一个生产者，多个消费者竞争消费消息
+ *
+ * 直接@Component注解创建单个消费者实例
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 15:13
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WorkQueuesReceiver</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">BusinessService</span> businessService<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 消费者1
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.workQueue.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [WorkQueues] Received1 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 消费者2
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.workQueue.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive2</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [WorkQueues] Received2 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 消费者3
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.workQueue.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive3</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [WorkQueues] Received3 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * WorkQueues队列名称
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.workQueue.name}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> workQueueName<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">RabbitTemplate</span> rabbitTemplate<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * WorkQueues模式发送MQ消息
+ *
+ * @param text
+ * @return java.lang.String
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 17:00
+ */</span>
+<span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">&quot;WorkQueues模式发送MQ消息&quot;</span><span class="token punctuation">,</span> notes<span class="token operator">=</span><span class="token string">&quot;WorkQueues模式发送MQ消息&quot;</span><span class="token punctuation">,</span> produces<span class="token operator">=</span><span class="token string">&quot;application/json&quot;</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/sendWorkQueues&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sendWorkQueues</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">String</span> text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 队列名，消息内容</span>
+    rabbitTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>workQueueName<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> text<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2-3-publish-subscribe"><a href="#_2-3-publish-subscribe" class="header-anchor">#</a> 2.3. Publish/Subscribe</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># RabbitMQ交换机及队列名称配置</span>
+<span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+  <span class="token key atrule">publishSubscribe</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> publishSubscribeExchange
+    <span class="token key atrule">queue1</span><span class="token punctuation">:</span> publishSubscribeQueue1
+    <span class="token key atrule">queue2</span><span class="token punctuation">:</span> publishSubscribeQueue2
+    <span class="token key atrule">queue3</span><span class="token punctuation">:</span> publishSubscribeQueue3
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Binding</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">BindingBuilder</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">FanoutExchange</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Queue</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Value</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Bean</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Configuration</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 3. Publish/Subscribe模式配置
+ *
+ * 生产者将消息不是直接发送到队列，而是发送到交换机
+ * 然后由交换机发送给多个绑定队列
+ * 多个消费者各自监听一个队列，来消费消息
+ *
+ * 这种方式实现同一个消息被多个消费者消费
+ *
+ * 交换机四种模式
+ * 1. 直连交换机：Direct exchange：匹配RoutingKey路由键
+ * 2. 扇形交换机：Fanout exchange：忽略RoutingKey路由键
+ * 3. 主体交换机：Topic exchange：模糊匹配RoutingKey路由键
+ * 4. 头部交换机：Headers exchange：忽略RoutingKey路由键，通过Headers信息匹配
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 14:22
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PublishSubscribeConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 交换机名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.publishSubscribe.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> publishSubscribeName<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列1名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.publishSubscribe.queue1}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> publishSubscribeQueueName1<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列2名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.publishSubscribe.queue2}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> publishSubscribeQueueName2<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列2名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.publishSubscribe.queue3}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> publishSubscribeQueueName3<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 声明一个Fanout交换机
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">FanoutExchange</span> <span class="token function">publishSubscribe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">FanoutExchange</span><span class="token punctuation">(</span>publishSubscribeName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment">/**
+     * 声明一个队列1
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">publishSubscribeQueue1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>publishSubscribeQueueName1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 声明一个队列2
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">publishSubscribeQueue2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>publishSubscribeQueueName2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 声明一个队列3
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">publishSubscribeQueue3</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>publishSubscribeQueueName3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment">/**
+     * 队列1绑定交换机
+     * @param publishSubscribe
+     * @param publishSubscribeQueue1
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">publishSubscribeBinding1</span><span class="token punctuation">(</span><span class="token class-name">FanoutExchange</span> publishSubscribe<span class="token punctuation">,</span> <span class="token class-name">Queue</span> publishSubscribeQueue1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>publishSubscribeQueue1<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>publishSubscribe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 队列2绑定交换机
+     * @param publishSubscribe
+     * @param publishSubscribeQueue2
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">publishSubscribeBinding2</span><span class="token punctuation">(</span><span class="token class-name">FanoutExchange</span> publishSubscribe<span class="token punctuation">,</span> <span class="token class-name">Queue</span> publishSubscribeQueue2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>publishSubscribeQueue2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>publishSubscribe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 队列3绑定交换机
+     * @param publishSubscribe
+     * @param publishSubscribeQueue3
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">publishSubscribeBinding3</span><span class="token punctuation">(</span><span class="token class-name">FanoutExchange</span> publishSubscribe<span class="token punctuation">,</span> <span class="token class-name">Queue</span> publishSubscribeQueue3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>publishSubscribeQueue3<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>publishSubscribe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>service</span><span class="token punctuation">.</span><span class="token class-name">BusinessService</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>rabbit<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">RabbitListener</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype</span><span class="token punctuation">.</span><span class="token class-name">Component</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 3. Publish/Subscribe模式配置
+ *
+ * 生产者将消息不是直接发送到队列，而是发送到交换机
+ * 然后由交换机发送给多个绑定队列
+ * 多个消费者各自监听一个队列，来消费消息
+ *
+ * 这种方式实现同一个消息被多个消费者消费
+ *
+ * 交换机四种模式
+ * 1. 直连交换机：Direct exchange：匹配RoutingKey路由键
+ * 2. 扇形交换机：Fanout exchange：忽略RoutingKey路由键
+ * 3. 主体交换机：Topic exchange：模糊匹配RoutingKey路由键
+ * 4. 头部交换机：Headers exchange：忽略RoutingKey路由键，通过Headers信息匹配
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 15:13
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PublishSubscribeReceiver</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">BusinessService</span> businessService<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 消费队列1
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.publishSubscribe.queue1}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive1</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Publish/Subscribe] Received1 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 消费队列2
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.publishSubscribe.queue2}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive2</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Publish/Subscribe] Received2 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 消费队列3
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.publishSubscribe.queue3}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive3</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Publish/Subscribe] Received3 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Publish/Subscribe交换机名称
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.publishSubscribe.name}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> publishSubscribeName<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">RabbitTemplate</span> rabbitTemplate<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Publish/Subscribe模式发送MQ消息
+ *
+ * @param text
+ * @return java.lang.String
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 17:03
+ */</span>
+<span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">&quot;Publish/Subscribe模式发送MQ消息&quot;</span><span class="token punctuation">,</span> notes<span class="token operator">=</span><span class="token string">&quot;Publish/Subscribe模式发送MQ消息&quot;</span><span class="token punctuation">,</span> produces<span class="token operator">=</span><span class="token string">&quot;application/json&quot;</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/sendPublishSubscribe&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sendPublishSubscribe</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">String</span> text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 交换机名，消息内容</span>
+    rabbitTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>publishSubscribeName<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> text<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2-4-routing"><a href="#_2-4-routing" class="header-anchor">#</a> 2.4. Routing</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># RabbitMQ交换机及队列名称配置</span>
+<span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+  <span class="token key atrule">routing</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> routingExchange
+    <span class="token key atrule">queue1</span><span class="token punctuation">:</span> routingQueue1
+    <span class="token key atrule">queueRoutingKey1</span><span class="token punctuation">:</span>
+    <span class="token key atrule">queue2</span><span class="token punctuation">:</span> routingQueue2
+    <span class="token key atrule">queueRoutingKey2</span><span class="token punctuation">:</span> app
+    <span class="token key atrule">queue3</span><span class="token punctuation">:</span> routingQueue3
+    <span class="token key atrule">queueRoutingKey3</span><span class="token punctuation">:</span> pc
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Binding</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">BindingBuilder</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">DirectExchange</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Queue</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Value</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Bean</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Configuration</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 4. Routing模式配置
+ *
+ * 生产者将消息不是直接发送到队列，而是发送到交换机
+ * 然后由交换机匹配路由键，发送到路由键一致的所有队列
+ * 多个消费者各自监听一个队列，来消费消息
+ *
+ * 这种方式实现同一个消息被多个消费者消费
+ *
+ * 交换机四种模式
+ * 1. 直连交换机：Direct exchange：匹配RoutingKey路由键
+ * 2. 扇形交换机：Fanout exchange：忽略RoutingKey路由键
+ * 3. 主体交换机：Topic exchange：模糊匹配RoutingKey路由键
+ * 4. 头部交换机：Headers exchange：忽略RoutingKey路由键，通过Headers信息匹配
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 14:22
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RoutingConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 交换机名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> routingName<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列1名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queue1}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> routingQueueName1<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列2名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queue2}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> routingQueueName2<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列2名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queue3}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> routingQueueName3<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列1路由键
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queueRoutingKey1}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey1<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列2路由键
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queueRoutingKey2}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey2<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列3路由键
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queueRoutingKey3}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey3<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 声明一个Direct交换机
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">DirectExchange</span> <span class="token function">directExchange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">DirectExchange</span><span class="token punctuation">(</span>routingName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment">/**
+     * 声明一个队列1
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">routingQueue1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>routingQueueName1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 声明一个队列2
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">routingQueue2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>routingQueueName2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 声明一个队列3
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">routingQueue3</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>routingQueueName3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment">/**
+     * 队列1绑定交换机
+     * @param directExchange
+     * @param routingQueue1
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">routingBinding1</span><span class="token punctuation">(</span><span class="token class-name">DirectExchange</span> directExchange<span class="token punctuation">,</span> <span class="token class-name">Queue</span> routingQueue1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>routingQueue1<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>directExchange<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">with</span><span class="token punctuation">(</span>queueRoutingKey1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 队列2绑定交换机
+     * @param directExchange
+     * @param routingQueue2
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">routingBinding2</span><span class="token punctuation">(</span><span class="token class-name">DirectExchange</span> directExchange<span class="token punctuation">,</span> <span class="token class-name">Queue</span> routingQueue2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>routingQueue2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>directExchange<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">with</span><span class="token punctuation">(</span>queueRoutingKey2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 队列3绑定交换机
+     * @param directExchange
+     * @param routingQueue3
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">routingBinding3</span><span class="token punctuation">(</span><span class="token class-name">DirectExchange</span> directExchange<span class="token punctuation">,</span> <span class="token class-name">Queue</span> routingQueue3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>routingQueue3<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>directExchange<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">with</span><span class="token punctuation">(</span>queueRoutingKey3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>service</span><span class="token punctuation">.</span><span class="token class-name">BusinessService</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>rabbitmq<span class="token punctuation">.</span>client</span><span class="token punctuation">.</span><span class="token class-name">Channel</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Message</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>rabbit<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">RabbitListener</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype</span><span class="token punctuation">.</span><span class="token class-name">Component</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io</span><span class="token punctuation">.</span><span class="token class-name">IOException</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 4. Routing模式配置
+ *
+ * 生产者将消息不是直接发送到队列，而是发送到交换机
+ * 然后由交换机匹配路由键，发送到路由键一致的所有队列
+ * 多个消费者各自监听一个队列，来消费消息
+ *
+ * 这种方式实现同一个消息被多个消费者消费
+ *
+ * 交换机四种模式
+ * 1. 直连交换机：Direct exchange：匹配RoutingKey路由键
+ * 2. 扇形交换机：Fanout exchange：忽略RoutingKey路由键
+ * 3. 主体交换机：Topic exchange：模糊匹配RoutingKey路由键
+ * 4. 头部交换机：Headers exchange：忽略RoutingKey路由键，通过Headers信息匹配
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 15:13
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RoutingReceiver</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">BusinessService</span> businessService<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 消费队列1
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.routing.queue1}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive1</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Routing] Received1 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 消费队列2
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.routing.queue2}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive2</span><span class="token punctuation">(</span><span class="token class-name">String</span> text<span class="token punctuation">,</span> <span class="token class-name">Channel</span> channel<span class="token punctuation">,</span> <span class="token class-name">Message</span> message<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Routing] Received2 '&quot;</span> <span class="token operator">+</span> text <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        <span class="token comment">// businessService.handle(message);</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 消息ACK确认</span>
+            channel<span class="token punctuation">.</span><span class="token function">basicAck</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getMessageProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDeliveryTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 消费队列3
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.routing.queue3}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive3</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Routing] Received3 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Routing交换机名称
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.name}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> routingName<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Routing交换机所绑定的队列1路由键
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queueRoutingKey1}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey1<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Routing交换机所绑定的队列2路由键
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queueRoutingKey2}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey2<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Routing交换机所绑定的队列3路由键
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.routing.queueRoutingKey3}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey3<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">RabbitTemplate</span> rabbitTemplate<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Routing模式发送MQ消息
+ *
+ * @param text
+ * @return java.lang.String
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/22 15:09
+ */</span>
+<span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">&quot;Routing模式发送MQ消息&quot;</span><span class="token punctuation">,</span> notes<span class="token operator">=</span><span class="token string">&quot;Routing模式发送MQ消息&quot;</span><span class="token punctuation">,</span> produces<span class="token operator">=</span><span class="token string">&quot;application/json&quot;</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/sendRouting&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sendRouting</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">String</span> text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 交换机名，消息内容</span>
+    <span class="token comment">// rabbitTemplate.convertAndSend(routingName, queueRoutingKey1, text);</span>
+    rabbitTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>routingName<span class="token punctuation">,</span> queueRoutingKey2<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// rabbitTemplate.convertAndSend(routingName, queueRoutingKey3, text);</span>
+    <span class="token keyword">return</span> text<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2-5-topics"><a href="#_2-5-topics" class="header-anchor">#</a> 2.5. Topics</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># RabbitMQ交换机及队列名称配置</span>
+<span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+  <span class="token key atrule">topics</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> topicsExchange
+    <span class="token key atrule">queue1</span><span class="token punctuation">:</span> topicsQueue1
+    <span class="token key atrule">queueRoutingKey1</span><span class="token punctuation">:</span>
+    <span class="token key atrule">queue2</span><span class="token punctuation">:</span> topicsQueue2
+    <span class="token comment"># 特殊字符转义</span>
+    <span class="token key atrule">queueRoutingKey2</span><span class="token punctuation">:</span> <span class="token string">&quot;*&quot;</span>
+    <span class="token key atrule">queue3</span><span class="token punctuation">:</span> topicsQueue3
+    <span class="token comment"># 特殊字符转义</span>
+    <span class="token key atrule">queueRoutingKey3</span><span class="token punctuation">:</span> <span class="token string">&quot;#&quot;</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Binding</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">BindingBuilder</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">DirectExchange</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Queue</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">TopicExchange</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Value</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Bean</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Configuration</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 5. Topics模式配置
+ *
+ * 生产者将消息不是直接发送到队列，而是发送到交换机
+ * 然后由交换机匹配路由键，发送到路由键模糊匹配到的所有队列
+ * 多个消费者各自监听一个队列，来消费消息
+ *
+ * 这种方式实现同一个消息被多个消费者消费
+ *
+ * 模糊匹配
+ * '*'标识匹配点内一个或者多个字符，例a.*匹配a.a，a.aa，a.aaa，无法匹配a.a.a
+ * '#'标识匹配所有点一个或者多个字符，例a.#匹配a.a，a.a.a，a.aa.aaa，无法匹配b.a
+ *
+ * 交换机四种模式
+ * 1. 直连交换机：Direct exchange：匹配RoutingKey路由键
+ * 2. 扇形交换机：Fanout exchange：忽略RoutingKey路由键
+ * 3. 主体交换机：Topic exchange：模糊匹配RoutingKey路由键
+ * 4. 头部交换机：Headers exchange：忽略RoutingKey路由键，通过Headers信息匹配
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 14:22
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TopicsConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 交换机名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.topics.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> topicsName<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列1名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.topics.queue1}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> topicsQueueName1<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列2名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.topics.queue2}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> topicsQueueName2<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列2名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.topics.queue3}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> topicsQueueName3<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列1路由键
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.topics.queueRoutingKey1}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey1<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列2路由键
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.topics.queueRoutingKey2}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey2<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 交换机所绑定的队列3路由键
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.topics.queueRoutingKey3}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> queueRoutingKey3<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 声明一个Topic交换机
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">TopicExchange</span> <span class="token function">topicExchange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">TopicExchange</span><span class="token punctuation">(</span>topicsName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment">/**
+     * 声明一个队列1
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">topicsQueue1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>topicsQueueName1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 声明一个队列2
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">topicsQueue2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>topicsQueueName2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 声明一个队列3
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">topicsQueue3</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>topicsQueueName3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment">/**
+     * 队列1绑定交换机
+     * @param topicExchange
+     * @param topicsQueue1
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">topicsBinding1</span><span class="token punctuation">(</span><span class="token class-name">TopicExchange</span> topicExchange<span class="token punctuation">,</span> <span class="token class-name">Queue</span> topicsQueue1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>topicsQueue1<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>topicExchange<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">with</span><span class="token punctuation">(</span>queueRoutingKey1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 队列2绑定交换机
+     * @param topicExchange
+     * @param topicsQueue2
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">topicsBinding2</span><span class="token punctuation">(</span><span class="token class-name">TopicExchange</span> topicExchange<span class="token punctuation">,</span> <span class="token class-name">Queue</span> topicsQueue2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>topicsQueue2<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>topicExchange<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">with</span><span class="token punctuation">(</span>queueRoutingKey2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 队列3绑定交换机
+     * @param topicExchange
+     * @param topicsQueue3
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Binding</span> <span class="token function">topicsBinding3</span><span class="token punctuation">(</span><span class="token class-name">TopicExchange</span> topicExchange<span class="token punctuation">,</span> <span class="token class-name">Queue</span> topicsQueue3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">BindingBuilder</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>topicsQueue3<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span>topicExchange<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">with</span><span class="token punctuation">(</span>queueRoutingKey3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>service</span><span class="token punctuation">.</span><span class="token class-name">BusinessService</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>rabbitmq<span class="token punctuation">.</span>client</span><span class="token punctuation">.</span><span class="token class-name">Channel</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Message</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>rabbit<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">RabbitListener</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype</span><span class="token punctuation">.</span><span class="token class-name">Component</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io</span><span class="token punctuation">.</span><span class="token class-name">IOException</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 5. Topics模式配置
+ *
+ * 生产者将消息不是直接发送到队列，而是发送到交换机
+ * 然后由交换机匹配路由键，发送到路由键模糊匹配到的所有队列
+ * 多个消费者各自监听一个队列，来消费消息
+ *
+ * 这种方式实现同一个消息被多个消费者消费
+ *
+ * 模糊匹配
+ * '*'标识匹配点内一个或者多个字符，例a.*匹配a.a，a.aa，a.aaa，无法匹配a.a.a
+ * '#'标识匹配所有点一个或者多个字符，例a.#匹配a.a，a.a.a，a.aa.aaa，无法匹配b.a
+ *
+ * 交换机四种模式
+ * 1. 直连交换机：Direct exchange：匹配RoutingKey路由键
+ * 2. 扇形交换机：Fanout exchange：忽略RoutingKey路由键
+ * 3. 主体交换机：Topic exchange：模糊匹配RoutingKey路由键
+ * 4. 头部交换机：Headers exchange：忽略RoutingKey路由键，通过Headers信息匹配
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 15:13
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TopicsReceiver</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">BusinessService</span> businessService<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 消费队列1
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.topics.queue1}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive1</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Topics] Received1 '&quot;</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 消费队列2
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.topics.queue2}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive2</span><span class="token punctuation">(</span><span class="token class-name">String</span> text<span class="token punctuation">,</span> <span class="token class-name">Channel</span> channel<span class="token punctuation">,</span> <span class="token class-name">Message</span> message<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Topics] Received2 '&quot;</span> <span class="token operator">+</span> text <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        <span class="token comment">// businessService.handle(text);</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 消息ACK确认</span>
+            channel<span class="token punctuation">.</span><span class="token function">basicAck</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getMessageProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDeliveryTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 消费队列3
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.topics.queue3}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive3</span><span class="token punctuation">(</span><span class="token class-name">String</span> text<span class="token punctuation">,</span> <span class="token class-name">Channel</span> channel<span class="token punctuation">,</span> <span class="token class-name">Message</span> message<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [Topics] Received3 '&quot;</span> <span class="token operator">+</span> text <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 给业务类处理</span>
+        <span class="token comment">// businessService.handle(text);</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 消息ACK确认</span>
+            channel<span class="token punctuation">.</span><span class="token function">basicAck</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getMessageProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDeliveryTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Topics交换机名称
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.topics.name}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> topicsName<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">RabbitTemplate</span> rabbitTemplate<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Topics模式发送MQ消息
+ *
+ * RoutingKey以点为分割单位
+ * '*'标识匹配点内一个或者多个字符，例a.*匹配a.a，a.aa，a.aaa，无法匹配a.a.a
+ * '#'标识匹配所有点一个或者多个字符，例a.#匹配a.a，a.a.a，a.aa.aaa，无法匹配b.a
+ *
+ * @param text
+ * @return java.lang.String
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/22 15:09
+ */</span>
+<span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">&quot;Topics模式发送MQ消息&quot;</span><span class="token punctuation">,</span> notes<span class="token operator">=</span><span class="token string">&quot;Topics模式发送MQ消息&quot;</span><span class="token punctuation">,</span> produces<span class="token operator">=</span><span class="token string">&quot;application/json&quot;</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/sendTopics&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sendTopics</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">String</span> text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 交换机名，消息内容</span>
+    <span class="token comment">// rabbitTemplate.convertAndSend(topicsName, &quot;&quot;, text);</span>
+    <span class="token comment">// rabbitTemplate.convertAndSend(topicsName, &quot;a&quot;, text);</span>
+    rabbitTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>topicsName<span class="token punctuation">,</span> <span class="token string">&quot;a.a&quot;</span><span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> text<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2-6-rpc"><a href="#_2-6-rpc" class="header-anchor">#</a> 2.6. RPC</h3> <p>待补充</p> <h2 id="_3-死信队列"><a href="#_3-死信队列" class="header-anchor">#</a> 3. 死信队列</h2> <ul><li>死信队列：DLX，dead-letter-exchange</li> <li>利用 DLX，当消息在一个队列中变成死信 (dead message) 之后，它能被重新 publish 到另一个 Exchange，这个 Exchange 就是 DLX</li></ul> <p><strong>消息变成死信有以下几种情况</strong></p> <ul><li>消息被拒绝(basic.reject / basic.nack)，并且 requeue = false</li> <li>消息 TTL 过期</li> <li>队列达到最大长度</li></ul> <p><strong>死信处理过程</strong></p> <ul><li>DLX 也是一个正常的 Exchange，和一般的 Exchange 没有区别，它能在任何的队列上被指定，实际上就是设置某个队列的属性</li> <li>当这个队列中有死信时，RabbitMQ 就会自动的将这个消息重新发布到设置的 Exchange 上去，进而被路由到另一个队列</li> <li>可以监听这个队列中的消息做相应的处理</li></ul> <h2 id="_4-消息可靠"><a href="#_4-消息可靠" class="header-anchor">#</a> 4. 消息可靠</h2> <p>保证消息可靠</p> <h3 id="_4-1-confirmreturns"><a href="#_4-1-confirmreturns" class="header-anchor">#</a> 4.1. ConfirmReturns</h3> <p>生产者发送确认机制</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token comment"># RabbitMQ配置</span>
+  <span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+    <span class="token key atrule">virtual-host</span><span class="token punctuation">:</span> /
+    <span class="token key atrule">host</span><span class="token punctuation">:</span> 127.0.0.1
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">5672</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> guest
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> guest
+    <span class="token comment"># 配置更新 https://blog.csdn.net/yaomingyang/article/details/108410286</span>
+    <span class="token key atrule">publisher-confirm-type</span><span class="token punctuation">:</span> correlated
+    <span class="token key atrule">publisher-returns</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+
+<span class="token comment"># RabbitMQ交换机及队列名称配置</span>
+<span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ackQueue</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> ackQueue
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">ReturnedMessage</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>rabbit<span class="token punctuation">.</span>connection</span><span class="token punctuation">.</span><span class="token class-name">CorrelationData</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>rabbit<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">RabbitTemplate</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Configuration</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">javax<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">PostConstruct</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * MQ消息发送是否成功回调
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/29 16:43
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MqConfirmReturnsConfig</span> <span class="token keyword">implements</span> <span class="token class-name">RabbitTemplate</span><span class="token punctuation">.</span><span class="token class-name">ConfirmCallback</span><span class="token punctuation">,</span> <span class="token class-name">RabbitTemplate</span><span class="token punctuation">.</span><span class="token class-name">ReturnsCallback</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">RabbitTemplate</span> rabbitTemplate<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@PostConstruct</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment">// 指定ConfirmCallback</span>
+        rabbitTemplate<span class="token punctuation">.</span><span class="token function">setConfirmCallback</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 指定ReturnsCallback</span>
+        rabbitTemplate<span class="token punctuation">.</span><span class="token function">setReturnCallback</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * confirm回调，消息到是否到达Exchange或者Queue
+     *
+     * @param correlationData
+     * @param b 发送成功-true，发送失败-false
+     * @param s 错误原因
+     * @return void
+     * @throws
+     * @author wliduo[i@dolyw.com]
+     * @date 2021/6/29 16:00
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">confirm</span><span class="token punctuation">(</span><span class="token class-name">CorrelationData</span> correlationData<span class="token punctuation">,</span> <span class="token keyword">boolean</span> b<span class="token punctuation">,</span> <span class="token class-name">String</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 需要在发送的时候同时传递correlationData才能获取</span>
+        <span class="token comment">// 提前使用Id和消息内容绑定在缓存，Id可以任意</span>
+        <span class="token comment">// 或者也可以直接将Id设置为消息体即可</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>correlationData<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">/*ReturnedMessage returnedMessage = correlationData.getReturned();
+        System.out.println(returnedMessage.toString());
+        System.out.println(new String(returnedMessage.getMessage().getBody()));*/</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * returnedMessage回调，Exchange消息是否到达Queue
+     * Exchange消息到达Queue成功，则不回调，失败才回调
+     *
+     * @param returnedMessage
+     * @return void
+     * @throws
+     * @author wliduo[i@dolyw.com]
+     * @date 2021/6/29 16:02
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">returnedMessage</span><span class="token punctuation">(</span><span class="token class-name">ReturnedMessage</span> returnedMessage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>returnedMessage<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>returnedMessage<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * ACK队列名称
+ */</span>
+<span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.ackQueue.name}&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">String</span> ackQueueName<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">RabbitTemplate</span> rabbitTemplate<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 开启Ack发送MQ消息
+ *
+ * @param text
+ * @return java.lang.String
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/29 17:55
+ */</span>
+<span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span>value<span class="token operator">=</span><span class="token string">&quot;开启Ack发送MQ消息&quot;</span><span class="token punctuation">,</span> notes<span class="token operator">=</span><span class="token string">&quot;开启Ack发送MQ消息&quot;</span><span class="token punctuation">,</span> produces<span class="token operator">=</span><span class="token string">&quot;application/json&quot;</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/sendAck&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sendAck</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">String</span> text<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+    <span class="token class-name">CorrelationData</span> correlationData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Id直接设置为消息内容</span>
+    correlationData<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 发送带上correlationData</span>
+    rabbitTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>ackQueueName<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">Object</span><span class="token punctuation">)</span> text<span class="token punctuation">,</span> correlationData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    rabbitTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>topicsName<span class="token punctuation">,</span> <span class="token string">&quot;a.a&quot;</span><span class="token punctuation">,</span> text<span class="token punctuation">,</span> correlationData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">/*correlationData.setId(UUID.randomUUID().toString());
+    Message message = MessageBuilder.withBody(text.getBytes())
+            // 持久化设置
+            .setDeliveryMode(MessageDeliveryMode.PERSISTENT)
+            .setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN)
+            // 消息过期时间
+            .setExpiration(&quot;10000&quot;)
+            .setCorrelationId(correlationData.getId()).build();
+    rabbitTemplate.convertAndSend(workQueueName, message, correlationData);
+    rabbitTemplate.convertAndSend(topicsName, &quot;a.a&quot;, message, correlationData);*/</span>
+    <span class="token keyword">return</span> text<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_4-2-手动ack"><a href="#_4-2-手动ack" class="header-anchor">#</a> 4.2. 手动ACK</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token comment"># RabbitMQ配置</span>
+  <span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+    <span class="token key atrule">virtual-host</span><span class="token punctuation">:</span> /
+    <span class="token key atrule">host</span><span class="token punctuation">:</span> 127.0.0.1
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">5672</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> guest
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> guest
+    <span class="token key atrule">listener</span><span class="token punctuation">:</span>
+      <span class="token key atrule">direct</span><span class="token punctuation">:</span>
+        <span class="token comment"># 手动ACK</span>
+        <span class="token key atrule">acknowledge-mode</span><span class="token punctuation">:</span> manual
+      <span class="token key atrule">simple</span><span class="token punctuation">:</span>
+        <span class="token comment"># 手动ACK</span>
+        <span class="token key atrule">acknowledge-mode</span><span class="token punctuation">:</span> manual
+
+<span class="token comment"># RabbitMQ交换机及队列名称配置</span>
+<span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ackQueue</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> ackQueue
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Queue</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Value</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Bean</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Configuration</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * ACK队列配置
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 14:22
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AckQueueConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * ACK队列名称
+     */</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">&quot;${rabbitmq.ackQueue.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> ackQueue<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 声明一个ACK队列
+     *
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">ackQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>ackQueue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>service</span><span class="token punctuation">.</span><span class="token class-name">BusinessService</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>rabbitmq<span class="token punctuation">.</span>client</span><span class="token punctuation">.</span><span class="token class-name">Channel</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>core</span><span class="token punctuation">.</span><span class="token class-name">Message</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>amqp<span class="token punctuation">.</span>rabbit<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">RabbitListener</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype</span><span class="token punctuation">.</span><span class="token class-name">Component</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io</span><span class="token punctuation">.</span><span class="token class-name">IOException</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * ACK队列配置
+ *
+ * 直接@Component注解创建单个消费者实例
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/6/18 15:13
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AckQueueReceiver</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">BusinessService</span> businessService<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 消费队列
+     * @param message
+     */</span>
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">&quot;${rabbitmq.ackQueue.name}&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive</span><span class="token punctuation">(</span><span class="token class-name">String</span> text<span class="token punctuation">,</span> <span class="token class-name">Channel</span> channel<span class="token punctuation">,</span> <span class="token class-name">Message</span> message<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; [ACK] Received '&quot;</span> <span class="token operator">+</span> text <span class="token operator">+</span> <span class="token string">&quot;'&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 抛异常会进行重试</span>
+        <span class="token comment">// int i = 1/0;</span>
+        <span class="token comment">// 给业务类处理</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>businessService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 处理成功消息ACK确认</span>
+            channel<span class="token punctuation">.</span><span class="token function">basicAck</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getMessageProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDeliveryTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 处理失败消息拒绝，true则重新入队列，false丢弃或者进入死信队列</span>
+            channel<span class="token punctuation">.</span><span class="token function">basicReject</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getMessageProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDeliveryTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 与basicReject区别就是同时支持多个消息</span>
+            <span class="token comment">// channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_4-3-消息重试"><a href="#_4-3-消息重试" class="header-anchor">#</a> 4.3. 消息重试</h3> <p>配置如下</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> consumer
+  <span class="token comment"># RabbitMQ配置</span>
+  <span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+    <span class="token key atrule">virtual-host</span><span class="token punctuation">:</span> /
+    <span class="token key atrule">host</span><span class="token punctuation">:</span> 127.0.0.1
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">5672</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> guest
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> guest
+    <span class="token key atrule">listener</span><span class="token punctuation">:</span>
+      <span class="token key atrule">direct</span><span class="token punctuation">:</span>
+        <span class="token key atrule">acknowledge-mode</span><span class="token punctuation">:</span> auto
+        <span class="token key atrule">retry</span><span class="token punctuation">:</span>
+          <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+          <span class="token key atrule">max-attempts</span><span class="token punctuation">:</span> <span class="token number">3</span>
+          <span class="token comment"># 重试初始间隔时间</span>
+          <span class="token key atrule">initial-interval</span><span class="token punctuation">:</span> 3000ms
+          <span class="token comment"># 间隔时间乘子，间隔时间*乘子=下一次的间隔时间</span>
+          <span class="token comment"># 最大不能超过设置的最大间隔时间</span>
+          <span class="token key atrule">multiplier</span><span class="token punctuation">:</span> <span class="token number">2</span>
+        <span class="token comment"># default-requeue-rejected: true</span>
+      <span class="token key atrule">simple</span><span class="token punctuation">:</span>
+        <span class="token key atrule">acknowledge-mode</span><span class="token punctuation">:</span> auto
+        <span class="token key atrule">retry</span><span class="token punctuation">:</span>
+          <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+          <span class="token key atrule">max-attempts</span><span class="token punctuation">:</span> <span class="token number">3</span>
+          <span class="token comment"># 重试初始间隔时间</span>
+          <span class="token key atrule">initial-interval</span><span class="token punctuation">:</span> 3000ms
+          <span class="token comment"># 间隔时间乘子，间隔时间*乘子=下一次的间隔时间</span>
+          <span class="token comment"># 最大不能超过设置的最大间隔时间</span>
+          <span class="token key atrule">multiplier</span><span class="token punctuation">:</span> <span class="token number">2</span>
+        <span class="token comment"># default-requeue-rejected: true</span>
+</code></pre></div><p><strong>必须在消费代码抛出异常才会进行重试，且 ACK 是 auto 模式才会在最大次数重试完成后，丢弃消息进入死信。如果 ACK 是 manual 手动模式，代码内没进行手动代码确认，在最大次数重试完成后，消息不会被丢弃，重启应用会被重新消费</strong></p> <p>消费代码内的的异常抛出貌似没有太大用处。因为抛出异常就算是重试也非常有可能会继续出现异常，没有意义，所以一般都调整为 manual 手动确认模式</p> <p>manual 手动确认模式需要进行 try catch 捕获异常，然后使用 channel 对消息进行确认，catch 到异常可以进行如下两种方式补偿操作</p> <ul><li>手动发送到指定异常处理队列，确认消息已消费</li> <li>给 Queue 绑定死信队列，确认消息消费失败后自动转发到死信队列处理</li> <li><a href="https://www.cnblogs.com/ybyn/p/13691058.html" target="_blank" rel="noopener noreferrer">RabbitMQ重试机制<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <h2 id="_5-消息过期"><a href="#_5-消息过期" class="header-anchor">#</a> 5. 消息过期</h2> <p>目前有两种方法可以设置消息的 TTL</p> <ul><li>第一种方法是通过队列属性设置，队列中所有消息都有相同的过期时间</li> <li>第二种方法是对消息本身进行单独设置，每条消息的 TTL 可以不同</li></ul> <p>如果两种方法一起使用，则消息的 TTL 以两者之间较小的那个数值为准，对于第一种设置队列属性的方法，一旦消息过期，就会从队列中抹去，而在第二种方法中，即使消息过期，也不会马上从队列中抹去，因为每条消息是否过期是在即将投递到消费者之前判定的</p> <p><strong>为什么这两种方法处理的方式不一样</strong></p> <p>因为第一种方法里，队列中己过期的消息肯定在队列头部，RabbitMQ 只要定期从队头开始扫描是否有过期的消息即可。而第二种方法里，每条消息的过期时间不同，<strong>如果要删除所有过期消息势必要扫描整个队列</strong>，所以不如等到此消息即将被消费时再判定是否过期，如果过期再进行删除即可</p> <div class="custom-block tip"><p class="custom-block-title">PS</p> <p>消息过期可以用作一些延时任务的处理，设置对应过期时间，没有对应的消费者，时间到期进入死信队列再做实际业务处理</p></div> <h2 id="_6-消息持久化"><a href="#_6-消息持久化" class="header-anchor">#</a> 6. 消息持久化</h2> <p>创建队列，交换机时设置 durable 为 true 即可。Spring 创建默认是持久化的，可以在界面看到带 D 字母标签的队列和交换机就是持久化的</p> <p>消息持久化，deliveryMode=1 代表不持久化，deliveryMode=2 代表持久化，代码如下</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">// 队列，交换机持久化</span>
+<span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">Queue</span> <span class="token function">topicsQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 第二个参数 durable，true，false，默认为 true</span>
+    <span class="token comment">// return new Queue(topicsQueueName, true);</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>topicsQueueName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">TopicExchange</span> <span class="token function">topicExchange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 第二个参数 durable，true，false，默认为 true</span>
+    <span class="token comment">// return new TopicExchange(topicsName, true);</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">TopicExchange</span><span class="token punctuation">(</span>topicsName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 消息持久化</span>
+<span class="token class-name">CorrelationData</span> correlationData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+correlationData<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span>UUID<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Message</span> message <span class="token operator">=</span> <span class="token class-name">MessageBuilder</span><span class="token punctuation">.</span><span class="token function">withBody</span><span class="token punctuation">(</span>text<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token comment">// 持久化设置</span>
+            <span class="token punctuation">.</span><span class="token function">setDeliveryMode</span><span class="token punctuation">(</span><span class="token class-name">MessageDeliveryMode</span><span class="token punctuation">.</span>PERSISTENT<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span><span class="token class-name">MessageProperties</span><span class="token punctuation">.</span>CONTENT_TYPE_TEXT_PLAIN<span class="token punctuation">)</span>
+            <span class="token comment">// 消息过期时间</span>
+            <span class="token punctuation">.</span><span class="token function">setExpiration</span><span class="token punctuation">(</span><span class="token string">&quot;10000&quot;</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setCorrelationId</span><span class="token punctuation">(</span>correlationData<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+rabbitTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>workQueueName<span class="token punctuation">,</span> message<span class="token punctuation">,</span> correlationData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>只设置队列持久化，重启之后消息会丢失</li> <li>只设置消息的持久化，重启之后队列消失，既而消息也会丢失</li> <li>必须设置了队列和消息的持久化之后，当服务重启的之后，消息依旧存在</li></ul> <p><strong>参考</strong></p> <ul><li><a href="https://www.rabbitmq.com/getstarted.html" target="_blank" rel="noopener noreferrer">RabbitMQ官网 - 介绍<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://www.cnblogs.com/xifengxiaoma/p/11121355.html" target="_blank" rel="noopener noreferrer">Spring Boot：使用Rabbit MQ消息队列<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://www.cnblogs.com/vipstone/p/9350075.html" target="_blank" rel="noopener noreferrer">RabbitMQ系列（四）RabbitMQ事务和Confirm发送方消息确认——深入解读<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://blog.csdn.net/myNameIssls/article/details/101163617" target="_blank" rel="noopener noreferrer">SpringBoot RabbitMQ ACK 机制<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/dolyw/Note/edit/master/doc/mq/11-RabbitMQ-Use.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/mq/10-RabbitMQ.html" class="prev">
+        RabbitMQ的安装
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><div class="diy-loader center" style="display:none;" data-v-184c1df1><div class="center-box" data-v-184c1df1><div class="loader_overlay" data-v-184c1df1></div> <div class="loader_cogs" data-v-184c1df1><div class="loader_cogs__top" data-v-184c1df1><div class="top_part" data-v-184c1df1></div> <div class="top_part" data-v-184c1df1></div> <div class="top_part" data-v-184c1df1></div> <div class="top_hole" data-v-184c1df1></div></div> <div class="loader_cogs__left" data-v-184c1df1><div class="left_part" data-v-184c1df1></div> <div class="left_part" data-v-184c1df1></div> <div class="left_part" data-v-184c1df1></div> <div class="left_hole" data-v-184c1df1></div></div> <div class="loader_cogs__bottom" data-v-184c1df1><div class="bottom_part" data-v-184c1df1></div> <div class="bottom_part" data-v-184c1df1></div> <div class="bottom_part" data-v-184c1df1></div> <div class="bottom_hole" data-v-184c1df1></div></div></div> <p class="loading-text" data-v-184c1df1>
+      页面加载中<span class="dot" data-v-184c1df1>...</span></p></div></div><!----></div></div>
+    <script src="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/app.470f711f.js" defer></script><script src="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/2.a354e7c3.js" defer></script><script src="https://cdn.jsdelivr.net/gh/dolyw/Note@master/docs/assets/js/130.c72492ca.js" defer></script>
+  </body>
+</html>

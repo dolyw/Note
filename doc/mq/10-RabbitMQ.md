@@ -1,8 +1,8 @@
-# RabbitMQ的安装使用
+# RabbitMQ的安装
 
 RabbitMQ 是以 AMQP 协议实现的一种中间件产品，它可以支持多种操作系统，多种编程语言，几乎可以覆盖所有主流的企业级技术平台
 
-## 1. 概念
+<!-- ## 1. 概念
 
 ### 1.1. Message Broker
 
@@ -23,15 +23,15 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 * 消息队列
 * 消息路由（包括：点到点和发布-订阅模式）
 * 可靠性
-* 安全性
+* 安全性 -->
 
-## 2. 安装
+## 1. 安装
 
 这里介绍的是 Windows 10 下的安装，首先我们需要知道 RabbitMQ 对应的 Erlang/OTP 版本: [https://www.rabbitmq.com/which-erlang.html](https://www.rabbitmq.com/which-erlang.html)
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116008.png)
 
-### 2.1. 下载
+### 1.1. 下载
 
 这里我们直接下载 RabbitMQ 最新版的 3.8.2: [https://www.rabbitmq.com/download.html](https://www.rabbitmq.com/download.html)
 
@@ -51,7 +51,7 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116012.png)
 
-### 2.2. 安装
+### 1.2. 安装
 
 下载完成，两个都以管理员运行，先安装 Erlang/OTP，再安装 RabbitMQ，安装一路默认下去即可，不用多余选择，我只把安装位置改了下 D:\Tools
 
@@ -61,7 +61,7 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200116014.png)
 
-### 2.3. 配置
+### 1.3. 配置
 
 配置下 erlang 的系统变量 `ERLANG_HOME=D:\Tools\erl10.5`
 
@@ -81,7 +81,7 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 重装后去掉空格就好了
 
-## 3. 使用
+## 2. 启动
 
 启动 RabbitMQ，输入命令 `rabbitmq-server`
 
@@ -97,7 +97,7 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117004.png)
 
-## 4. Docker
+## 3. Docker
 
 转移到 Docker 专栏: [Docker下RabbitMQ的使用及集群搭建 ](/docker/06-RabbitMQ.html)
 
