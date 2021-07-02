@@ -97,7 +97,14 @@ AMQP 是 Advanced Message Queuing Protocol 的简称，它是一个面向消息�
 
 ![图片](https://cdn.jsdelivr.net/gh/wliduo/CDN@1.1/2020/01/20200117004.png)
 
-## 3. Docker
+## 3. 集群
+
+* 普通模式：默认的集群模式。
+* 镜像模式：把需要的队列做成镜像队列，存在于多个节点
+* [RabbitMQ原理、集群、基本操作及常见故障处理](https://juejin.cn/post/6844903911795458056)
+* [RabbitMQ从入门到集群架构](https://zhuanlan.zhihu.com/p/375157411)
+
+## 4. Docker
 
 转移到 Docker 专栏: [Docker下RabbitMQ的使用及集群搭建 ](/docker/06-RabbitMQ.html)
 

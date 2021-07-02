@@ -2,6 +2,11 @@
 
 RabbitMQ 是以 AMQP 协议实现的一种中间件产品，它可以支持多种操作系统，多种编程语言，几乎可以覆盖所有主流的企业级技术平台
 
+**代码地址**
+
+* Github: [https://github.com/dolyw/ProjectStudy/tree/master/SpringBoot/RabbitMQ](https://github.com/dolyw/ProjectStudy/tree/master/SpringBoot/RabbitMQ)
+* Gitee(码云): [https://gitee.com/dolyw/ProjectStudy/tree/master/SpringBoot/RabbitMQ](https://gitee.com/dolyw/ProjectStudy/tree/master/SpringBoot/RabbitMQ)
+
 ## 1. 简单介绍
 
 <!-- ### 1.1. Message Broker
@@ -1116,6 +1121,217 @@ public String sendTopics(@RequestBody String text) {
 * 当这个队列中有死信时，RabbitMQ 就会自动的将这个消息重新发布到设置的 Exchange 上去，进而被路由到另一个队列
 * 可以监听这个队列中的消息做相应的处理
 
+**简单实现**
+
+```yml
+# RabbitMQ交换机及队列名称配置
+rabbitmq:
+  orderQueue:
+    name: orderQueue
+  deadLetterExchange:
+    name: deadLetterExchange
+    routingKey:
+  deadLetterQueue:
+    name: deadLetter
+```
+
+```java
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.ExchangeBuilder;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 死信队列配置
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/7/2 10:45
+ */
+@Configuration
+public class DeadLetterConfig {
+
+    /**
+     * 订单过期队列名称
+     */
+    @Value("${rabbitmq.orderQueue.name}")
+    private String orderQueue;
+
+    /**
+     * 死信队列交换机名称
+     */
+    @Value("${rabbitmq.deadLetterExchange.name}")
+    private String deadLetterExchangeName;
+
+    /**
+     * 死信队列交换机路由键
+     */
+    @Value("${rabbitmq.deadLetterExchange.routingKey}")
+    private String deadLetterExchangeRoutingKey;
+
+    /**
+     * 死信队列名称
+     */
+    @Value("${rabbitmq.deadLetterQueue.name}")
+    private String deadLetterQueueName;
+
+    /**
+     * 声明一个订单过期普通队列
+     *
+     * @return
+     */
+    @Bean
+    public Queue orderQueue() {
+        // 配置参数
+        // Map<String,Object> param = new HashMap<>(3);
+        // param.put("x-dead-letter-exchange", deadLetterExchangeName);
+        // 该参数可以修改该死信的路由key，不设置则使用原消息的路由key
+        // param.put("x-dead-letter-routing-key", deadLetterExchangeRoutingKey);
+        return QueueBuilder.durable(orderQueue)
+                // 队列消息过期时间，如果消息本身也有过期时间，以短的过期时间为准
+                .ttl(10000)
+                // .withArguments(param)
+                .deadLetterExchange(deadLetterExchangeName)
+                // .deadLetterRoutingKey(deadLetterExchangeRoutingKey)
+                .build();
+    }
+
+    /**
+     * 声明死信队列交换机
+     *
+     * @return
+     */
+    @Bean
+    public FanoutExchange dlkExchange() {
+        // 配置参数
+        // Map<String,Object> param = new HashMap<>(3);
+        return ExchangeBuilder.fanoutExchange(deadLetterExchangeName)
+                // .withArguments(param)
+                .build();
+    }
+
+    /**
+     * 声明一个死信队列
+     *
+     * @return
+     */
+    @Bean
+    public Queue dlkQueue() {
+        // 配置参数
+        // Map<String,Object> param = new HashMap<>(3);
+        return QueueBuilder.durable(deadLetterQueueName)
+                // .withArguments(param)
+                .build();
+    }
+
+    /**
+     * 死信队列交换机和死信队列绑定
+     *
+     * @return
+     */
+    @Bean
+    public Binding dlkBind(FanoutExchange dlkExchange, Queue dlkQueue) {
+        return BindingBuilder.bind(dlkQueue).to(dlkExchange);
+    }
+
+}
+```
+
+```java
+import com.example.service.BusinessService;
+import com.rabbitmq.client.Channel;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ * 死信队列配置
+ *
+ * 直接@Component注解创建单个消费者实例
+ *
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/7/2 15:13
+ */
+@Component
+public class DeadLetterReceiver {
+
+    @Autowired
+    private BusinessService businessService;
+
+    /**
+     * 消费队列
+     * @param message
+     */
+    @RabbitListener(queues = "${rabbitmq.deadLetterQueue.name}")
+    public void receive(String text, Channel channel, Message message) throws Exception {
+        System.out.println(" [DeadLetter] Received '" + text + "'");
+        System.out.println(new String(message.getBody()));
+        // 给业务类处理
+        if (businessService.handle(text)) {
+            // 处理成功消息ACK确认
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } else {
+            // 处理失败消息拒绝，true则重新入队列，false丢弃或者进入死信队列
+            channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
+            // 与basicReject区别就是同时支持多个消息
+            // channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
+        }
+    }
+
+}
+```
+
+```java
+/**
+ * 订单过期普通队列名称
+ */
+@Value("${rabbitmq.orderQueue.name}")
+private String orderQueue;
+
+@Autowired
+private RabbitTemplate rabbitTemplate;
+
+/**
+ * 订单过期队列发送MQ消息
+ *
+ * @param text
+ * @return java.lang.String
+ * @throws
+ * @author wliduo[i@dolyw.com]
+ * @date 2021/7/2 16:55
+ */
+@ApiOperation(value="订单过期队列发送MQ消息", notes="订单过期队列发送MQ消息", produces="application/json")
+@PostMapping("/sendOrder")
+public String sendOrder(@RequestBody String text) throws Exception {
+    CorrelationData correlationData = new CorrelationData();
+    // Id直接设置为消息内容
+    correlationData.setId(text);
+    // 发送带上correlationData
+    // rabbitTemplate.convertAndSend(orderQueue, (Object) text, correlationData);
+    // correlationData.setId(UUID.randomUUID().toString());
+    // 队列有设置消息过期时间，且消息本身也有过期时间，以短的过期时间为准
+    Message message = MessageBuilder.withBody(text.getBytes())
+            // 持久化设置
+            .setDeliveryMode(MessageDeliveryMode.PERSISTENT)
+            .setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN)
+            // 消息过期时间
+            .setExpiration("5000")
+            .setCorrelationId(correlationData.getId())
+            .build();
+    rabbitTemplate.convertAndSend(orderQueue, message, correlationData);
+    return text;
+}
+```
+
 ## 4. 消息可靠
 
 保证消息可靠
@@ -1423,13 +1639,23 @@ manual 手动确认模式需要进行 try catch 捕获异常，然后使用 chan
 
 如果两种方法一起使用，则消息的 TTL 以两者之间较小的那个数值为准，对于第一种设置队列属性的方法，一旦消息过期，就会从队列中抹去，而在第二种方法中，即使消息过期，也不会马上从队列中抹去，因为每条消息是否过期是在即将投递到消费者之前判定的
 
-
 **为什么这两种方法处理的方式不一样**
 
 因为第一种方法里，队列中己过期的消息肯定在队列头部，RabbitMQ 只要定期从队头开始扫描是否有过期的消息即可。而第二种方法里，每条消息的过期时间不同，**如果要删除所有过期消息势必要扫描整个队列**，所以不如等到此消息即将被消费时再判定是否过期，如果过期再进行删除即可
 
 :::tip PS
-消息过期可以用作一些延时任务的处理，设置对应过期时间，没有对应的消费者，时间到期进入死信队列再做实际业务处理
+* 消息过期可以用作一些延时任务的处理，设置对应过期时间，没有对应的消费者，时间到期进入死信队列再做实际业务处理
+* 延时任务还可以借助一个延时插件实现，比用死信更简单
+* [RabbitMQ实现延时消息的两种方法](https://www.cnblogs.com/javalank/p/14751624.html)
+* [RabbitMQ实现延迟消息居然如此简单，整个插件就完事了！](https://blog.csdn.net/zhenghongcs/article/details/106700446)
+:::
+
+::: danger 注意
+当往死信队列中发送两条不同过期时间的消息时，如果先发送的消息 A 的过期时间大于后发送的消息 B 的过期时间时，由于消息的顺序消费，消息 B 过期后并不会立即重新 publish 到死信交换机，而是会等到消息 A 过期后一起被消费
+
+依次发送两个消息，A 先发送，过期时间 30S，消息 B 后发送，过期时间 10S，我们想要的结果应该是 10S 收到消息 B，30S 后收到消息 A，但结果并不是，而是消息 A 30S 后被成功消费，紧接着消息 B 被消费
+
+因此当我们使用死信队列时应该注意消息的过期时间是否都是一样的，比如订单超过 30 分钟未支付修改其状态，如果当一个队列各个消息的过期时间不一致时，使用死信队列就可能达不到延时的作用。这时候我们应该使用延时插件来实现这需求
 :::
 
 ## 6. 消息持久化
@@ -1444,14 +1670,18 @@ manual 手动确认模式需要进行 try catch 捕获异常，然后使用 chan
 public Queue topicsQueue() {
     // 第二个参数 durable，true，false，默认为 true
     // return new Queue(topicsQueueName, true);
-    return new Queue(topicsQueueName);
+    // return new Queue(topicsQueueName);
+    return QueueBuilder.durable(ackQueue).build();
 }
 
 @Bean
 public TopicExchange topicExchange() {
     // 第二个参数 durable，true，false，默认为 true
     // return new TopicExchange(topicsName, true);
-    return new TopicExchange(topicsName);
+    // return new TopicExchange(topicsName);
+    // durable默认为true
+    // return ExchangeBuilder.topicExchange(topicsName).durable(true).build();
+    return ExchangeBuilder.topicExchange(topicsName).build();
 }
 
 // 消息持久化

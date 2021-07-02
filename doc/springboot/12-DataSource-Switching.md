@@ -5,7 +5,7 @@
 **代码地址**
 
 * Github: []()
-* Gitee(码云): []()
+* Gitee(码云): [dynamic-datasource-spring-boot-starter](https://gitee.com/baomidou/dynamic-datasource-spring-boot-starter)
 
 ## 1. Config
 
